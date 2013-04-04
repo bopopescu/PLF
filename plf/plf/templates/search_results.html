@@ -19,6 +19,9 @@
     <u1>
         {% for item in items %}
         <li>{{ item.category }}</li>
+        <li>{{ item.status   }}</li>
+        <li>{{ item.desc     }}</li>
+        <li>{{ item.location }}</li>
         {% endfor %}
     </u1>
 {% else %}
