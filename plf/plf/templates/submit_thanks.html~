@@ -3,6 +3,7 @@
     <title>Submission Complete!!!</title>
 </head>
 <body>
-        <p style="color: red;">Thanks for submitting! If someone has found your item, we'll contact you.</p>
+        <p style="color: black;">Thanks for submitting! If someone has found your item, we'll contact you.</p>
+        <button type="button" onClick="location.href='../home/'" value='home'>Home</button>
 </body>
 </html>
