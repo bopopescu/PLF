@@ -5,3 +5,4 @@ class SubmitForm(forms.Form):
     category = forms.CharField()
     desc = forms.CharField()
     location = forms.CharField()
+    #event_date = forms.DateField()
