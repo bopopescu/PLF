@@ -7,7 +7,7 @@ from info.forms import SubmitForm
 
 def home(request):
     items = Item.objects.all()
-    return render_to_response('home.html', 'items': items)
+    return render_to_response('home.html', {'items': items})
 
 def submit(request):
     if request.method == 'POST':
