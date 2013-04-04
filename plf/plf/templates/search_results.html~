@@ -12,7 +12,7 @@
     </form>
 </body>
 </html>
-<p>You searched for: <strong>{{ query }}</string> in Categories.</p>
+<p>You searched for: <strong>{{ query }}</string></p>
 
 {% if items %}
     <p>Found {{ items|length }} Item{{ items|pluralize }}.</p>
@@ -26,7 +26,6 @@
         <p>Category: {{ item.category   }}</p>
         <p>Description: {{ item.desc }}</p>
         <p>Location: {{ item.location }}</p>
-        <p>____________________________</p>
         {% endfor %}
     </u1>
 {% else %}
