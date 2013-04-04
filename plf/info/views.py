@@ -5,6 +5,9 @@ from django.template import RequestContext
 from info.models import Item
 from info.forms import SubmitForm
 
+def home(request):
+    return render_to_response('main.html')
+
 def submit(request):
     if request.method == 'POST':
         form = SubmitForm(request.POST)
