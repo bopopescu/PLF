@@ -6,7 +6,8 @@ from info.models import Item
 from info.forms import SubmitForm
 
 def home(request):
-    return render_to_response('main.html')
+    items = Item.objects.all()
+    return render_to_response('home.html', 'items': items)
 
 def submit(request):
     if request.method == 'POST':

@@ -12,4 +12,8 @@
 	    </form>-->
 	<button type="button" onClick="location.href='../search/'" value='search'>Search!</button>
 	<button type="button" onClick="location.href='../submit/'" value='submit'>Submit!</button>
+	<p>Recent items:</p>
+	{ % for item in items % }
+	<p>Description: {{ item.desc }}</p>
+	
 {% endblock %}
