@@ -8,6 +8,7 @@ from info import views
 urlpatterns = patterns('',
     (r'^search/$', views.search),
     (r'^submit/$', views.submit),
+    (r'^submit/thanks/$', views.submitthanks),
     # Examples:
     # url(r'^$', 'plf.views.home', name='home'),
     # url(r'^plf/', include('plf.foo.urls')),
