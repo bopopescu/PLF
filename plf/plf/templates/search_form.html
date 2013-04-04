@@ -1,14 +1,13 @@
-<html>
-<head>
-    <title>Search</title>
-</head>
-<body>
+{% extends "base.html" %}
+
+{% block title %}Search{% endblock %}
+
+{% block content %}
     {% if error %}
         <p style="color: red;">Please submit a search term.</p>
     {% endif %}
-    <form action="" method="get">
-        <input type="text" name="q">
-        <input type="submit" value="Search">
-    </form>
-</body>
-</html>
+	    <form action="" method="get">
+	        <input type="text" name="q">
+	        <input type="submit" value="Search">
+	    </form>
+{% endblock %}
