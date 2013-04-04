@@ -12,7 +12,7 @@ def submit(request):
             cd = form.cleaned_data
             i = Item(status=cd['status'], category=cd['category'], desc=cd['desc'], location=cd['location'])
             i.save()
-            return HttpRedirectResponse('/submit/thanks')
+            return HttpResponseRedirect('/submit/thanks')
     else:
         form = SubmitForm()
     return render_to_response('submit_form.html', {'form': form}, context_instance=RequestContext(request))

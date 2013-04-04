@@ -1,5 +1,5 @@
 # Create your views here.
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpRedirectResponse
 from django.shortcuts import render_to_response, render
 from django.template import RequestContext
 from info.models import Item
@@ -12,9 +12,13 @@ def submit(request):
             cd = form.cleaned_data
             i = Item(status=cd['status'], category=cd['category'], desc=cd['desc'], location=cd['location'])
             i.save()
+            return HttpRedirectResponse('/submit/thanks')
     else:
         form = SubmitForm()
     return render_to_response('submit_form.html', {'form': form}, context_instance=RequestContext(request))
+
+def submitthanks(request):
+    return render_to_response('submit_thanks.html')
 
 def search(request):
     error = False
