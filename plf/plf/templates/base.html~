@@ -1,0 +1,17 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html lang="en">
+{% load staticfiles %}
+<img src="{% static "plf/chinafish.jpg" %}" alt="My image"/>
+
+<head>
+    <title>{% block title %}Princeton Lost & Found{% endblock %}</title>
+</head>
+<body>
+    <h1>Princeton Lost & Found</h1>
+    {% block content %}Content{% endblock %}
+    {% block footer %}
+    <hr>
+    <p>Princeton USG 2013. Website by Deric Cheng, Reed Tan, Matt Goldsmith, and Sam Lichtenberg</p>
+    {% endblock %}
+</body>
+</html>
