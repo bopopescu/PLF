@@ -4,8 +4,13 @@
 }
 
 h1 {
-   font-family: Georgia, "Times New Roman", Times, serif;
+   font-family: Arial;
    font-size: 18px;
    font-weight: bold;
-   color: #00FF00;
+   color: #000000;
 }
+
+div.block { width: 640px; height: 480px; border: solid 2px black; padding: 4px; }
+div.left { float: left; width: 320px; height: 480px; background: green; }
+div.right { float: right; width: 320px; height: 240px; display: table;}
+div.right p { display: table-cell; vertical-align: middle; text-align: center; }
