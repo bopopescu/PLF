@@ -4,6 +4,7 @@ from django.shortcuts import render_to_response, render
 from django.template import RequestContext
 from info.models import Item
 from info.forms import SubmitForm
+import datetime
 
 def home(request):
     items = Item.objects.all()
@@ -14,7 +15,8 @@ def submit(request):
         form = SubmitForm(request.POST)
         if form.is_valid():
             cd = form.cleaned_data
-            i = Item(status=cd['status'], category=cd['category'], desc=cd['desc'], location=cd['location'])
+            now = datetime.datetime.now()
+            i = Item(status=cd['status'], category=cd['category'], desc=cd['desc'], sub_date = now, location=cd['location'])
             i.save()
             return HttpResponseRedirect('/submit/thanks')
     else:

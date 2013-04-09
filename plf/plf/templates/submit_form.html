@@ -1,10 +1,8 @@
-<html>
-<head>
-    <title>Submit</title>
-</head>
-<body>
-    <h1>Submit an Item</h1>
+{% extends "base.html" %}
 
+{% block title %}Submit{% endblock %}
+
+{% block content %}
     {% if form.errors %}
         <p style="color: red;">
             Please correct the error{{ form.errors|pluralize }} below.
@@ -18,6 +16,4 @@
         <input type="submit" value="Submit">
     </form>
     <button type="button" onClick="location.href='/'" value='home'>Home</button>
-
-</body>
-</html>
+{% endblock %}

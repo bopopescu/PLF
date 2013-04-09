@@ -1,9 +1,8 @@
-<html>
-<head>
-    <title>Submission Complete!!!</title>
-</head>
-<body>
+{% extends "base.html" %}
+
+{% block title %}Submission Complete!!!{% endblock %}
+
+{% block content %}
         <p style="color: black;">Thanks for submitting! If someone has found your item, we'll contact you.</p>
         <button type="button" onClick="location.href='/'" value='home'>Home</button>
-</body>
-</html>
+{% endblock %}
