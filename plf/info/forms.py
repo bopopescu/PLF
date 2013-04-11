@@ -1,4 +1,5 @@
 from django import forms
+import PIL
 
 STATUS=[('Lost', 'Lost'), ('Found', 'Found')]
 CATEGORIES = (('Clothing', 'Clothing'), ('Jewelry', 'Jewelry'), ('Prox', 'Prox'), ('BNF', 'Black North Face'), ('Other', 'Other'))
@@ -9,5 +10,5 @@ class SubmitForm(forms.Form):
     location = forms.CharField()
     event_date = forms.DateField()
     desc = forms.CharField(widget=forms.TextInput(attrs={'size':'100'}))
-    picture = forms.FileField()
+    picture = forms.ImageField()
     netid = forms.CharField()
