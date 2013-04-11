@@ -4,22 +4,14 @@ from django.shortcuts import render_to_response, render
 from django.template import RequestContext
 from info.models import Item
 from info.forms import SubmitForm
-import datetime
-
-def home(request):
-    items = Item.objects.all()
-    return render_to_response('home.html', {'items': items})
 
 def submit(request):
     if request.method == 'POST':
         form = SubmitForm(request.POST)
         if form.is_valid():
             cd = form.cleaned_data
-            now = datetime.datetime.now()
-            i = Item(status=cd['status'], category=cd['category'], desc=cd['desc'], event_date = cd['event_date'], sub_date = now, location=cd['location'])
-#            i.save()
-            # if (user is not in database)
-            stud = User(email=(netid+'@princeton.edu'), item=)
+            i = Item(category=cd['category'], desc=cd['desc'], location=cd['location'], date_field=cd['date_field'])
+            i.save()
             return HttpResponseRedirect('/submit/thanks')
     else:
         form = SubmitForm()

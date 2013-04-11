@@ -1,13 +1,11 @@
 {% extends "base.html" %}
 
-{% load staticfiles %}
-<img src="{% static "chinafish.jpg" %}" alt="My image"/>
-
 {% block header %}Home{% endblock %}
 
 {% block content %}
 
 {% load staticfiles %}
+<img src="{% static "plf/chinafish.jpg" %}" alt="My image"/>
 	<!--{% if error %}
         <p style="color: red;">Please submit a search term.</p>
     {% endif %}
@@ -15,6 +13,8 @@
 	        <input type="text" name="q">
 	        <input type="submit" value="Search">
 	    </form>-->
+	<button type="button" onClick="location.href='../search/'" value='search'>Search!</button>
+	<button type="button" onClick="location.href='../submit/'" value='submit'>Submit!</button>
 	<p>Recent items:</p>
 	{% for item in items %}
 	<p>Description: {{ item.desc }}</p>
