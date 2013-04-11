@@ -1,14 +1,11 @@
 from django import forms
 
 STATUS=[('Lost', 'Lost'), ('Found', 'Found')]
-CATEGORIES = (('Clothing', 'Clothing'), ('Jewelry', 'Jewelry'), ('Prox', 'Prox'), ('BNF', 'Black North Face'), ('Other', 'Other'))
 
 class SubmitForm(forms.Form):
     status = forms.ChoiceField(choices=STATUS, widget=forms.RadioSelect())
-    category = forms.ChoiceField(choices=CATEGORIES)
+    category = forms.CharField()
     location = forms.CharField()
     event_date = forms.DateField()
     desc = forms.CharField(widget=forms.TextInput(attrs={'size':'100'}))
-    picture = forms.FileField()
-    netid = forms.CharField()
 

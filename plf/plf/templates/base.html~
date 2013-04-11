@@ -1,42 +1,17 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
 <html lang="en">
+{% load staticfiles %}
+<img src="{% static "plf/chinafish.jpg" %}" alt="My image"/>
 
-<!-- {% load staticfiles %}
-<img src="{% static "chinafish.jpg" %}" alt="My image"/>
--->
-        {% load staticfiles %}
-        <link href="{% static "styles.css" %}" rel="stylesheet" type="text/css">
 <head>
     <title>{% block title %}Princeton Lost & Found{% endblock %}</title>
 </head>
-
 <body>
-
-	<div class="block">
-
-		<div class="banner">
-		    <h1>Princeton Lost & Found</h1>
-		</div>
-
-		<div class="left">
-			<ul class="vert-one">
-				<li><a href="../" title="Home">Home</a></li>
-				<li><a href="/submit/" title="Submit">Submit</a></li>
-			</ul>
-		</div>
-
-		<div class="right">
-		    {% block content %}Content{% endblock %}
-		</div>
-
-		</div>
-		<div class="bottom">
-		    {% block footer %}
-		    <p>Princeton USG 2013. Website by Deric Cheng, Reed Tan, Matt Goldsmith, and Sam Lichtenberg</p>
-		    {% endblock %}
-		</div>
-
-    </div>
-
+    <h1>Princeton Lost & Found</h1>
+    {% block content %}Content{% endblock %}
+    {% block footer %}
+    <hr>
+    <p>Princeton USG 2013. Website by Deric Cheng, Reed Tan, Matt Goldsmith, and Sam Lichtenberg</p>
+    {% endblock %}
 </body>
 </html>

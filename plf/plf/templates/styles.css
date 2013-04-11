@@ -1,16 +1,16 @@
 .testStyle1 {
-	font-family: Helvetica;
-	color = #000000;
+	font-family: Arial;
+	color = #00FF00;
 }
 
 h1 {
-   font-family: Helvetica;
+   font-family: Arial;
    font-size: 18px;
    font-weight: bold;
    color: #000000;
 }
 
 div.block { width: 640px; height: 480px; border: solid 2px black; padding: 4px; }
-div.left { float: left; width: 320px; height: 480px; background: black; }
+div.left { float: left; width: 320px; height: 480px; background: green; }
 div.right { float: right; width: 320px; height: 240px; display: table;}
 div.right p { display: table-cell; vertical-align: middle; text-align: center; }
