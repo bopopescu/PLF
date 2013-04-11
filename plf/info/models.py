@@ -7,6 +7,9 @@ class User(models.Model):
     email = models.EmailField()
     items = models.ManyToManyField('Item', null=True, blank=True)
 
+    def __unicode__(self):
+        return u'%s' %(self.email)
+
 class Item(models.Model):
     status = models.BooleanField()
     category = models.CharField(max_length=100)
