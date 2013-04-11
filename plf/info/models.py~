@@ -14,7 +14,7 @@ class Item(models.Model):
     sub_date = models.DateField(null=True)
     event_date = models.DateField(null=True)
     location = models.CharField(max_length=100)
-    picture = models.ImageField(upload_to='pics', null=True)
+    picture = models.ImageField(upload_to='pics', blank=True)
 
     def __unicode__(self):
         return u'%s' % (self.category)

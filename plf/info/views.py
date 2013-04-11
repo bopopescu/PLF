@@ -31,9 +31,9 @@ def submit(request):
             i = Item(status=x, category=cd['category'], desc=cd['desc'], sub_date = now, location=cd['location'])
             i.save()
             # if (user not known)
-            u = User(email=(cd['netid']+'@princeton.edu'))
-            u.items.add(i)
-            u.save() 
+#            u = User(email=(cd['netid']+'@princeton.edu'))
+#            u.items.add(i)
+#            u.save() 
             return HttpResponseRedirect('/submit/thanks')
     else:
         form = SubmitForm()
