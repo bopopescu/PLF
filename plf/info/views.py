@@ -25,8 +25,15 @@ def submit(request):
         if form.is_valid():
             cd = form.cleaned_data
             now = datetime.datetime.now()
-            i = Item(status=cd['status'], category=cd['category'], desc=cd['desc'], sub_date = now, location=cd['location'])
+            x = False
+            if (cd['status'] == 'Lost'):
+                x = True
+            i = Item(status=x, category=cd['category'], desc=cd['desc'], sub_date = now, location=cd['location'])
             i.save()
+            # if (user not known)
+            u = User(email=(cd['netid']+'@princeton.edu'))
+            u.items.add(i)
+            u.save() 
             return HttpResponseRedirect('/submit/thanks')
     else:
         form = SubmitForm()
