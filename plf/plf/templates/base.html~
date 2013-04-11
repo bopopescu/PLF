@@ -1,11 +1,11 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
 <html lang="en">
 
-<!-- {% load staticfiles %}
+{% load staticfiles %}
 <img src="{% static "chinafish.jpg" %}" alt="My image"/>
--->
-        {% load staticfiles %}
-        <link href="{% static "styles.css" %}" rel="stylesheet" type="text/css">
+
+{% load staticfiles %}
+<link href="{% static "styles.css" %}" rel="stylesheet" type="text/css" media="all">
 <head>
     <title>{% block title %}Princeton Lost & Found{% endblock %}</title>
 </head>
