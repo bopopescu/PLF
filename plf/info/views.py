@@ -15,9 +15,8 @@ def home(request):
             error = True
         else:
             items = Item.objects.filter(category__icontains=q)
-            return render_to_response('search_results.html',
-                {'items': items, 'query': q})
-    return render_to_response('home.html', {'items' : items, 'error': error})
+            return render_to_response('search_results.html', {'items': items, 'query': q})
+    return render_to_response('home.html', {'items' : items, 'query' : None, 'error': error})
 
 def submit(request):
     if request.method == 'POST':
