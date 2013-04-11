@@ -8,6 +8,8 @@ import datetime
 
 def home(request):
     error = False
+
+    # search bar on left
     items = Item.objects.all()
     if 'q' in request.GET:
         q = request.GET['q']
@@ -16,9 +18,21 @@ def home(request):
         else:
             items = Item.objects.filter(category__icontains=q)
             return render_to_response('search_results.html', {'items': items, 'query': q})
-    return render_to_response('home.html', {'items' : items, 'query' : None, 'error': error})
+    
+    return render_to_response('home.html', {'items' : items, 'error': error})
 
 def submit(request):
+    # search bar on left
+    items = Item.objects.all()
+    if 'q' in request.GET:
+        q = request.GET['q']
+        if not q:
+            error = True
+        else:
+            items = Item.objects.filter(category__icontains=q)
+            return render_to_response('search_results.html', {'items': items, 'query': q})
+
+    # main page for submit
     if request.method == 'POST':
         form = SubmitForm(request.POST)
         if form.is_valid():
