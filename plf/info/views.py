@@ -7,8 +7,17 @@ from info.forms import SubmitForm
 import datetime
 
 def home(request):
+    error = False
     items = Item.objects.all()
-    return render_to_response('home.html', {'items': items})
+    if 'q' in request.GET:
+        q = request.GET['q']
+        if not q:
+            error = True
+        else:
+            items = Item.objects.filter(category__icontains=q)
+            return render_to_response('search_results.html',
+                {'items': items, 'query': q})
+    return render_to_response('home.html', {'items' : items, 'error': error})
 
 def submit(request):
     if request.method == 'POST':

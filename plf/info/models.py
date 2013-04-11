@@ -1,5 +1,5 @@
 from django.db import models
-import PIL
+from PIL import *
 
 # Create your models here.
 class User(models.Model):

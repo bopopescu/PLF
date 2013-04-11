@@ -20,6 +20,13 @@
 				<li><a href="../" title="Home">Home</a></li>
 				<li><a href="/submit/" title="Submit">Submit</a></li>
 			</ul>
+		    {% if error %}
+		        <p style="color: red;">Please submit a search term.</p>
+		    {% endif %}
+		    <form action="" method="get">
+		        <input type="text" name="q">
+		        <input type="submit" value="Search">
+		    </form>
 		</div>
 
 		<div class="right">
