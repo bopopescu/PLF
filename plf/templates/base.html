@@ -9,34 +9,42 @@
 
 <body>
 
-	<div class="block">
+	<div class="container">
 
+		<!-- Banner -->
 		<div class="banner">
 		    <h1>Princeton Lost & Found</h1>
 		</div>
 
-		<div class="left">
-			<ul class="vert-one">
-				<li><a href="../" title="Home">Home</a></li>
-				<li><a href="/submit/" title="Submit">Submit</a></li>
-			</ul>
-		    {% if error %}
-		        <p style="color: red;">Please submit a search term.</p>
-		    {% endif %}
-		    <form action="" method="get">
-		        <input type="text" name="q">
-		        <input type="submit" value="Search">
-		    </form>
-		</div>
+		<div class="body">
+			<!-- Left Bar -->
+			<div class="left">
+				<ul class="vert-one">
+					<li><a href="../" title="Home">Home</a></li>
+					<li><a href="/submit/" title="Submit">Submit</a></li>
+				</ul>
+			    {% if error %}
+			        <p style="color: red;">Please submit a search term.</p>
+			    {% endif %}
+			    <form action="" method="get">
+			        <input type="text" name="q">
+			        <input type="submit" value="Search">
+			    </form>
+			</div>
 
-		<div class="right">
-		    {% block content %}
-		    	Content
-		    {% endblock %}
+			<!-- Main Display -->
+			<div class="right">
+			    {% block content %}
+			    	Content
+			    {% endblock %}
+			</div>
 		</div>
+		
+		<!--I don't know how this works-->
+		<div style="clear:both;"></div>
 
-		</div>
-		<div class="bottom">
+		<!-- Footer -->
+		<div class="footer">
 		    {% block footer %}
 		    <p>Princeton USG 2013. Website by Deric Cheng, Reed Tan, Matt Goldsmith, and Sam Lichtenberg</p>
 		    {% endblock %}

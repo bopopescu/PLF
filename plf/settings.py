@@ -15,9 +15,9 @@ DATABASES = {
         'NAME': 'mydb',                      # Or path to database file if using sqlite3.
         # The following settings are not used with sqlite3:
         'USER': '',
-        'PASSWORD': 'madcap525',
-        'HOST': '127.0.0.1',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
-        'PORT': '5432',                      # Set to empty string for default.
+        'PASSWORD': '',
+        'HOST': '127.0.0.1',         # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
+        'PORT': '5432',              # Set to empty string for default.
     }
 }
 
@@ -162,3 +162,10 @@ LOGGING = {
         },
     }
 }
+
+# Mail settings
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'princetonlostandfound'
+EMAIL_HOST_PASSWORD = 'yungpr3lude'

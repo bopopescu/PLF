@@ -6,10 +6,11 @@ from info import views
 # admin.autodiscover()
 
 urlpatterns = patterns('',
-    (r'^search/$', views.search),
+    #(r'^search/$', views.search),
     (r'^submit/$', views.submit),
-    (r'^submit/thanks/$', views.submitthanks),
+    #(r'^submit/thanks/$', views.submitthanks),
     (r'^$', views.home),
+    #(r'^/)
     # Examples:
     # url(r'^$', 'plf.views.home', name='home'),
     # url(r'^plf/', include('plf.foo.urls')),
