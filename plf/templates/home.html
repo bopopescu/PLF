@@ -16,6 +16,11 @@
 		<tr>
 		{% for item in items %}
 			<td>
+                                {% if item.status == True %}
+                                <p>LOST</p>
+                                {% else %}
+                                <p>FOUND</p>
+                                {% endif %}
 				<p>Description: {{ item.desc }}</p>
 				<p>ID: {{ item.id }}</p>
 				<p>Category: {{ item.category   }}</p>
@@ -24,7 +29,11 @@
 				<form action="" method="post">{% csrf_token %}
 					<input type="hidden" value="{{ item.id }}" name="identity">
 			        <p>Your e-mail: <input type="text" name="email"></p>
+                                {% if item.status == True %}
 			        <input type="submit" value="I Found This!">
+                                {% else %}
+                                <input type="submit" value="This is mine!">
+                                {% endif %}
 			    </form>
 			</td>
 		</tr>

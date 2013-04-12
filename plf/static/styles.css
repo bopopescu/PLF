@@ -1,5 +1,5 @@
 h1 {
-   font-family: Arial;
+   font-family: Helvetica;
    font-size: 30px;
    font-weight: bold;
    color: #000000;
@@ -9,7 +9,7 @@ body {
 	margin: 2;
 	padding: 2;
 	height: 100%;
-	font-family: Arial;
+	font-family: Helvetica;
 }
 
 html {
