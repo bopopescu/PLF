@@ -21,6 +21,9 @@
                                 {% else %}
                                 <p>FOUND</p>
                                 {% endif %}
+                                {% if item.picture %}
+                                <img src="{{ item.picture.url }}" />
+                                {% endif %}
 				<p>Description: {{ item.desc }}</p>
 				<p>ID: {{ item.id }}</p>
 				<p>Category: {{ item.category   }}</p>

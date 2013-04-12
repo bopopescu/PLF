@@ -64,7 +64,7 @@ width:200px;}
 ul.vert-one li{margin:0;padding:0;border-top:1px solid #4D0000;
 border-bottom:1px solid #761A1A;}
 
-ul.vert-one li a{display:block;text-decoration:none;color:#000;
+ul.vert-one li a{display:block;text-decoration:none;color:#fff;
 background:#600;padding:0 0 0 20px;width:180px;}
 
 ul.vert-one li a:hover{

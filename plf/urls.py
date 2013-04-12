@@ -1,5 +1,6 @@
 from django.conf.urls import patterns, include, url
 from info import views
+from django.conf import settings
 
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
@@ -10,6 +11,7 @@ urlpatterns = patterns('',
     (r'^submit/$', views.submit),
     #(r'^submit/thanks/$', views.submitthanks),
     (r'^$', views.home),
+    (r'^media/(?P<path>.*)$', 'django.views.static.serve',{'document_root': settings.MEDIA_ROOT}),
     #(r'^/)
     # Examples:
     # url(r'^$', 'plf.views.home', name='home'),

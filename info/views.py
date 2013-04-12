@@ -62,7 +62,7 @@ def submit(request):
             u = User(email=(cd['netid']+'@princeton.edu'))
             u.save()
 
-            i = Item(status=x, category=cd['category'], desc=cd['desc'], student=u, sub_date = now, location=cd['location'])
+            i = Item(status=x, category=cd['category'], desc=cd['desc'], student=u, sub_date = now, location=cd['location'], picture=cd['picture'])
             i.save()
             u.items.add(i)
             # if (user not known)
