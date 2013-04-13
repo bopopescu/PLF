@@ -3,23 +3,17 @@
 {% block header %}Home{% endblock %}
 
 {% block content %}
-
-	<!--{% if error %}
-        <p style="color: red;">Please submit a search term.</p>
-    {% endif %}
-	    <form action="../search/results/" method="get">
-	        <input type="text" name="q">
-	        <input type="submit" value="Search">
-	    </form>-->
 	<p>Recent items:</p>
-	<table border="1">
-		<tr>
+	<div id="container">
 		{% for item in items %}
-			<td>
+                <div class="item">
                                 {% if item.status == True %}
                                 <p>LOST</p>
                                 {% else %}
                                 <p>FOUND</p>
+                                {% endif %}
+                                {% if item.picture %}
+                                <img src="..{{ item.picture.url }}" />
                                 {% endif %}
 				<p>Description: {{ item.desc }}</p>
 				<p>ID: {{ item.id }}</p>
@@ -29,12 +23,30 @@
 				<form action="" method="post">{% csrf_token %}
 					<input type="hidden" value="{{ item.id }}" name="identity">
 			        <p>Your e-mail: <input type="text" name="email"></p>
+                                {% if item.status == True %}
 			        <input type="submit" value="I Found This!">
+                                {% else %}
+                                <input type="submit" value="This is mine!">
+                                {% endif %}
 			    </form>
-			</td>
-		</tr>
+               </div>
 	{% endfor %}
-	</table>
+        </div>
 
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="jquery.masonry.min.js"></script>
+<script>
+   $( document ).ready(function() {
+        alert( "Thanks for visiting!" );
+   });
+
+   $(function(){
+     $('#container').masonry({
+        itemSelector: '.item',
+        columnWidth: 240
+     });
+   });
+
+</script>
 	
 {% endblock %}
