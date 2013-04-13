@@ -2,8 +2,11 @@
 <html lang="en">
 
 <head>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 	{% load staticfiles %}
 	<link href="{% static "styles.css" %}" rel="stylesheet" type="text/css">
+        <link href="{% static "item.css" %}" rel="stylesheet" type="text/css">
+        <script src="{% static "jquery.masonry.min.js" %}"></script>
 <!--        <link href="{% static "new.css" %}" rel="stylesheet" type="text/css">-->
     <title>{% block title %}Princeton Lost & Found{% endblock %}</title>
 </head>

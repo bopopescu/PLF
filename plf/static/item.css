@@ -1,5 +1,11 @@
-.item {
-  width: 220px;
-  margin: 10px;
-  float: left;
+#container {
+    width: 1200px;
+    margin: 20px;
+    float: left;
+}
+
+.masonryImage {
+    border-style:solid;
+    border-width:1px;
+    margin: 5px;
 }
