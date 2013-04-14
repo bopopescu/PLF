@@ -9,6 +9,9 @@
   <li><a href="#" data-filter=".lost">lost</a></li>
   <li><a href="#" data-filter=".found">found</a></li>
 </u1>
+
+<input id="search" type="text" name="search" value="Search">
+
 	<p>Recent items:</p>
 	<div id="container">
 		{% for item in items %}
@@ -23,8 +26,7 @@
                                 <img src="..{{ item.picture.url }}" />
                                 {% endif %}
 				<p>Description: {{ item.desc }}</p>
-				<p>ID: {{ item.id }}</p>
-				<p>Category: {{ item.category   }}</p>
+				<p>Category: {{ item.category  }}</p>
 				<p>Location: {{ item.location }}</p>
 
 				<form action="" method="post">{% csrf_token %}
@@ -41,28 +43,36 @@
         </div>
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<!--<script src="../media/jquery.masonry.min.js"></script>
-<script>
-/*   $( document ).ready(function() {
-        alert( "#include <yolo.h>!" );
-   });
-*/
-  $(function() {
-     var $container = $('#container');
-     $container.imagesLoaded( function() {
-       $container.masonry({
-         itemSelector : '.masonryImage',
-       });
-    });
-  });
-</script>
--->	
 <script src="../media/jquery.isotope.min.js"></script>
 <script>
 
 $(function() {
+
   var $container = $('#container');
   $container.imagesLoaded( function() {
+    var $search = $('#search');
+    original_val = $search.val();
+    $search.focus(function(){ //When the user tabs/clicks the search box.
+       if($(this).val()===original_val){ //If the value is still the default, in this case, "Search"
+         
+          $(this).val('');//If it is, set it to blank
+       }
+    })
+    .blur(function(){//When the user tabs/clicks out of the input
+       if($(this).val()===''){//If the value is blank (such as the user clicking in it and clicking out)...  
+         $(this).val(original_val); //... set back to the original value
+       }
+    });
+    $search.keypress(function (e) {
+       if (e.which == 13) {
+
+         /* do the searching here */
+
+         alert($(this).val());
+         return false;
+       }
+    });  
+
     $container.isotope({
 
     });

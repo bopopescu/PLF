@@ -9,27 +9,30 @@
   <li><a href="#" data-filter=".lost">lost</a></li>
   <li><a href="#" data-filter=".found">found</a></li>
 </u1>
+
+<form id="live-search" action="" class="styled" method="post">
+  <fieldset>
+    <input type="text" class="text-input" id="filter" value="" />
+    <span id="filter-count"></span>
+  </fieldset>
+</form>
+
+
 	<p>Recent items:</p>
 	<div id="container">
 		{% for item in items %}
-                <div class="masonryImage">
                                 {% if item.status == True %}
-                                    <script>
-                                    $(".masonryImage").addClass("lost");
-                                    </script>
+                                    <div class="masonryImage lost">
                                     <p>LOST</p>
                                 {% else %}
-                                    <script>
-                                    $(".masonryImage").addClass("found");
-                                    </script>
+                                    <div class="masonryImage found">
                                     <p>FOUND</p>
                                 {% endif %}
                                 {% if item.picture %}
                                 <img src="..{{ item.picture.url }}" />
                                 {% endif %}
 				<p>Description: {{ item.desc }}</p>
-				<p>ID: {{ item.id }}</p>
-				<p>Category: {{ item.category   }}</p>
+				<p>Category: {{ item.category  }}</p>
 				<p>Location: {{ item.location }}</p>
 
 				<form action="" method="post">{% csrf_token %}
@@ -41,26 +44,11 @@
                                 <input type="submit" value="This is mine!">
                                 {% endif %}
 			    </form>
-               </div>
+                </div>
 	{% endfor %}
         </div>
 
-<!--<script src="../media/jquery.masonry.min.js"></script>
-<script>
-/*   $( document ).ready(function() {
-        alert( "#include <yolo.h>!" );
-   });
-*/
-  $(function() {
-     var $container = $('#container');
-     $container.imagesLoaded( function() {
-       $container.masonry({
-         itemSelector : '.masonryImage',
-       });
-    });
-  });
-</script>
--->	
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script src="../media/jquery.isotope.min.js"></script>
 <script>
 
@@ -70,15 +58,15 @@ $(function() {
     $container.isotope({
 
     });
+
+    $('#filters a').click(function(){
+      var selector = $(this).attr('data-filter');
+      $container.isotope({ filter: selector });
+      return false;
+    });
+
   });
 });
-
-$('#filters a').click(function(){
-  var selector = $(this).attr('data-filter');
-  $container.isotope({ filter: selector });
-  return false;
-});
-
 
 </script>
 
