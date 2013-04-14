@@ -2,6 +2,7 @@
 
 {% block header %}Home{% endblock %}
 
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>  
 {% block content %}
 <u1 id="filters">
   <li><a href="#" data-filter="*">show all</a></li>
@@ -35,7 +36,7 @@
                                 <input type="submit" value="This is mine!">
                                 {% endif %}
 			    </form>
-               </div>
+                </div>
 	{% endfor %}
         </div>
 
@@ -65,15 +66,15 @@ $(function() {
     $container.isotope({
 
     });
+
+    $('#filters a').click(function(){
+      var selector = $(this).attr('data-filter');
+      $container.isotope({ filter: selector });
+      return false;
+    });
+
   });
 });
-
-$('#filters a').click(function(){
-  var selector = $(this).attr('data-filter');
-  $container.isotope({ filter: selector });
-  return false;
-});
-
 
 </script>
 
