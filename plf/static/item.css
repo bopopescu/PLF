@@ -9,3 +9,17 @@
     border-width:1px;
     margin: 5px;
 }
+
+/**** Isotope filtering ****/
+.isotope-item {
+  z-index: 2;
+}
+
+.isotope-hidden.isotope-item {
+  pointer-events: none;
+  z-index: 1;
+}
+
+/**** Identifiers for items ****/
+.lost { }
+.found { }

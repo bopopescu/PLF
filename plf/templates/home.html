@@ -3,14 +3,20 @@
 {% block header %}Home{% endblock %}
 
 {% block content %}
+<u1 id="filters">
+  <li><a href="#" data-filter="*">show all</a></li>
+  <li><a href="#" data-filter=".lost">lost</a></li>
+  <li><a href="#" data-filter=".found">found</a></li>
+</u1>
 	<p>Recent items:</p>
 	<div id="container">
 		{% for item in items %}
-                <div class="masonryImage">
                                 {% if item.status == True %}
-                                <p>LOST</p>
+                                    <div class="masonryImage lost">
+                                    <p>LOST</p>
                                 {% else %}
-                                <p>FOUND</p>
+                                    <div class="masonryImage found">
+                                    <p>FOUND</p>
                                 {% endif %}
                                 {% if item.picture %}
                                 <img src="..{{ item.picture.url }}" />
@@ -34,7 +40,7 @@
         </div>
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<script src="../media/jquery.masonry.min.js"></script>
+<!--<script src="../media/jquery.masonry.min.js"></script>
 <script>
 /*   $( document ).ready(function() {
         alert( "#include <yolo.h>!" );
@@ -48,6 +54,27 @@
        });
     });
   });
-</script>	
+</script>
+-->	
+<script src="../media/jquery.isotope.min.js"></script>
+<script>
+
+$(function() {
+  var $container = $('#container');
+  $container.imagesLoaded( function() {
+    $container.isotope({
+
+    });
+  });
+});
+
+$('#filters a').click(function(){
+  var selector = $(this).attr('data-filter');
+  $container.isotope({ filter: selector });
+  return false;
+});
+
+
+</script>
 
 {% endblock %}
