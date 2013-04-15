@@ -13,34 +13,37 @@
 <input id="search" type="text" name="search" value="Search">
 
 	<p>Recent items:</p>
+  
 	<div id="container">
 		{% for item in items %}
-                                {% if item.status == True %}
-                                    <div class="masonryImage lost">
-                                    <p>LOST</p>
-                                {% else %}
-                                    <div class="masonryImage found">
-                                    <p>FOUND</p>
-                                {% endif %}
-                                {% if item.picture %}
-                                <img src="..{{ item.picture.url }}" />
-                                {% endif %}
-				<p>Description: {{ item.desc }}</p>
-				<p>Category: {{ item.category  }}</p>
-				<p>Location: {{ item.location }}</p>
+      {% if item.status == True %}
+        <div class="masonryImage lost">
+        <p>LOST</p>
+      {% else %}
+        <div class="masonryImage found">
+        <p>FOUND</p>
+      {% endif %}
 
-				<form action="" method="post">{% csrf_token %}
-					<input type="hidden" value="{{ item.id }}" name="identity">
-			        <p>Your e-mail: <input type="text" name="email"></p>
-                                {% if item.status == True %}
-			        <input type="submit" value="I Found This!">
-                                {% else %}
-                                <input type="submit" value="This is mine!">
-                                {% endif %}
-			    </form>
-                </div>
-	{% endfor %}
-        </div>
+      {% if item.picture %}
+      <img src="..{{ item.picture.url }}" />
+      {% endif %}
+
+			<p>Description: {{ item.desc }}</p>
+			<p>Category: {{ item.category  }}</p>
+			<p>Location: {{ item.location }}</p>
+
+			<form action="" method="post">{% csrf_token %}
+				<input type="hidden" value="{{ item.id }}" name="identity">
+		        <p>Your e-mail: <input type="text" name="email"></p>
+                              {% if item.status == True %}
+		        <input type="submit" value="I Found This!">
+                              {% else %}
+                              <input type="submit" value="This is mine!">
+                              {% endif %}
+		    </form>
+      </div>
+  	{% endfor %}
+  </div>
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script src="../media/jquery.isotope.min.js"></script>
