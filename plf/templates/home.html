@@ -13,7 +13,8 @@
 <input id="search" type="text" name="search" value="Search">
 
 	<p>Recent items:</p>
-  
+
+  <!-- for loop that displays info about each item -->
 	<div id="container">
 		{% for item in items %}
       {% if item.status == True %}
@@ -34,6 +35,7 @@
 
 			<form action="" method="post">{% csrf_token %}
 				<input type="hidden" value="{{ item.id }}" name="identity">
+        <input type="hidden" value="{{ item.status }}" name="status">
 		        <p>Your e-mail: <input type="text" name="email"></p>
                               {% if item.status == True %}
 		        <input type="submit" value="I Found This!">

@@ -25,13 +25,20 @@ def home(request):
 
     # This statement handles sending an email
     if request.method == 'POST':
-        founduser = request.POST.get('email')
+        status = request.POST.get('status')
+        queryuser = request.POST.get('email')
         iden = request.POST.get('identity')
-        founditem = Item.objects.filter(id__icontains=iden)[0]
-        message = 'Your lost item %s was recently found on the Princeton Lost and Found app by %s. ' % (founditem.desc, founduser)
-        message += 'Please get in touch with him/her to work out the logistics of returning your item.'
-        recipients = [ founditem.student.email ]
-        send_mail('Your Item was Found!', message, 'tortorareed@hotmail.com', recipients)
+        queryitem = Item.objects.filter(id__icontains=iden)[0]
+        if status == True:
+            message = 'Your lost item %s was recently found on the Princeton Lost and Found app by %s. ' % (queryitem.desc, queryuser)
+            message += 'Please get in touch with him/her to work out the logistics of returning your item.'
+            recipients = [ queryitem.student.email ]
+            send_mail('Your Item was Found!', message, 'princetonlostandfound@gmail.com', recipients)
+        else:
+            message = 'The item you found (%s) was recently claimed on the Princeton Lost and Found app by %s. ' % (queryitem.desc, queryuser)
+            message += 'Please get in touch with him/her to work out the logistics of returning the item.'
+            recipients = [ queryitem.student.email ]
+            send_mail('An Item You Found was Claimed', message, 'princetonlostandfound@gmail.com', recipients)
 
         return render_to_response('submit_thanks.html', context)
 
