@@ -58,16 +58,16 @@ $(function() {
     var $search = $('#search');
     original_val = $search.val();
     $search.focus(function(){ //When the user tabs/clicks the search box.
-       if($(this).val()===original_val){ //If the value is still the default, in this case, "Search"
-         
-          $(this).val('');//If it is, set it to blank
-       }
+      if($(this).val()===original_val){ //If the value is still the default, in this case, "Search" 
+        $(this).val(''); //If it is, set it to blank
+      }
     })
     .blur(function(){//When the user tabs/clicks out of the input
-       if($(this).val()===''){//If the value is blank (such as the user clicking in it and clicking out)...  
-         $(this).val(original_val); //... set back to the original value
-       }
+      if($(this).val()===''){//If the value is blank (such as the user clicking in it and clicking out)...  
+        $(this).val(original_val); //... set back to the original value
+      }
     });
+
     $search.keypress(function (e) {
        if (e.which == 13) {
 
