@@ -10,6 +10,7 @@
   <li><a href="#" data-filter=".found">found</a></li>
 </u1>
 
+<<<<<<< HEAD
 <form id="live-search" action="" class="styled" method="post">
   <fieldset>
     <input type="text" class="text-input" id="filter" value="" />
@@ -18,6 +19,9 @@
 </form>
 
 
+=======
+<input id="search" type="text" name="search" value="Search">
+>>>>>>> working JSON
 	<p>Recent items:</p>
 	<div id="container">
 		{% for item in items %}
@@ -52,11 +56,9 @@
 <script src="../media/jquery.isotope.min.js"></script>
 <script>
 
-$(function() {
-  var $container = $('#container');
-  $container.imagesLoaded( function() {
-    $container.isotope({
+$(function testAjax() {
 
+<<<<<<< HEAD
     });
 
     $('#filters a').click(function(){
@@ -66,6 +68,62 @@ $(function() {
     });
 
   });
+=======
+});
+
+$(function() {
+
+   var $container = $('#container');
+   $container.imagesLoaded( function() {
+
+      var $search = $('#search');
+      original_val = $search.val();
+      $search.focus(function(){
+         if($(this).val()===original_val){
+           
+            $(this).val('');
+         }
+      })
+      .blur(function(){
+         if($(this).val()===''){
+           $(this).val(original_val);
+         }
+      });
+      $search.keypress(function (e) {
+         if (e.which == 13) {
+           /* do the searching here */
+           /* make the http request for json data, then parse */
+           $.ajax({
+              url: 'data/',
+              datatype: 'json',
+              type: "GET",
+                 success: function(ret) {
+                    /*alert("Data received");*/
+                 }
+           });
+           alert(ret);
+
+           for (var i = 0; i < data.length; i++) {
+             if (data[i].Item.category == $(this).val()) {
+                alert($(this).val());
+             }
+           }
+//           alert($(this).val());
+           return false;
+         }
+      });  
+
+      $container.isotope({
+
+      });
+
+      $('#filters a').click(function(){
+        var selector = $(this).attr('data-filter');
+        $container.isotope({ filter: selector });
+        return false;
+      });
+   });
+>>>>>>> working JSON
 });
 
 </script>

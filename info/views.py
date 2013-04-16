@@ -7,7 +7,8 @@ from info.forms import SubmitForm
 import datetime
 from django.core.mail import send_mail
 from django.core.context_processors import csrf
-
+from django.core import serializers
+from django.utils import simplejson
 
 def home(request):
     context = {}
@@ -46,6 +47,10 @@ def home(request):
     context['error'] = error
     return render_to_response('home.html', context)
 
+def dataReturn(request):
+    data = serializers.serialize('json', Item.objects.all(), fields=('location', 'category', 'desc'))
+    return HttpResponse(data, content_type="application/json")
+
 def submit(request):
     # search bar on left
     items = Item.objects.all()
@@ -78,42 +83,6 @@ def submit(request):
     else:
         form = SubmitForm()
     return render_to_response('submit_form.html', {'form': form}, context_instance=RequestContext(request))
-
-#def submitthanks(request):
-#    return render_to_response('submit_thanks.html')
-
-#def search(request):
-#    print("yooo")
-#    context = {}
-#    context.update(csrf(request))
-#    error = False
-#    if 'q' in request.GET:
-#        q = request.GET['q']
-#        if not q:
-#            error = True
-#        else:
-#            items = Item.objects.filter(category__icontains=q)
-#            context['items'] = items
-#            context['query'] = q
-#            return render_to_response('search_results.html', context)
-
-    # This statement handles sending an email
-#    if request.method == 'POST':
-#        founduser = request.POST.get('email')
-#        iden = request.POST.get('identity')
-#        founditem = Item.objects.filter(id__icontains=iden)[0]
-#        message = 'Your lost item %s was recently found on the Princeton Lost and Found app by %s. ' % (founditem.desc, founduser)
-#        message += 'Please get in touch with him/her to work out the logistics of returning your item.'
-#        recipients = [ founditem.student.email ]
-#        send_mail('Your Item was Found!', message, 'tortorareed@hotmail.com', recipients)
-#
-#        return render_to_response('submit_thanks.html', context)
-#        
-#    context['error'] = error
-#    return render_to_response('search_form.html', context)
-
-
-
 
 
 
