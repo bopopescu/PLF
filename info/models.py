@@ -19,6 +19,7 @@ class Item(models.Model):
     event_date = models.DateField(null=True)
     location = models.CharField(max_length=100)
     picture = models.ImageField(upload_to='photos', blank=True, null=True)
+    claimed = models.BooleanField()
 
     def __unicode__(self):
         return u'%s' % (self.category)

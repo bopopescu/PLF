@@ -4,97 +4,27 @@
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> 
 {% block content %}
-<u1 id="filters">
+<u1 id="filters" class="but1">
   <li><a href="#" data-filter="*">show all</a></li>
   <li><a href="#" data-filter=".lost">lost</a></li>
   <li><a href="#" data-filter=".found">found</a></li>
 </u1>
 
 <input id="search" type="text" name="search" value="Search">
-<<<<<<< HEAD
 
-	<p>Recent items:</p>
-
-  <!-- for loop that displays info about each item -->
-	<div id="container">
-		{% for item in items %}
-      {% if item.status == True %}
-        <div class="masonryImage lost">
-        <p>LOST</p>
-      {% else %}
-        <div class="masonryImage found">
-        <p>FOUND</p>
-      {% endif %}
-
-      {% if item.picture %}
-      <img src="..{{ item.picture.url }}" />
-      {% endif %}
-
-			<p>Description: {{ item.desc }}</p>
-			<p>Category: {{ item.category  }}</p>
-			<p>Location: {{ item.location }}</p>
-
-			<form action="" method="post">{% csrf_token %}
-				<input type="hidden" value="{{ item.id }}" name="identity">
-        <input type="hidden" value="{{ item.status }}" name="status">
-		        <p>Your e-mail: <input type="text" name="email"></p>
-                              {% if item.status == True %}
-		        <input type="submit" value="I Found This!">
-                              {% else %}
-                              <input type="submit" value="This is mine!">
-                              {% endif %}
-		    </form>
-      </div>
-  	{% endfor %}
-  </div>
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<script src="../media/jquery.isotope.min.js"></script>
-<script>
-
-$(function() {
-
-  var $container = $('#container');
-  $container.imagesLoaded( function() {
-    var $search = $('#search');
-    original_val = $search.val();
-    $search.focus(function(){ //When the user tabs/clicks the search box.
-      if($(this).val()===original_val){ //If the value is still the default, in this case, "Search" 
-        $(this).val(''); //If it is, set it to blank
-      }
-    })
-    .blur(function(){//When the user tabs/clicks out of the input
-      if($(this).val()===''){//If the value is blank (such as the user clicking in it and clicking out)...  
-        $(this).val(original_val); //... set back to the original value
-      }
-    });
-
-    $search.keypress(function (e) {
-       if (e.which == 13) {
-
-         /* do the searching here */
-
-         alert($(this).val());
-         return false;
-       }
-    });  
-
-    $container.isotope({
-=======
-
-<p>Recent items:</p>
 <div id="container">
   {% for item in items %}
-  {% if item.status == True %}
-  <div class="masonryImage lost">
-    <p>LOST</p>
+  {% if item.claimed != True %}
+    {% if item.status == True %}
+      <div class="masonryImage lost">
+      <p>LOST</p>
     {% else %}
-    <div class="masonryImage found">
+      <div class="masonryImage found">
       <p>FOUND</p>
-      {% endif %}
-      {% if item.picture %}
+    {% endif %}
+    {% if item.picture %}
       <img src="..{{ item.picture.url }}" />
-      {% endif %}
+    {% endif %}
       <p>Description: {{ item.desc }}</p>
       <p>Category: {{ item.category  }}</p>
       <p>Location: {{ item.location }}</p>
@@ -103,15 +33,15 @@ $(function() {
        <input type="hidden" value="{{ item.id }}" name="identity">
        <p>Your e-mail: <input type="text" name="email"></p>
        {% if item.status == True %}
-       <input type="submit" value="I Found This!">
+         <input type="submit" value="I Found This!">
        {% else %}
-       <input type="submit" value="This is mine!">
+         <input type="submit" value="This is mine!">
        {% endif %}
      </form>
    </div>
+   {% endif %}
    {% endfor %}
  </div>
->>>>>>> working JSON
 
  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
  <script src="../media/jquery.isotope.min.js"></script>
@@ -132,6 +62,7 @@ $(function() {
       })
       .blur(function(){
         if($(this).val()===''){
+
           $(this).val(original_val);
         }
       });
@@ -139,13 +70,38 @@ $(function() {
         if (e.which == 13) {
           /* do the searching here */
           /* make the http request for json data, then parse */
-          var ret;
+          /*var ret;
           $.getJSON("data/", function(ret){
             
             $.each(ret, function(index, item){
               alert(item.fields.category);
+              /* add all the elements that match (using pre-defined "identity" attr,
+                to another class hidden
+              var id = item.pk;
+              /* call isotope 
             });
+          });*/
+          var input = $(this).val();
+          var count = 0;
+          $('.masonryImage').each(function() {
+            if ($(this).is(":contains('" + input + "')")) {
+              $(this).addClass('shown');
+              count++;
+            }
           });
+          if (count === 0) {
+            alert("No items match your search criteria.");
+
+          }
+          else {
+            $container.isotope({ filter: ".shown"});
+            $('.masonryImage').each(function() {
+              if ($(this).is(":contains('" + input + "')")) {
+                $(this).removeClass('shown');
+              }
+            });
+          }
+          return false;
         }
       });  
 

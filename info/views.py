@@ -30,6 +30,8 @@ def home(request):
         queryuser = request.POST.get('email')
         iden = request.POST.get('identity')
         queryitem = Item.objects.filter(id__icontains=iden)[0]
+        queryitem.claimed = True
+        queryitem.save()
         if status == True:
             message = 'Your lost item %s was recently found on the Princeton Lost and Found app by %s. ' % (queryitem.desc, queryuser)
             message += 'Please get in touch with him/her to work out the logistics of returning your item.'
@@ -50,6 +52,9 @@ def home(request):
 def dataReturn(request):
     data = serializers.serialize('json', Item.objects.all(), fields=('location', 'category', 'desc'))
     return HttpResponse(data, content_type="application/json")
+
+def myItems(request):
+    return HttpResponse()
 
 def submit(request):
     # search bar on left
@@ -74,7 +79,8 @@ def submit(request):
             u = User(email=(cd['netid']+'@princeton.edu'))
             u.save()
 
-            i = Item(status=x, category=cd['category'], desc=cd['desc'], student=u, sub_date = now, location=cd['location'], picture=cd['picture'])
+            i = Item(status=x, category=cd['category'], desc=cd['desc'], student=u, 
+                sub_date = now, location=cd['location'], picture=cd['picture'], claimed=False)
             i.save()
             u.items.add(i)
             # if (user not known)

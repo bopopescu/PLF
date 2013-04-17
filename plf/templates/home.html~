@@ -2,7 +2,7 @@
 
 {% block header %}Home{% endblock %}
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>  
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> 
 {% block content %}
 <u1 id="filters">
   <li><a href="#" data-filter="*">show all</a></li>
@@ -10,68 +10,43 @@
   <li><a href="#" data-filter=".found">found</a></li>
 </u1>
 
-<<<<<<< HEAD
-<form id="live-search" action="" class="styled" method="post">
-  <fieldset>
-    <input type="text" class="text-input" id="filter" value="" />
-    <span id="filter-count"></span>
-  </fieldset>
-</form>
-
-
-=======
 <input id="search" type="text" name="search" value="Search">
->>>>>>> working JSON
-	<p>Recent items:</p>
-	<div id="container">
-		{% for item in items %}
-                                {% if item.status == True %}
-                                    <div class="masonryImage lost">
-                                    <p>LOST</p>
-                                {% else %}
-                                    <div class="masonryImage found">
-                                    <p>FOUND</p>
-                                {% endif %}
-                                {% if item.picture %}
-                                <img src="..{{ item.picture.url }}" />
-                                {% endif %}
-				<p>Description: {{ item.desc }}</p>
-				<p>Category: {{ item.category  }}</p>
-				<p>Location: {{ item.location }}</p>
 
-				<form action="" method="post">{% csrf_token %}
-					<input type="hidden" value="{{ item.id }}" name="identity">
-			        <p>Your e-mail: <input type="text" name="email"></p>
-                                {% if item.status == True %}
-			        <input type="submit" value="I Found This!">
-                                {% else %}
-                                <input type="submit" value="This is mine!">
-                                {% endif %}
-			    </form>
-                </div>
-	{% endfor %}
-        </div>
+<p>Recent items:</p>
+<div id="container">
+  {% for item in items %}
+  {% if item.status == True %}
+  <div class="masonryImage lost">
+    <p>LOST</p>
+    {% else %}
+    <div class="masonryImage found">
+      <p>FOUND</p>
+      {% endif %}
+      {% if item.picture %}
+      <img src="..{{ item.picture.url }}" />
+      {% endif %}
+      <p>Description: {{ item.desc }}</p>
+      <p>Category: {{ item.category  }}</p>
+      <p>Location: {{ item.location }}</p>
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<script src="../media/jquery.isotope.min.js"></script>
-<script>
+      <form action="" method="post">{% csrf_token %}
+       <input type="hidden" value="{{ item.id }}" name="identity">
+       <p>Your e-mail: <input type="text" name="email"></p>
+       {% if item.status == True %}
+       <input type="submit" value="I Found This!">
+       {% else %}
+       <input type="submit" value="This is mine!">
+       {% endif %}
+     </form>
+   </div>
+   {% endfor %}
+ </div>
 
-$(function testAjax() {
+ <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+ <script src="../media/jquery.isotope.min.js"></script>
+ <script>
 
-<<<<<<< HEAD
-    });
-
-    $('#filters a').click(function(){
-      var selector = $(this).attr('data-filter');
-      $container.isotope({ filter: selector });
-      return false;
-    });
-
-  });
-=======
-});
-
-$(function() {
+ $(function() {
 
    var $container = $('#container');
    $container.imagesLoaded( function() {
@@ -79,38 +54,45 @@ $(function() {
       var $search = $('#search');
       original_val = $search.val();
       $search.focus(function(){
-         if($(this).val()===original_val){
-           
-            $(this).val('');
-         }
+        if($(this).val()===original_val){
+
+          $(this).val('');
+        }
       })
       .blur(function(){
-         if($(this).val()===''){
-           $(this).val(original_val);
-         }
+        if($(this).val()===''){
+          $(this).val(original_val);
+        }
       });
       $search.keypress(function (e) {
-         if (e.which == 13) {
-           /* do the searching here */
-           /* make the http request for json data, then parse */
-           $.ajax({
-              url: 'data/',
-              datatype: 'json',
-              type: "GET",
-                 success: function(ret) {
-                    /*alert("Data received");*/
-                 }
-           });
-           alert(ret);
-
-           for (var i = 0; i < data.length; i++) {
-             if (data[i].Item.category == $(this).val()) {
-                alert($(this).val());
-             }
-           }
-//           alert($(this).val());
-           return false;
-         }
+        if (e.which == 13) {
+          /* do the searching here */
+          /* make the http request for json data, then parse */
+          /*var ret;
+          $.getJSON("data/", function(ret){
+            
+            $.each(ret, function(index, item){
+              alert(item.fields.category);
+              /* add all the elements that match (using pre-defined "identity" attr,
+                to another class hidden
+              var id = item.pk;
+              /* call isotope 
+            });
+          });*/
+          var input = $(this).val();
+          $('.masonryImage').each(function() {
+            if ($(this).is(":contains('" + input + "')")) {
+              $(this).addClass('shown');
+            }
+          });
+          $container.isotope({ filter: ".shown"});
+          $('.masonryImage').each(function() {
+            if ($(this).is(":contains('" + input + "')")) {
+              $(this).removeClass('shown');
+            }
+          });
+          return false;
+        }
       });  
 
       $container.isotope({
@@ -122,9 +104,8 @@ $(function() {
         $container.isotope({ filter: selector });
         return false;
       });
-   });
->>>>>>> working JSON
-});
+    });
+  });
 
 </script>
 
