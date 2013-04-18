@@ -11,6 +11,13 @@
 
     <form enctype="multipart/form-data" action="" method="post">{% csrf_token %}
         <table>
+            <div class="field">
+                <label for="id_status"><strong>Status: </strong></label>
+                <ul class="nobullet">
+                    <li>{{ form.status.0 }}</li>
+                    <li>{{ form.status.1 }}</li>
+                </ul>
+            </div>
             {{ form.as_table }}
         </table>
         <input type="submit" value="Submit">

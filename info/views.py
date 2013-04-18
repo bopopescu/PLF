@@ -87,7 +87,11 @@ def submit(request):
 
             return render_to_response('submit_thanks.html')
     else:
-        form = SubmitForm()
+        now = datetime.datetime.now()
+        datefield = str(now.month) + '/' + str(now.day) + '/' + str(now.year)
+        form = SubmitForm(
+            initial={'event_date': datefield }
+            )
     return render_to_response('submit_form.html', {'form': form}, context_instance=RequestContext(request))
 
 
