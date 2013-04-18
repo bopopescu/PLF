@@ -50,8 +50,10 @@ USE_TZ = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/var/www/example.com/media/"
-MEDIA_ROOT = '/Users/samlichtenberg/Documents/cs333/PLF/media'
-#'/Users/tortorareed/Desktop/HW/cos333/PLF/media/'#'/Users/samlichtenberg/Documents/cs333/PLF/media'
+
+#MEDIA_ROOT = '/Users/samlichtenberg/Documents/cs333/PLF/media'
+#MEDIA_ROOT = '/Users/matthew/Desktop/code/github/PLF/media'
+#MEDIA_ROOT = '/Users/tortorareed/Desktop/HW/cos333/PLF/media/'
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
@@ -71,7 +73,8 @@ STATIC_URL = '/static/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
-#    '/Users/tortorareed/Desktop/HW/cos333/PLF/plf/plf/static',
+    '/Users/tortorareed/Desktop/HW/cos333/PLF/plf/static',
+    '/Users/matthew/Desktop/code/github/PLF/plf/static',
     '/Users/samlichtenberg/Documents/cs333/PLF/plf/static',
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
@@ -114,8 +117,8 @@ WSGI_APPLICATION = 'plf.wsgi.application'
 # change this to your own template directory (comment mine out plz)
 TEMPLATE_DIRS = (
     '/Users/samlichtenberg/Documents/cs333/PLF/plf/plf/templates',
-    '/Users/tortorareed/Desktop/HW/cos333/PLF/plf/plf/templates',
-    '/Users/matthew/Desktop/code/github/plf/plf/plf/templates',
+    '/Users/tortorareed/Desktop/HW/cos333/PLF/plf/templates',
+    '/Users/matthew/Desktop/code/github/PLF/plf/templates',
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
