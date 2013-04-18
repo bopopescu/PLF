@@ -53,7 +53,7 @@ USE_TZ = True
 
 #MEDIA_ROOT = '/Users/samlichtenberg/Documents/cs333/PLF/media'
 #MEDIA_ROOT = '/Users/matthew/Desktop/code/github/PLF/media'
-#MEDIA_ROOT = '/Users/tortorareed/Desktop/HW/cos333/PLF/media/'
+MEDIA_ROOT = '/Users/tortorareed/Desktop/HW/cos333/PLF/media/'
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
