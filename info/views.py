@@ -80,7 +80,8 @@ def submit(request):
             u.save()
 
             i = Item(status=x, category=cd['category'], desc=cd['desc'], student=u, 
-                sub_date = now, location=cd['location'], picture=cd['picture'], claimed=False)
+                sub_date = now, location=cd['location'], picture=cd['picture'],
+                event_date = cd['event_date'], claimed=False)
             i.save()
             u.items.add(i)
             # if (user not known)

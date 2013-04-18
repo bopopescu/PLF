@@ -18,7 +18,37 @@
                     <li>{{ form.status.1 }}</li>
                 </ul>
             </div>
-            {{ form.as_table }}
+            <div class="field">
+                <label for="id_category"><strong>Category: </strong></label>
+                <p>{{ form.category }}</p>
+            </div>
+            <div class="field">
+                <label for="id_location"><strong>Location: </strong></label>
+                <p>{{ form.location }} </p>
+            </div>
+            <div class="field">
+                <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
+                <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+                <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+                <script>
+                $(function() {
+                    $( "#id_event_date" ).datepicker();
+                });
+                </script>
+                <label for="id_event_date"><strong>Date: </strong><input type="text" id="id_event_date"></label>
+            </div>
+            <div class="field">
+                <label for="id_desc"><strong>Description: </strong></label>
+                <p>{{ form.desc }} </p>
+            </div>
+            <div class="field">
+                <label for="id_picture"><strong>Picture: </strong></label>
+                <p>{{ form.picture }} </p>
+            </div>
+            <div class="field">
+                <label for="id_location"><strong>NetID: </strong></label>
+                <p>{{ form.netid }} </p>
+            </div>
         </table>
         <input type="submit" value="Submit">
     </form>

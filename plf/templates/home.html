@@ -28,6 +28,8 @@
       <p>Description: {{ item.desc }}</p>
       <p>Category: {{ item.category  }}</p>
       <p>Location: {{ item.location }}</p>
+      <p>Date: {{ item.event_date }}</p>
+      <p>subDate: {{ item.sub_date }}</p>
 
       <form action="" method="post">{% csrf_token %}
        <input type="hidden" value="{{ item.id }}" name="identity">

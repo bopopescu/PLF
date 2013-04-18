@@ -23,5 +23,3 @@ class Item(models.Model):
 
     def __unicode__(self):
         return u'%s' % (self.category)
-
-

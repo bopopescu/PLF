@@ -56,6 +56,10 @@ div.bottom {
 	background:#6cf;
 }
 
+ul.nobullet {
+	list-style-type: none;
+}
+
 /* who the fuck put this part in? */
 ul.vert-one{
 	margin:0;
