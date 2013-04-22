@@ -1,5 +1,6 @@
 #container {
     width: 100%;
+    float:left;
     margin: 20px;
 }
 
@@ -12,6 +13,8 @@
   pointer-events: none;
   z-index: 1;
 }
+
+
 
 .isotope,
 .isotope .isotope-item {
@@ -51,12 +54,12 @@ u1.but1 li {
     text-align: center;
     margin: 0px;
     padding: 0px;
-    width: 90%;
+    width: 100%;
     overflow: hidden;
+    float:left;
 }
 
 u1.but1 li {
-    float: left;
     padding: 2px;
     width: 150px;
     margin-left: auto ;

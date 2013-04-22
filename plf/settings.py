@@ -51,7 +51,7 @@ USE_TZ = True
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/var/www/example.com/media/"
 
-#MEDIA_ROOT = '/Users/samlichtenberg/Documents/cs333/PLF/media'
+MEDIA_ROOT = '/Users/samlichtenberg/Documents/cs333/PLF/media'
 #MEDIA_ROOT = '/Users/matthew/Desktop/code/github/PLF/media'
 #MEDIA_ROOT = '/Users/tortorareed/Desktop/HW/cos333/PLF/media/'
 

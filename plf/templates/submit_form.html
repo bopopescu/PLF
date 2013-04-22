@@ -29,18 +29,22 @@
                 <label for="id_location"><strong>Location: </strong></label>
                 <p>{{ form.location }} </p>
             </div>
-            <!-- Event Date -->
+            <div class="field">
+                <label for="id_event_date"><strong>Lost/Found On: </strong></label>
+                <p>{{ form.event_date }} </p>
+            </div>
+            <!-- Event Date --><!--
             <div class="field">
                 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
                 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
                 <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
                 <script>
                 $(function() {
-                    $( "#id_event_date" ).datepicker();
+                    $( "#form_event_date" ).datepicker();
                 });
                 </script>
-                <label for="id_event_date"><strong>Date: </strong><input type="text" id="id_event_date"></label>
-            </div>
+                <label for="id_event_date"><strong>Date: </strong><input type="text" id="form_event_date"></label>
+            </div>-->
             <!-- Description -->
             <div class="field">
                 <label for="id_desc"><strong>Description: </strong></label>

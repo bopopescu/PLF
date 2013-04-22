@@ -9,8 +9,14 @@ from django.core.mail import send_mail
 from django.core.context_processors import csrf
 from django.core import serializers
 from django.utils import simplejson
+import CASClient
+#!/usr/local/python/current/bin/python
+import _ssl;_ssl.PROTOCOL_SSLv23 = _ssl.PROTOCOL_SSLv3
+
 
 def home(request):
+#    C = CASClient.CASClient()
+#    netid = C.Authenticate()
     context = {}
     context.update(csrf(request))
     error = False
@@ -70,6 +76,7 @@ def submit(request):
     # main page for submit
     if request.method == 'POST':
         form = SubmitForm(request.POST, request.FILES)
+
         if form.is_valid():
             cd = form.cleaned_data
             now = datetime.datetime.now()

@@ -9,8 +9,14 @@ from django.core.mail import send_mail
 from django.core.context_processors import csrf
 from django.core import serializers
 from django.utils import simplejson
+import CASClient
+#!/usr/local/python/current/bin/python
+import _ssl;_ssl.PROTOCOL_SSLv23 = _ssl.PROTOCOL_SSLv3
+
 
 def home(request):
+    C = CASClient.CASClient()
+    netid = C.Authenticate()
     context = {}
     context.update(csrf(request))
     error = False
@@ -30,6 +36,8 @@ def home(request):
         queryuser = request.POST.get('email')
         iden = request.POST.get('identity')
         queryitem = Item.objects.filter(id__icontains=iden)[0]
+        queryitem.claimed = True
+        queryitem.save()
         if status == True:
             message = 'Your lost item %s was recently found on the Princeton Lost and Found app by %s. ' % (queryitem.desc, queryuser)
             message += 'Please get in touch with him/her to work out the logistics of returning your item.'
@@ -51,6 +59,9 @@ def dataReturn(request):
     data = serializers.serialize('json', Item.objects.all(), fields=('location', 'category', 'desc'))
     return HttpResponse(data, content_type="application/json")
 
+def myItems(request):
+    return HttpResponse()
+
 def submit(request):
     # search bar on left
     items = Item.objects.all()
@@ -65,6 +76,7 @@ def submit(request):
     # main page for submit
     if request.method == 'POST':
         form = SubmitForm(request.POST, request.FILES)
+
         if form.is_valid():
             cd = form.cleaned_data
             now = datetime.datetime.now()
@@ -74,14 +86,20 @@ def submit(request):
             u = User(email=(cd['netid']+'@princeton.edu'))
             u.save()
 
-            i = Item(status=x, category=cd['category'], desc=cd['desc'], student=u, sub_date = now, location=cd['location'], picture=cd['picture'])
+            i = Item(status=x, category=cd['category'], desc=cd['desc'], student=u, 
+                sub_date = now, location=cd['location'], picture=cd['picture'],
+                event_date = cd['event_date'], claimed=False)
             i.save()
             u.items.add(i)
             # if (user not known)
 
             return render_to_response('submit_thanks.html')
     else:
-        form = SubmitForm()
+        now = datetime.datetime.now()
+        datefield = str(now.month) + '/' + str(now.day) + '/' + str(now.year)
+        form = SubmitForm(
+            initial={'event_date': datefield }
+            )
     return render_to_response('submit_form.html', {'form': form}, context_instance=RequestContext(request))
 
 

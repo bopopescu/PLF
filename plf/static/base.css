@@ -19,9 +19,7 @@ html {
 
 div.container {
 	min-height: 100%;
-	float: left;
-	width:100%;
-
+    position:relative;
 }
 
 div.banner { 

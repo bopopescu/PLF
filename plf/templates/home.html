@@ -10,7 +10,6 @@
   <li><a href="#" data-filter=".found">found</a></li>
 </u1>
 
-<input id="search" type="text" name="search" value="Search">
 
 <div id="container">
   {% for item in items %}
@@ -68,6 +67,25 @@
           $(this).val(original_val);
         }
       });
+      /* $search.keypress(function(){
+        alert("blah");
+        if($(this).val()===''){
+          $container.isotope({ 
+
+          });
+        } 
+      }); */
+      $search.keyup(function(e) {
+        if (e.keyCode == 8) {
+          /*$('.masonryImage').each(function() {
+            if ($(this).is(":contains('" + input + "')")) {
+                $(this).removeClass('shown');
+            }
+          });*/
+          $container.isotope({filter: "*"});
+          return false;
+        }
+      });
       $search.keypress(function (e) {
         if (e.which == 13) {
           /* do the searching here */
@@ -91,18 +109,18 @@
               count++;
             }
           });
-          if (count === 0) {
+          /*if (count === 0) {
             alert("No items match your search criteria.");
 
           }
-          else {
+          else {*/
             $container.isotope({ filter: ".shown"});
             $('.masonryImage').each(function() {
               if ($(this).is(":contains('" + input + "')")) {
                 $(this).removeClass('shown');
               }
             });
-          }
+          /*}*/
           return false;
         }
       });  
