@@ -9,9 +9,35 @@ from django.core.mail import send_mail
 from django.core.context_processors import csrf
 from django.core import serializers
 from django.utils import simplejson
-import CASClient
-#!/usr/local/python/current/bin/python
+import urllib, re
 import _ssl;_ssl.PROTOCOL_SSLv23 = _ssl.PROTOCOL_SSLv3
+
+
+def login(request):
+    cas_url = "https://fed.princeton.edu/cas/"
+    # URL where the CAS request is coming from
+    service_url = 'http://' + urllib.quote(request.META['HTTP_HOST'] + request.META['PATH_INFO'])
+    #service_url = 'http://' + 'localhost/'
+    service_url = re.sub(r'ticket=[^&]*&?', '', service_url)
+    service_url = re.sub(r'\?&?$|&$', '', service_url)
+    if "ticket" in request.GET:
+        # Validate the ticket
+        val_url = cas_url + "validate?service=" + service_url + '&ticket=' + urllib.quote(request.GET['ticket'])
+        r = urllib.urlopen(val_url).readlines() # returns 2 lines
+        if len(r) == 2 and re.match("yes", r[0]) != None:
+            # Set netid for this session. Must have sessions enabled in settings.py
+            request.session['netid'] = r[1].strip() 
+            # Redirect to homepage
+            return HttpResponseRedirect("/home/")
+        else:
+            # Fraudulent ticket
+            return HttpResponse("Failed!")
+    else:
+        # Go to CAS login page to authenticate
+        service_url = re.sub(r'127.0.0.1', 'localhost', service_url)
+        # above line to make work on localhost
+        login_url = cas_url + 'login?service=' + service_url
+        return HttpResponseRedirect(login_url)
 
 
 def home(request):
