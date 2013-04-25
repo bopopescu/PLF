@@ -52,9 +52,9 @@ USE_TZ = True
 # Example: "/var/www/example.com/media/"
 
 
-#MEDIA_ROOT = '/Users/samlichtenberg/Documents/cs333/PLF/media'
+MEDIA_ROOT = '/Users/samlichtenberg/Documents/cs333/PLF/media'
 #MEDIA_ROOT = '/Users/matthew/Desktop/code/github/PLF/media'
-MEDIA_ROOT = '/Users/tortorareed/Desktop/HW/cos333/PLF/media/'
+#MEDIA_ROOT = '/Users/tortorareed/Desktop/HW/cos333/PLF/media/'
 
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
@@ -76,7 +76,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     '/Users/tortorareed/Desktop/HW/cos333/PLF/plf/static',
     '/Users/matthew/Desktop/code/github/PLF/plf/static',
-    '/Users/samlichtenberg/Documents/cs333/PLF/plf/static',
+#    '/Users/samlichtenberg/Documents/cs333/PLF/plf/static',
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
