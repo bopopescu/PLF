@@ -62,18 +62,23 @@ def home(request):
     # This statement handles sending an email
     if request.method == 'POST':
         status = request.POST.get('status')
+        em = request.session['netid']+'@princeton.edu'
+        u = User.objects.filter(email=em)[0]
+        if not u:                # if user not in database 
+            u = User(email=em)
+            u.save()
         queryuser = request.session['netid'] + '@princeton.edu'#request.POST.get('email')
         iden = request.POST.get('identity')
         queryitem = Item.objects.filter(id__icontains=iden)[0]
         queryitem.claimed = True
         queryitem.save()
         if status == True:
-            message = 'Your lost item %s was recently found on the Princeton Lost and Found app by %s. ' % (queryitem.desc, queryuser)
+            message = 'Your lost item %s was recently found on the Princeton Lost and Found app by %s. ' % (queryitem.desc, u)
             message += 'Please get in touch with him/her to work out the logistics of returning your item.'
             recipients = [ queryitem.student.email ]
             send_mail('Your Item was Found!', message, 'princetonlostandfound@gmail.com', recipients)
         else:
-            message = 'The item you found (%s) was recently claimed on the Princeton Lost and Found app by %s. ' % (queryitem.desc, queryuser)
+            message = 'The item you found (%s) was recently claimed on the Princeton Lost and Found app by %s. ' % (queryitem.desc, u)
             message += 'Please get in touch with him/her to work out the logistics of returning the item.'
             recipients = [ queryitem.student.email ]
             send_mail('An Item You Found was Claimed', message, 'princetonlostandfound@gmail.com', recipients)
@@ -136,10 +141,9 @@ def submit(request):
             x = False
             if (cd['status'] == 'Lost'):
                 x = True
-            # if user not in database 
             em = request.session['netid']+'@princeton.edu'
             u = User.objects.filter(email=em)[0]
-            if not u:    
+            if not u:                # if user not in database 
                 u = User(email=em)
                 u.save()
 

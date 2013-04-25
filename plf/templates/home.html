@@ -32,7 +32,7 @@
 
       <form action="" method="post">{% csrf_token %}
        <input type="hidden" value="{{ item.id }}" name="identity">
-       <p>Your e-mail: <input type="text" name="email"></p>
+       <!--<p>Your e-mail: <input type="text" name="email"></p>-->
        {% if item.status == True %}
          <input type="submit" value="I Found This!">
        {% else %}
