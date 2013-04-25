@@ -27,6 +27,7 @@ def login(request):
         if len(r) == 2 and re.match("yes", r[0]) != None:
             # Set netid for this session. Must have sessions enabled in settings.py
             request.session['netid'] = r[1].strip() 
+            request.session['auth'] = True
             # Redirect to homepage
             return HttpResponseRedirect("/home/")
         else:
@@ -43,6 +44,8 @@ def login(request):
 def home(request):
 #    C = CASClient.CASClient()
 #    netid = C.Authenticate()
+    if 'auth' not in request.session:
+        return HttpResponseRedirect("/")
     context = {}
     context.update(csrf(request))
     error = False
@@ -86,10 +89,17 @@ def dataReturn(request):
     return HttpResponse(data, content_type="application/json")
 
 def myItems(request):
+    if 'auth' not in request.session:
+        return HttpResponseRedirect("/")
+    # get netid, look up in database, return items
+    items = Item.objects.filter(student__icontains=request.session['netid'])
+    
     return HttpResponse()
 
 def submit(request):
     # search bar on left
+    if 'auth' not in request.session:
+        return HttpResponseRedirect("/")
     items = Item.objects.all()
     if 'q' in request.GET:
         q = request.GET['q']
@@ -109,6 +119,7 @@ def submit(request):
             x = False
             if (cd['status'] == 'Lost'):
                 x = True
+            # if user not in database 
             u = User(email=(cd['netid']+'@princeton.edu'))
             u.save()
 
