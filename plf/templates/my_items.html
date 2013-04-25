@@ -31,13 +31,9 @@
       <!--<p>subDate: {{ item.sub_date }}</p>-->
 
       <form action="" method="post">{% csrf_token %}
-       <input type="hidden" value="{{ item.id }}" name="identity">
+       <input type="hidden" value="{{ item.id }}" name="id">
        <p>Your e-mail: <input type="text" name="email"></p>
-       {% if item.status == True %}
-         <input type="submit" value="I Found This!">
-       {% else %}
-         <input type="submit" value="This is mine!">
-       {% endif %}
+       <input type="submit" value="Resolved?">
      </form>
    </div>
    {% endif %}
