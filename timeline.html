@@ -21,7 +21,7 @@
 	Met with Professor Kernighan to discuss project ideas.
 	<hr/>
 	<h3>March 16, 2013</h3>
-	Discussed project ideas and decided to switch to Lost and Found web app.
+	Discussed project ideas and decided to switch to Lost and Found web app from a housing-related web app.
 	<hr/>
 	<h3>March 17, 2013</h3>
 	Finished Design Document and uploaded Timeline HTML file.
@@ -34,7 +34,7 @@
 	<hr/>
 	<h3>March 24, 2013</h3>
 	Finished more Django tutorials and got Django working with the database.
-    Added functionality such that a user can submit an item into the database, and a primitive search function returns correct results.
+    Added functionality such that a user can submit an item into the database, and a primitive search function that returns correct results.
 	<hr/>
 	<h3>March 28th, 2013</h3>
 	Met with Chris for second time, showed primitive prototype with search and submit functions. Discussed possible front-end tools for user interface development.
@@ -43,32 +43,31 @@
 	Re-organized database schema.
 	<hr/>
 	<h3>April 6th, 2013</h3>
-	Added support for static files (images, css files).
+	Added support for static files (images, css files) by adding a static folder and changing the related settings.
 	<hr/>
 	<h3>April 9th, 2013</h3>
-	Deployed a branch onto Heroku for first time.
+	Deployed a test branch onto Heroku for first time.
 	<hr/>
 	<h3>April 10th, 2013</h3>
 	Improved submit functionality, presentation/layout using css.
 	<hr/>
 	<h3>April 11th, 2013</h3>
-	Added functionality that sends out an email to the user who lost an item, if another user claims to have found the item.
+	Added claiming functionality: a user can now claim an item by pressing a button below the presentation of that item on the homepage. Then, the web app sends out an email to the user who lost the item. The email contains the email of the claiming user so that the two can correspond and work out the details of returning the item.
 	<hr/>
 	<h3>April 12th, 2013</h3>
 	Began adding JQuery code for the search bar and going through some JQuery tutorials.
 	<hr/>
 	<h3>April 14th, 2013</h3>
-	Search bar JQuery code and JQuery for filtering items on the home page complete.
+	Search bar JQuery code and JQuery for filtering items on the home page complete. Improved search algorithm.
 	<hr/>
 	<h3>April 16th, 2013</h3>
-	Added second option to emailing functionality: now there are two different messages depending on whether
-	a user claimed a found item, or found a lost item.
+	Added a second option to the item claiming functionality: now the sent email can contain two different messages, depending on whether a user claimed a found item or found a lost item.
 	<hr/>
 	<h3>April 17th, 2013</h3>
-	Fixed broken databases on two of our group members' computers; began updating submit form presentation.
+	Fixed broken databases on two of our group members' computers; began updating submit form presentation. Tried to implement a JQuery datepicker widget to limited success.
 	<hr/>
 	<h3>April 19th, 2013</h3>
-	Updated submit form date fields presentation.
+	Updated submit form date fields presentation. Instead of a datepicker, we decided to just use Django's built-in SelectDateWidget instead (at least for now).
 	<hr/>
 	<h3>April 22nd, 2013</h3>
 	Began attempting to implement CAS Login and user models. Python CGI script on COS 333 home page still seems to be broken somehow, even though the test code works.
@@ -77,9 +76,11 @@
 	CAS Login now working. Thanks to Luke Paulsen for his fix.
 	<hr/>
 	<h3>April 25th, 2013</h3>
-	Implemented users to a certain extent. Added errors to submit.html.
+	Implemented users to a certain extent. Began using sessions to get a user's netid from the CAS login page. Also, we added error presentation to submit.html. Now, error messages appear next to the fields where the error occurred.
 	<hr/>
-
+	<h3>April 26th, 2013</h3>
+	Removed netid fields in submit page and in home page. Now, when users submit an item, they no longer need to fill in their netid. Instead the app uses the netid from when a user logged in with CAS. The same goes for claiming items on the homepage. Users no longer need to fill in a netid field anywhere in the app, apart from when logging in.
+	<hr/>
 
 </body>
 </html>
