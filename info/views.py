@@ -91,10 +91,20 @@ def dataReturn(request):
 def myItems(request):
     if 'auth' not in request.session:
         return HttpResponseRedirect("/")
+    context = {}
+    context.update(csrf(request))
+
     # get netid, look up in database, return items
+
+    if request.method == 'POST':
+        id = request.POST.get('id')
+        item = Item.objects.filter(id__in = id)
+        user = User.objects.filter(email=request.session['netid']+'@princeton.edu')
+        user.items.remove(item)
+        item.delete()
+
     items = Item.objects.filter(student__icontains=request.session['netid'])
-    
-    return HttpResponse()
+    return render_to_response('my_items.html', {'items': items}, context)
 
 def submit(request):
     # search bar on left
