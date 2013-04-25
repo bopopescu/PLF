@@ -5,7 +5,7 @@ from django.forms import extras
 import PIL
 
 STATUS=[('Lost', 'Lost'), ('Found', 'Found')]
-CATEGORIES = (('Clothing', 'Clothing'), ('Jewelry', 'Jewelry'), ('Prox', 'Prox'), ('BNF', 'Black North Face'), ('Other', 'Other'))
+CATEGORIES = (('Clothing', 'Clothing'), ('Jewelry', 'Jewelry'), ('Prox/Wallet', 'Prox/Wallet'), ('BNF', 'Black North Face'), ('Other', 'Other'))
 
 class SubmitForm(forms.Form):
     status = forms.ChoiceField(choices=STATUS, widget=forms.RadioSelect())
