@@ -15,3 +15,10 @@ class SubmitForm(forms.Form):
     desc = forms.CharField(widget=forms.TextInput(attrs={'size':'100'}))
     picture = forms.ImageField(required=False)
     netid = forms.CharField()
+
+	#def clean_message(self):
+    #    message = self.cleaned_data['message']
+    #    num_words = len(message.split())
+    #    if num_words < 4:
+    #        raise forms.ValidationError("Not enough words!")
+    #    return message

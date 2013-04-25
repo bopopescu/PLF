@@ -13,7 +13,11 @@
         <table>
             <!-- Status -->
             <div class="field">
-                <label for="id_status"><strong>Status: </strong></label>
+                <label for="id_status"><strong>* Status:</strong></label>
+                {% if form.errors.status %}
+                <p style="color: red;">{{ errors.status }}</p>
+                {% endif %}
+
                 <ul class="nobullet">
                     <li>{{ form.status.0 }}</li>
                     <li>{{ form.status.1 }}</li>
@@ -21,7 +25,7 @@
             </div>
             <!-- Category -->
             <div class="field">
-                <label for="id_category"><strong>Category: </strong></label>
+                <label for="id_category"><strong>* Category:</strong></label>
                 <p>{{ form.category }}</p>
             </div>
             <!-- Location -->
@@ -47,7 +51,10 @@
             </div>-->
             <!-- Description -->
             <div class="field">
-                <label for="id_desc"><strong>Description: </strong></label>
+                <label for="id_desc"><strong>* Description: </strong></label>
+                {% if form.errors.desc %}
+                <p style="color: red;">{{ errors.desc }}</p>
+                {% endif %}
                 <p>{{ form.desc }} </p>
             </div>
             <!-- Picture -->
@@ -57,7 +64,10 @@
             </div>
             <!-- Net ID -->
             <div class="field">
-                <label for="id_netid"><strong>NetID: </strong></label>
+                <label for="id_netid"><strong>* NetID: </strong></label>
+                {% if form.errors.netid %}
+                <p style="color: red;">{{ errors.netid }}</p>
+                {% endif %}
                 <p>{{ form.netid }} </p>
             </div>
         </table>

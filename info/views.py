@@ -115,6 +115,8 @@ def submit(request):
     if 'auth' not in request.session:
         return HttpResponseRedirect("/")
     items = Item.objects.all()
+
+    # search bar
     if 'q' in request.GET:
         q = request.GET['q']
         if not q:
@@ -123,9 +125,10 @@ def submit(request):
             items = Item.objects.filter(category__icontains=q)
             return render_to_response('search_results.html', {'items': items, 'query': q})
 
-    # main page for submit
+    # main functionality of submit page
     if request.method == 'POST':
         form = SubmitForm(request.POST, request.FILES)
+        errors = {}
 
         if form.is_valid():
             cd = form.cleaned_data
@@ -148,6 +151,18 @@ def submit(request):
             # if (user not known)
 
             return render_to_response('submit_thanks.html')
+
+        else:
+            cd = form.cleaned_data
+            if not request.POST.get('status', ''):
+                errors['status'] = "Enter a status"
+            if not request.POST.get('desc', ''):
+                errors['desc'] = "Enter a description"
+            if not request.POST.get('netid', ''):
+                errors['netid'] = "Enter your netid"
+
+            return render_to_response('submit_form.html', {'form': form, 'errors': errors}, context_instance=RequestContext(request))
+
     else:
         now = datetime.datetime.now()
         datefield = str(now.month) + '/' + str(now.day) + '/' + str(now.year)
