@@ -95,13 +95,16 @@ def myItems(request):
     context.update(csrf(request))
 
     # get netid, look up in database, return items
-    user = User.objects.filter(email=request.session['netid']+'@princeton.edu')
 
     if request.method == 'POST':
         getid = request.POST.get('id')
-        item = Item.objects.filter(id__in = getid)
+        item = Item.objects.filter(id__in = getid)[0]
+
+        user = User.objects.filter(email=request.session['netid']+'@princeton.edu')[0]
         user.items.remove(item)
         item.claimed = True
+        user.save()
+        item.save()
 
     items = Item.objects.filter(student__email__exact=request.session['netid'] + '@princeton.edu')
     context['items'] = items
@@ -131,8 +134,11 @@ def submit(request):
             if (cd['status'] == 'Lost'):
                 x = True
             # if user not in database 
-            u = User(email=(cd['netid']+'@princeton.edu'))
-            u.save()
+            em = request.session['netid']+'@princeton.edu'
+            u = User.objects.filter(email=em)[0]
+            if not u:    
+                u = User(email=em)
+                u.save()
 
             i = Item(status=x, category=cd['category'], desc=cd['desc'], student=u, 
                 sub_date = now, location=cd['location'], picture=cd['picture'],
