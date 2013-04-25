@@ -98,13 +98,14 @@ def myItems(request):
     user = User.objects.filter(email=request.session['netid']+'@princeton.edu')
 
     if request.method == 'POST':
-        id = request.POST.get('id')
-        item = Item.objects.filter(id__in = id)
+        getid = request.POST.get('id')
+        item = Item.objects.filter(id__in = getid)
         user.items.remove(item)
-        item.delete()
+        item.claimed = True
 
-    items = Item.objects.filter(student=user)
-    return render_to_response('my_items.html', {'items': items}, context)
+    items = Item.objects.filter(student__email__exact=request.session['netid'] + '@princeton.edu')
+    context['items'] = items
+    return render_to_response('my_items.html', context)
 
 def submit(request):
     # search bar on left
