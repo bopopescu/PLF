@@ -52,13 +52,9 @@ USE_TZ = True
 # Example: "/var/www/example.com/media/"
 
 
-MEDIA_ROOT = '/Users/samlichtenberg/Documents/cs333/PLF/media'
-#MEDIA_ROOT = '/Users/matthew/Desktop/code/github/PLF/media'
-#MEDIA_ROOT = '/Users/tortorareed/Desktop/HW/cos333/PLF/media/'
-
 #MEDIA_ROOT = '/Users/samlichtenberg/Documents/cs333/PLF/media'
 #MEDIA_ROOT = '/Users/matthew/Desktop/code/github/PLF/media'
-#MEDIA_ROOT = '/Users/tortorareed/Desktop/HW/cos333/PLF/media/'
+MEDIA_ROOT = '/Users/tortorareed/Desktop/HW/cos333/PLF/media/'
 
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
@@ -70,7 +66,7 @@ MEDIA_URL = '/media/'
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/var/www/example.com/static/"
-STATIC_ROOT = '/Users/samlichtenberg/Documents/cs333/PLF/plf/static/'
+STATIC_ROOT = ''
 
 # URL prefix for static files.
 # Example: "http://example.com/static/", "http://static.example.com/"

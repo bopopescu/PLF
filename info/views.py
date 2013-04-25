@@ -62,7 +62,7 @@ def home(request):
     # This statement handles sending an email
     if request.method == 'POST':
         status = request.POST.get('status')
-        queryuser = request.POST.get('email')
+        queryuser = request.session['netid'] + '@princeton.edu'#request.POST.get('email')
         iden = request.POST.get('identity')
         queryitem = Item.objects.filter(id__icontains=iden)[0]
         queryitem.claimed = True
@@ -158,8 +158,8 @@ def submit(request):
                 errors['status'] = "Enter a status"
             if not request.POST.get('desc', ''):
                 errors['desc'] = "Enter a description"
-            if not request.POST.get('netid', ''):
-                errors['netid'] = "Enter your netid"
+            #if not request.POST.get('netid', ''):
+            #    errors['netid'] = "Enter your netid"
 
             return render_to_response('submit_form.html', {'form': form, 'errors': errors}, context_instance=RequestContext(request))
 
