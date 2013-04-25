@@ -142,17 +142,20 @@ def submit(request):
             if (cd['status'] == 'Lost'):
                 x = True
             em = request.session['netid']+'@princeton.edu'
-            u = User.objects.filter(email=em)[0]
-            if not u:                # if user not in database 
+            print em
+            ulist = User.objects.filter(email=em)#[0]
+            if not ulist:
                 u = User(email=em)
                 u.save()
+            if ulist:
+                u = ulist[0]
 
+            print u.email
             i = Item(status=x, category=cd['category'], desc=cd['desc'], student=u, 
                 sub_date = now, location=cd['location'], picture=cd['picture'],
                 event_date = cd['event_date'], claimed=False)
             i.save()
             u.items.add(i)
-            # if (user not known)
 
             return render_to_response('submit_thanks.html')
 
