@@ -51,9 +51,12 @@ USE_TZ = True
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/var/www/example.com/media/"
 
+import os
+
+PROJECT_DIR = os.path.abspath(os.path.dirname(__file__)) + '/..'
 
 #MEDIA_ROOT = '/Users/samlichtenberg/Documents/cs333/PLF/media'
-MEDIA_ROOT = '/Users/matthew/Desktop/code/github/PLF/media'
+MEDIA_ROOT = os.path.join(PROJECT_DIR,'media/')
 #MEDIA_ROOT = '/Users/tortorareed/Desktop/HW/cos333/PLF/media/'
 
 
@@ -61,10 +64,6 @@ MEDIA_ROOT = '/Users/matthew/Desktop/code/github/PLF/media'
 # trailing slash.
 # Examples: "http://example.com/media/", "http://media.example.com/"
 MEDIA_URL = '/media/'
-
-import os
-
-PROJECT_DIR = os.path.abspath(os.path.dirname(__file__)) + '/..'
 
 # Absolute path to the directory static files should be collected to.
 # Don't put anything in this directory yourself; store your static files
