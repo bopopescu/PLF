@@ -18,6 +18,11 @@ body {
 	font-family: Helvetica;
 }
 
+a.home {
+	float: left;
+	text-decoration: none;
+}
+
 /*html {
 	height: 100%;
 }*/
@@ -60,7 +65,7 @@ div.right {
 	padding-top: 50px;
 	padding-left: 350px;
 	padding-bottom: 60px;
-	background: url('nav-bg.jpg');
+	background: url('body-bg.png');
 }
 
 div.bottom {
@@ -129,5 +134,4 @@ ul.vert-one li a.current,ul.vert-one li a.current:hover{
 	background-size: contain;
 	border:1px solid #acb1b7;
 	background-color:#fcfcfc;
->>>>>>> more css
 }
