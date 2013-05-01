@@ -62,6 +62,8 @@ MEDIA_ROOT = '/Users/samlichtenberg/Documents/cs333/PLF/media'
 # Examples: "http://example.com/media/", "http://media.example.com/"
 MEDIA_URL = '/media/'
 
+import os
+
 PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
 
 # Absolute path to the directory static files should be collected to.
