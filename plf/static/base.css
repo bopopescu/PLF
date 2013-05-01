@@ -101,3 +101,11 @@ ul.vert-one li a:hover{
 ul.vert-one li a.current,ul.vert-one li a.current:hover{
 	background:#ededed url("images/vert-one_arrow.gif") no-repeat 0 9px;
 }
+
+.search {
+	font:Arial;
+	padding:6px 15px 6px 30px;
+	margin:3px;
+	background: url('search.png') no-repeat 2px 2px;
+	background-size: 22px 22px;
+}
