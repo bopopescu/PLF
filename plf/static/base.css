@@ -69,6 +69,7 @@ ul.vert-one{
 	font:bold 16px Helvetica, Verdana, Arial, sans-serif;
 	line-height:165%;
 	width:200px;
+	position:fixed;
 }
 
 ul.vert-one li{

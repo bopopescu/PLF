@@ -45,7 +45,7 @@ def home(request):
 #    C = CASClient.CASClient()
 #    netid = C.Authenticate()
     if 'auth' not in request.session:
-        return HttpResponseRedirect("/")
+        return login(request)
     context = {}
     context.update(csrf(request))
     error = False
@@ -63,15 +63,16 @@ def home(request):
     if request.method == 'POST':
         status = request.POST.get('status')
         em = request.session['netid']+'@princeton.edu'
-        u = User.objects.filter(email=em)[0]
-        if not u:                # if user not in database 
+        if User.objects.filter(email=em):
+            u = User.objects.get(email=em)
+        else:                # if user not in database 
             u = User(email=em)
             u.save()
         queryuser = request.session['netid'] + '@princeton.edu'#request.POST.get('email')
         iden = request.POST.get('identity')
-        queryitem = Item.objects.filter(id__icontains=iden)[0]
-        queryitem.claimed = True
-        queryitem.save()
+        queryitem = Item.objects.get(id__icontains=iden)
+        #queryitem.claimed = True
+        #queryitem.save()
         if status == True:
             message = 'Your lost item %s was recently found on the Princeton Lost and Found app by %s. ' % (queryitem.desc, u)
             message += 'Please get in touch with him/her to work out the logistics of returning your item.'
@@ -95,7 +96,7 @@ def dataReturn(request):
 
 def myItems(request):
     if 'auth' not in request.session:
-        return HttpResponseRedirect("/")
+        return login(request)
     context = {}
     context.update(csrf(request))
 
@@ -118,7 +119,7 @@ def myItems(request):
 def submit(request):
     # search bar on left
     if 'auth' not in request.session:
-        return HttpResponseRedirect("/")
+        return login(request)
     items = Item.objects.all()
 
     # search bar
