@@ -52,8 +52,8 @@ USE_TZ = True
 # Example: "/var/www/example.com/media/"
 
 
-MEDIA_ROOT = '/Users/samlichtenberg/Documents/cs333/PLF/media'
-#MEDIA_ROOT = '/Users/matthew/Desktop/code/github/PLF/media'
+#MEDIA_ROOT = '/Users/samlichtenberg/Documents/cs333/PLF/media'
+MEDIA_ROOT = '/Users/matthew/Desktop/code/github/PLF/media'
 #MEDIA_ROOT = '/Users/tortorareed/Desktop/HW/cos333/PLF/media/'
 
 
@@ -64,13 +64,13 @@ MEDIA_URL = '/media/'
 
 import os
 
-PROJECT_DIR = os.path.abspath(os.path.dirname(__file__))
+PROJECT_DIR = os.path.abspath(os.path.dirname(__file__)) + '/..'
 
 # Absolute path to the directory static files should be collected to.
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/var/www/example.com/static/"
-STATIC_ROOT = os.path.join(PROJECT_DIR,'staticfiles/')
+STATIC_ROOT = ''
 
 # URL prefix for static files.
 # Example: "http://example.com/static/", "http://static.example.com/"
@@ -79,7 +79,7 @@ STATIC_URL = '/static/'
 # Additional locations of static files
 STATICFILES_DIRS = (
 #    '/Users/tortorareed/Desktop/HW/cos333/PLF/plf/static',
-    '/Users/matthew/Desktop/code/github/PLF/plf/static',
+#    '/Users/matthew/Desktop/code/github/PLF/plf/static',
     os.path.join(PROJECT_DIR,'static'),
 #    '/Users/samlichtenberg/Documents/cs333/PLF/plf/static',
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
