@@ -15,6 +15,7 @@ urlpatterns = patterns('',
     (r'^data/$', views.dataReturn),
     (r'^myitems/$', views.myItems),
     (r'^media/(?P<path>.*)$', 'django.views.static.serve',{'document_root': settings.MEDIA_ROOT}),
+    (r'^static/(?P<path>.*)$', 'django.views.static.serve',{'document_root': settings.STATIC_ROOT}),
 #    (r'^static/(?P<path>.*)$', 'django.views.static.serve',{'document_root': settings.STATIC_ROOT}),
     #(r'^/)
     # Examples:
