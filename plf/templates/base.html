@@ -108,9 +108,8 @@
                         {% if item.picture %}
                           <img src="..{{ item.picture.url }}" class="tileim"/>
                         {% endif %}
-                          <p class="name">{{ item.category  }}</p>
-                          <p class="location">{{ item.location }}</p>
-                          <hr class="break"/>
+                          <p class="name">{{ item.name  }}<span class="right-small-header">{{ item.location }}</span></p>
+      <hr class="break"/>
                         {% if item.status == True %}
                           <p class="location">Lost
                         {% else %}
@@ -125,8 +124,10 @@
                        </form>
                       </div>
                     {% endfor %}
-                  {% else %}
+                  {% elif must_log_in == True %}
                     <p>Login to see your items!</p>
+                  {% else %}
+                    <p>You currently have no items.</p>
                   {% endif %}
                 </div>
               </div>
@@ -153,7 +154,7 @@
                               </ul>
                               <p>Category: {{ form.category }}</p>
                               <p>Location: {{ form.location }} </p>
-                          <p>Name: {{ form.name }}</p>
+                          <p>Item: {{ form.name }}</p>
                               <p>Date: <br>{{ form.event_date }} </p>
                               {% if form.errors.desc %}
                               <p style="color: red;">{{ errors.desc }}</p>
@@ -178,7 +179,7 @@
       </div>
     </div>
 
-    <div id="footer">
+    <div id="footer" style="width:20%;">
       <div class="navbar navbar-fixed-bottom footer-specs">
         <p class="muted foot">© Princeton USG 2013, a CoS 333 Project</p>
 		<p class="muted foot">Design by Deric Cheng, Samuel Lichtenberg,</p>

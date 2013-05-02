@@ -54,7 +54,6 @@ def home(request):
     if 'auth' not in request.session:
         context['must_log_in'] = True
 
-
     # My Items tab
     if 'auth' in request.session:
         # get netid, look up in database, return items
