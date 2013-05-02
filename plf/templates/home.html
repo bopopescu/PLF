@@ -9,10 +9,10 @@
   {% for item in items %}
   {% if item.claimed != True %}
     {% if item.status == True %}
-      <div class="masonryImage lost">
+      <div class="masonryImage lost" value={{ item.desc }}>
       <p>LOST</p>
     {% else %}
-      <div class="masonryImage found">
+      <div class="masonryImage found" value={{ item.desc }}>
       <p>FOUND</p>
     {% endif %}
     {% if item.picture %}
@@ -84,17 +84,26 @@
         if (e.which == 13) {
           /* do the searching here */
           /* make the http request for json data, then parse */
-          /*var ret;
-          $.getJSON("data/", function(ret){
+          var ret;
+          var count = 0;
+          var input = $(this).val();
+          $.getJSON("../data/", function(ret){
             
             $.each(ret, function(index, item){
-              alert(item.fields.category);
-              /* add all the elements that match (using pre-defined "identity" attr,
-                to another class hidden
-              var id = item.pk;
-              /* call isotope 
+              if (item.fields.category===input) {}
+                $('.masonryImage').each(function() {
+                  if ($(this).val()===item.pk) {
+                    $(this).addClass('shown');
+                    count++;
+                  }
+                })
+              }
             });
-          });*/
+          });
+          if (count === 0) {
+            alert("no items match");
+          }
+          /*
           var input = $(this).val();
           var count = 0;
           $('.masonryImage').each(function() {
@@ -102,19 +111,19 @@
               $(this).addClass('shown');
               count++;
             }
-          });
-          /*if (count === 0) {
+          });*/
+          if (count === 0) {
             alert("No items match your search criteria.");
 
           }
-          else {*/
-            $container.isotope({ filter: ".shown"});
+          else {
+           $container.isotope({ filter: ".shown"});
             $('.masonryImage').each(function() {
               if ($(this).is(":contains('" + input + "')")) {
                 $(this).removeClass('shown');
               }
             });
-          /*}*/
+          }
           return false;
         }
       });  
