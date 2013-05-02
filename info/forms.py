@@ -17,6 +17,7 @@ class SubmitForm(forms.Form):
     event_date = forms.DateField(initial=now, widget=extras.SelectDateWidget(years=range(2012, datetime.date.today().year + 1)), required=False)
     desc = forms.CharField(widget=forms.TextInput(attrs={'size':'100'}))
     picture = forms.ImageField(required=False)
+    name = forms.CharField(widget=forms.TextInput(attrs={'size':'20'}))
     #netid = forms.CharField()
 
 	#def clean_message(self):

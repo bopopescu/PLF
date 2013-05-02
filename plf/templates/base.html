@@ -142,12 +142,13 @@
               </div>
               <div id="submit" class="accordion-body collapse">
                 <div class="accordion-inner">
+                  <u1 id="options" class = "nav nav-list">
 
-                  {% if form.errors|as_bootstrap %}
+                  <!-- {% if form.errors %}
                       <p style="color: red;">
                           Please correct the error{{ form.errors|pluralize }} below.
                       </p>
-                  {% endif %}
+                  {% endif %} -->
 
                   <form enctype="multipart/form-data" action="" method="post">{% csrf_token %}
                       <table>
@@ -160,7 +161,7 @@
                               {% endif %}
 
                               <ul class="nobullet">
-                                  <li>{{ form.status | as_bootstrap }}</li>
+                                  <li>{{ form.status }}</li>
                                   <!--<li>{{ form.status.1 }}</li>-->
                               </ul>
                           </div>
@@ -174,6 +175,9 @@
                               <label for="id_location"><strong>Location: </strong></label>
                               <p>{{ form.location | as_bootstrap }} </p>
                           </div>
+                          <div class="field">
+                          <p>{{ form.name | as_bootstrap}}</p>
+                        </div>
                           <div class="field">
                               <label for="id_event_date"><strong>Lost/Found On: </strong></label>
                               <p>{{ form.event_date | as_bootstrap }} </p>

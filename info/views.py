@@ -111,7 +111,7 @@ def home(request):
 
                 i = Item(status=x, category=cd['category'], desc=cd['desc'], student=u, 
                     sub_date = now, location=cd['location'], picture=cd['picture'],
-                    event_date = cd['event_date'], claimed=False)
+                    event_date = cd['event_date'], name = cd['name'], claimed=False)
                 i.save()
                 u.items.add(i)
 
