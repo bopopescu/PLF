@@ -14,3 +14,14 @@ body {
 .footer-specs {
 	text-align: center;
 }
+
+.tileim {
+	max-width: 250px;
+	max-height: 250px;
+}
+
+.foot {
+	font-size: 11px;
+	padding: 0;
+	margin: 0;
+}

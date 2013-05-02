@@ -41,8 +41,6 @@ def login(request):
 
 
 def home(request):
-#    C = CASClient.CASClient()
-#    netid = C.Authenticate()
     #if 'auth' not in request.session:
     #    return login(request)
     context = {}
@@ -57,13 +55,6 @@ def home(request):
 
     if 'auth' not in request.session:
         context['must_log_in'] = True
-    #if 'q' in request.GET:
-    #    q = request.GET['q']
-    #    if not q:
-    #        error = True
-    #    else:
-    #        items = Item.objects.filter(category__icontains=q)
-    #        return render_to_response('search_results.html', {'items': items, 'query': q})
 
     if request.method == 'POST':
         # Login request
@@ -108,8 +99,6 @@ def home(request):
                     errors['status'] = "Enter a status"
                 if not request.POST.get('desc', ''):
                     errors['desc'] = "Enter a description"
-                #if not request.POST.get('netid', ''):
-                #    errors['netid'] = "Enter your netid"
 
                 return render_to_response('home.html', context)#, context_instance=RequestContext(request))
 
@@ -141,11 +130,6 @@ def home(request):
                 context['options'] = 2
 
             return render_to_response('submit_thanks.html', context)
-
-    #if 'auth' not in request.session:
-    #    context['logged_in'] = False
-    #else:
-    #    context['logged_in'] = True
     return render_to_response('home.html', context)
 
 def dataReturn(request):
