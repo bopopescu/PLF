@@ -21,7 +21,7 @@
             {% if must_log_in == True %}
               <form action="" method="post">{% csrf_token %}
                 <li><button type="submit" class="btn" value="login_request">Login</button></li>
-              </form>
+              </form>{}
             {% else %}
               <li><button class="btn"><a href="https://fed.princeton.edu/cas/logout">Logout</a></button></li>
             {% endif %}
@@ -43,8 +43,8 @@
         <!--Sidebar content-->
         <div class="span3">
           <!--Search Box-->
-          <form class="search search-indent" id="search">
-            <input type="text" class="search-query search-width" placeholder="Search...">
+          <form class="search search-indent">
+            <input type="text" id="search" class="search-query search-width" placeholder="Search...">
           </form>
           <!--Accordian menu-->
           <div class="accordion" id="accordion2">
@@ -56,10 +56,11 @@
               </div>
               <div id="advS" class="accordion-body collapse in">
                 <div class="accordion-inner">
-                  AS
+                  Advanced Search goes here
                 </div>
               </div>
             </div>
+
             <div class="accordion-group">
               <div class="accordion-heading">
                 <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#myItems">
@@ -67,11 +68,37 @@
                 </a>
               </div>
               <div id="myItems" class="accordion-body collapse">
-                <div class="accordion-inner">
-                  Mine!
+                <div class="accordion-inner" style="overflow-y:scroll;overflow-x:hidden;">
+                  {% if myitems %}
+                    {% for item in myitems %}
+                      <div class="masonryImage">
+                        {% if item.picture %}
+                          <img src="..{{ item.picture.url }}" class="tileim"/>
+                        {% endif %}
+                          <p class="name">{{ item.category  }}</p>
+                          <p class="location">{{ item.location }}</p>
+                          <hr class="break"/>
+                        {% if item.status == True %}
+                          <p class="location">Lost
+                        {% else %}
+                          <p class="location">Found
+                        {% endif %}
+                          : {{ item.event_date }}</p>
+                        <p class="location">{{ item.desc }}</p>
+                        <form action="" method="post">{% csrf_token %}
+                         <input type="hidden" value="resolved" name="resolved">
+                         <input type="hidden" value="{{ item.id }}" name="id">
+                         <input type="submit" value="Resolved?">
+                       </form>
+                      </div>
+                    {% endfor %}
+                  {% else %}
+                    <p>Login to see your items!</p>
+                  {% endif %}
                 </div>
               </div>
             </div>
+
             <div class="accordion-group">
               <div class="accordion-heading">
                 <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#submit">
@@ -81,7 +108,7 @@
               <div id="submit" class="accordion-body collapse">
                 <div class="accordion-inner">
 
-                  {% if form.errors %}
+                  {% if form.errors|as_bootstrap %}
                       <p style="color: red;">
                           Please correct the error{{ form.errors|pluralize }} below.
                       </p>
@@ -105,16 +132,16 @@
                           <!-- Category -->
                           <div class="field">
                            <!--   <label for="id_category"><strong>* Category:</strong></label>-->
-                              <p>{{ form.category|as_bootstrap }}</p>
+                              <p>{{ form.category | as_bootstrap }}</p>
                           </div>
                           <!-- Location -->
                           <div class="field">
                               <label for="id_location"><strong>Location: </strong></label>
-                              <p>{{ form.location }} </p>
+                              <p>{{ form.location | as_bootstrap }} </p>
                           </div>
                           <div class="field">
                               <label for="id_event_date"><strong>Lost/Found On: </strong></label>
-                              <p>{{ form.event_date }} </p>
+                              <p>{{ form.event_date | as_bootstrap }} </p>
                           </div>
                           <!-- Event Date --><!--
                           <div class="field">
@@ -132,14 +159,14 @@
                           <div class="field">
                               <label for="id_desc"><strong>* Description: </strong></label>
                               {% if form.errors.desc %}
-                              <p style="color: red;">{{ errors.desc }}</p>
+                              <p style="color: red;">{{ errors.desc | as_bootstrap }}</p>
                               {% endif %}
-                              <p>{{ form.desc }} </p>
+                              <p>{{ form.desc | as_bootstrap }} </p>
                           </div>
                           <!-- Picture -->
                           <div class="field">
-                              <label for="id_picture"><strong>Picture: </strong></label>
-                              <p>{{ form.picture }} </p>
+                              <!-- <label for="id_picture"><strong>Picture: </strong></label> -->
+                              <p>{{ form.picture | as_bootstrap }} </p>
                           </div>
                           <!-- Net ID
                           <div class="field">
@@ -174,6 +201,7 @@
 		<p class="muted foot">Matthew Goldsmith, and Dharit Tantiviramanond</p>
       </div>
     </div>
+
 
     <script src="{% static "bootstrap/js/bootstrap.min.js" %}"></script>
   </body>

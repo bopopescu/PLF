@@ -49,12 +49,17 @@ def home(request):
     context['items'] = items
 
     form = SubmitForm(request.POST, request.FILES)
-    errors = {}
-    context['errors'] = errors
     context['form'] = form
 
     if 'auth' not in request.session:
         context['must_log_in'] = True
+
+
+    # My Items tab
+    if 'auth' in request.session:
+        # get netid, look up in database, return items
+        myitems = Item.objects.filter(student__email__exact=request.session['netid'] + '@princeton.edu')
+        context['myitems'] = myitems
 
     if request.method == 'POST':
         # Login request
@@ -64,6 +69,29 @@ def home(request):
         # Users can't claim items without logging in
         if 'auth' not in request.session:
             return login(request)
+
+        # Resolve items
+        if request.POST.get('resolved'):
+            print "resolving"
+            getid = request.POST.get('id')
+            itemlist = Item.objects.filter(id__in = getid)
+
+            if itemlist:
+                # remove item
+                user = User.objects.filter(email=request.session['netid']+'@princeton.edu')[0]
+                user.items.remove(item)
+                user.save()
+                item.delete()
+            else:
+                print "something weird's happening"
+
+            # requery myitems and items
+            myitems = Item.objects.filter(student__email__exact=request.session['netid'] + '@princeton.edu')
+            context['myitems'] = myitems
+            items = Item.objects.order_by('id').reverse()
+            context['items'] = items
+
+            return render_to_response('home.html', context)#, context_instance=RequestContext(request))
 
         # main functionality of submit page
         if request.POST.get('submit_request'):
@@ -79,10 +107,9 @@ def home(request):
                 if not ulist:
                     u = User(email=em)
                     u.save()
-                if ulist:
+                else:
                     u = ulist[0]
 
-                print u.email
                 i = Item(status=x, category=cd['category'], desc=cd['desc'], student=u, 
                     sub_date = now, location=cd['location'], picture=cd['picture'],
                     event_date = cd['event_date'], claimed=False)
@@ -94,6 +121,9 @@ def home(request):
                 return render_to_response('submit_thanks.html', context)
 
             else:
+
+                errors = {}
+                context['errors'] = errors
                 cd = form.cleaned_data
                 if not request.POST.get('status', ''):
                     errors['status'] = "Enter a status"
@@ -143,7 +173,6 @@ def myItems(request):
     context.update(csrf(request))
 
     # get netid, look up in database, return items
-
     if request.method == 'POST':
         getid = request.POST.get('id')
         item = Item.objects.filter(id__in = getid)[0]
