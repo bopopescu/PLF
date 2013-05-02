@@ -51,13 +51,15 @@ def home(request):
     error = False
     errors = []
     items = Item.objects.order_by('id').reverse()
+    #if 'q' in request.GET:
+    #    q = request.GET['q']
+    #    if not q:
+    #        error = True
+    #    else:
+    #        items = Item.objects.filter(category__icontains=q)
+    #        return render_to_response('search_results.html', {'items': items, 'query': q})
     if 'q' in request.GET:
-        q = request.GET['q']
-        if not q:
-            error = True
-        else:
-            items = Item.objects.filter(category__icontains=q)
-            return render_to_response('search_results.html', {'items': items, 'query': q})
+        return login(request)
 
     # This statement handles sending an email
     if request.method == 'POST':

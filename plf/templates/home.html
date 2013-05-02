@@ -4,14 +4,8 @@
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> 
 {% block content %}
-<u1 id="filters" class="but1">
-  <li><a href="#" data-filter="*">show all</a></li>
-  <li><a href="#" data-filter=".lost">lost</a></li>
-  <li><a href="#" data-filter=".found">found</a></li>
-</u1>
 
-
-<div id="container">
+<div id="right">
   {% for item in items %}
   {% if item.claimed != True %}
     {% if item.status == True %}
@@ -34,9 +28,9 @@
        <input type="hidden" value="{{ item.id }}" name="identity">
        <!--<p>Your e-mail: <input type="text" name="email"></p>-->
        {% if item.status == True %}
-         <input type="submit" value="I Found This!">
+           <button class="button" type="submit">I Found This!</button>
        {% else %}
-         <input type="submit" value="This is mine!">
+           <button class="button" type="submit">This is Mine!</button>
        {% endif %}
      </form>
    </div>
@@ -50,7 +44,7 @@
 
  $(function() {
 
-   var $container = $('#container');
+   var $container = $('#right');
    $container.imagesLoaded( function() {
 
       var $search = $('#search');

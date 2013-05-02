@@ -4,14 +4,7 @@
 
 {% block content %}
 
-<u1 id="filters" class="but1">
-  <li><a href="#" data-filter="*">show all</a></li>
-  <li><a href="#" data-filter=".lost">lost</a></li>
-  <li><a href="#" data-filter=".found">found</a></li>
-</u1>
-
-
-<div id="container">
+<div id="right">
   {% for item in items %}
   {% if item.claimed != True %}
     {% if item.status == True %}
@@ -45,7 +38,7 @@
 
  $(function() {
 
-   var $container = $('#container');
+   var $container = $('#right');
    $container.imagesLoaded( function() {
 
       var $search = $('#search');

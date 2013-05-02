@@ -6,7 +6,7 @@ import PIL
 import datetime
 
 STATUS=[('Lost', 'Lost'), ('Found', 'Found')]
-CATEGORIES = (('Clothing', 'Clothing'), ('Jewelry', 'Jewelry'), ('Prox/Wallet', 'Prox/Wallet'), ('BNF', 'Black North Face'), ('Other', 'Other'))
+CATEGORIES = (('Clothing', 'Clothing'), ('Wallet/Keys/Prox', 'Wallet/Keys/Prox'), ('Phone', 'Phone'), ('Charger', 'Charger'), ('Electronics', 'Electronics'), ('Accessories', 'Accessories'), ('Textbook', 'Textbook'), ('Backpack', 'Backpack'), ('Other', 'Other'))
 
 now = datetime.datetime.today()
 

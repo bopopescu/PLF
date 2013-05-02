@@ -5,7 +5,6 @@
 	{% load staticfiles %}
 	<link href="{% static "base.css" %}" rel="stylesheet" type="text/css">
     <link href="{% static "item.css" %}" rel="stylesheet" type="text/css">
-<!--        <link href="{% static "new.css" %}" rel="stylesheet" type="text/css">-->
     <title><{% block title %}Princeton Lost & Found{% endblock %}</title>
 </head>
 
@@ -15,12 +14,12 @@
 
 		<!-- Banner -->
 		<div class="banner">
-			<a href="../" class="home" title="Home"><h1>Princeton Lost & Found</h1>
+			<a href="../" class="home" title="Home"><h1>Princeton Lost & Found</h1></a>
 			<u1 id="filters" class="but1">
-  <li><a href="#" data-filter="*">show all</a></li>
-  <li><a href="#" data-filter=".lost">lost</a></li>
-  <li><a href="#" data-filter=".found">found</a></li>
-</u1></a>
+			  <li><a href="#" data-filter="*">show all</a></li>
+			  <li><a href="#" data-filter=".lost">lost</a></li>
+			  <li><a href="#" data-filter=".found">found</a></li>
+			</u1>
 		    
 		</div>
 
@@ -35,10 +34,6 @@
 			    {% if error %}
 			        <p style="color: red;">Please submit a search term.</p>
 			    {% endif %}
-			   <!-- <form action="" method="get">
-			        <input type="text" name="q">
-			        <input type="submit" value="Search">
-			    </form>-->
 			</div>
 
 			<!-- Main Display -->
@@ -51,15 +46,14 @@
 		
 		<!--I don't know how this works-->
 		<div style="clear:both;"></div>
-
-		<!-- Footer -->
-		<div class="footer">
-		    {% block footer %}
-		    <p>Princeton USG 2013. Website by Deric Cheng, Reed Tan, Matt Goldsmith, and Sam Lichtenberg</p>
-		    {% endblock %}
-		</div>
-
     </div>
+
+	<!-- Footer -->
+	<div class="footer">
+	    {% block footer %}
+	    <p>Princeton USG 2013. Website by Deric Cheng, Reed Tan, Matt Goldsmith, and Sam Lichtenberg</p>
+	    {% endblock %}
+	</div>
 
 </body>
 </html>

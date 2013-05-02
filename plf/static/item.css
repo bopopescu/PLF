@@ -57,6 +57,7 @@ u1.but1 li {
     width: 100%;
     overflow: hidden;
     float:left;
+    margin-top: 10px;
 }
 
 u1.but1 li {
@@ -103,7 +104,8 @@ u1.but1 li a:active {
 
 .masonryImage {
     border-style:solid;
-    border-width:1px;
+    border-width:3px;
+    border-color: black;
     margin: 5px;
     overflow: hidden;
     float: left;
@@ -125,8 +127,7 @@ u1.but1 li a:active {
     border:1px solid #dcdcdc;
     display:inline-block;
     /*color:#777777;*/
-    font-family: Myriad pro;
-    font-size:15px;
+    font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, "AppleGothic", sans-serif;    font-size:15px;
     /*font-weight:bold;*/
     padding:6px 24px;
     text-decoration:none;
