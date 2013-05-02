@@ -20,7 +20,11 @@
 			  <li><a href="#" data-filter=".lost">lost</a></li>
 			  <li><a href="#" data-filter=".found">found</a></li>
 			</u1>
-		    
+			<form action="" method="get">
+				<button type="submit" value="q">Login</button>
+			</form>
+			<a href="https://fed.princeton.edu/cas/logout">Logout</a>
+
 		</div>
 
 		<div class="body">
@@ -41,6 +45,16 @@
 			    {% block content %}
 			    	Content
 			    {% endblock %}
+
+			    	<!-- Footer -->
+				<div class="footer">
+					{% block footer %}
+					<p>© Princeton USG 2013</p>
+					<p>A COS 333 Project</p>
+					<p>Design by Deric Cheng, Samuel Lichtenberg,</p>
+					<p>Matthew Goldsmith, and Dharit Tantiviramanond</p>
+					{% endblock %}
+				</div>
 			</div>
 		</div>
 		
@@ -48,12 +62,7 @@
 		<div style="clear:both;"></div>
     </div>
 
-	<!-- Footer -->
-	<div class="footer">
-	    {% block footer %}
-	    <p>Princeton USG 2013. Website by Deric Cheng, Reed Tan, Matt Goldsmith, and Sam Lichtenberg</p>
-	    {% endblock %}
-	</div>
+
 
 </body>
 </html>
