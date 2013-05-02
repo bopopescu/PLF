@@ -42,7 +42,7 @@
         <div class="span3">
           <!--Search Box-->
           <form class="search search-indent">
-            <input type="text" class="search-query search-width" placeholder="Search">
+            <input type="text" class="search-query search-width" placeholder="Search...">
           </form>
           <!--Accordian menu-->
           <div class="accordion" id="accordion2">
@@ -86,7 +86,7 @@
 
                   <form enctype="multipart/form-data" action="" method="post">{% csrf_token %}
                       <table>
-                          <input type="hidden" value="submit_request">
+                          <input type="hidden" name="submit_request" value="submit_request">
                           <!-- Status -->
                           <div class="field">
                               <label for="id_status"><strong>* Status:</strong></label>

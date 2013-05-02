@@ -74,8 +74,8 @@ def home(request):
         if 'auth' not in request.session:
             return login(request)
 
+        # main functionality of submit page
         if request.POST.get('submit_request'):
-            # main functionality of submit page
             if form.is_valid():
                 cd = form.cleaned_data
                 now = datetime.datetime.now()
