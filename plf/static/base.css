@@ -1,5 +1,5 @@
 body {
-	padding-top: 70px;
+	padding-top: 50px;
 }
 
 .search-indent {
@@ -21,7 +21,35 @@ body {
 }
 
 .foot {
-	font-size: 11px;
+	font-size: 9px;
 	padding: 0;
 	margin: 0;
+	z-index: 1;
+}
+
+.button1 {
+    background:none!important;
+    border:none; 
+    padding:0!important;
+}
+
+.name {
+	font-size: 18px;
+	margin:0;
+}
+
+.location {
+	font-size: 12px;
+	margin:0;
+}
+
+.break {
+	margin:0;
+	color:black;
+}
+
+.itembtn {
+	margin: 0;
+	padding:0;
+	font-size: 10px;
 }

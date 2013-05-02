@@ -10,8 +10,10 @@
   </head>
   <body>
 
+  {% load bootstrap_toolkit %}
+
     <!--Top Bar-->
-    <div class="navbar navbar-inverse navbar-fixed-top" style="height: 100px;">
+    <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="navbar-inner" style="padding-left:20px;">
         <a class="brand" href="../">Princeton Lost & Found</a>
         <div class="pull-right">
@@ -21,7 +23,7 @@
                 <li><button type="submit" class="btn" value="login_request">Login</button></li>
               </form>
             {% else %}
-              <li><a href="https://fed.princeton.edu/cas/logout">Logout</a></li>
+              <li><button class="btn"><a href="https://fed.princeton.edu/cas/logout">Logout</a></button></li>
             {% endif %}
           </ul>
         </div>
@@ -41,7 +43,7 @@
         <!--Sidebar content-->
         <div class="span3">
           <!--Search Box-->
-          <form class="search search-indent">
+          <form class="search search-indent" id="search">
             <input type="text" class="search-query search-width" placeholder="Search...">
           </form>
           <!--Accordian menu-->
@@ -78,6 +80,7 @@
               </div>
               <div id="submit" class="accordion-body collapse">
                 <div class="accordion-inner">
+
                   {% if form.errors %}
                       <p style="color: red;">
                           Please correct the error{{ form.errors|pluralize }} below.
@@ -89,20 +92,20 @@
                           <input type="hidden" name="submit_request" value="submit_request">
                           <!-- Status -->
                           <div class="field">
-                              <label for="id_status"><strong>* Status:</strong></label>
+                              <!--<label for="id_status"><strong>* Status:</strong></label>-->
                               {% if form.errors.status %}
                               <p style="color: red;">{{ errors.status }}</p>
                               {% endif %}
 
                               <ul class="nobullet">
-                                  <li>{{ form.status.0 }}</li>
-                                  <li>{{ form.status.1 }}</li>
+                                  <li>{{ form.status | as_bootstrap }}</li>
+                                  <!--<li>{{ form.status.1 }}</li>-->
                               </ul>
                           </div>
                           <!-- Category -->
                           <div class="field">
-                              <label for="id_category"><strong>* Category:</strong></label>
-                              <p>{{ form.category }}</p>
+                           <!--   <label for="id_category"><strong>* Category:</strong></label>-->
+                              <p>{{ form.category|as_bootstrap }}</p>
                           </div>
                           <!-- Location -->
                           <div class="field">
@@ -166,8 +169,7 @@
 
     <div id="footer">
       <div class="navbar navbar-fixed-bottom footer-specs">
-        <p class="muted foot">© Princeton USG 2013</p>
-		<p class="muted foot">A COS 333 Project</p>
+        <p class="muted foot">© Princeton USG 2013, a CoS 333 Project</p>
 		<p class="muted foot">Design by Deric Cheng, Samuel Lichtenberg,</p>
 		<p class="muted foot">Matthew Goldsmith, and Dharit Tantiviramanond</p>
       </div>

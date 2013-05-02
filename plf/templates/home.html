@@ -8,30 +8,35 @@
   {% if item.claimed != True %}
     {% if item.status == True %}
       <div class="masonryImage lost" value={{ item.id }}>
-      <p style="text-align:center"><strong>LOST</strong></p>
     {% else %}
       <div class="masonryImage found" value={{ item.id }}>
-      <p style="text-align:center"><strong>FOUND</strong></p>
     {% endif %}
     {% if item.picture %}
       <img src="..{{ item.picture.url }}" class="tileim"/>
     {% endif %}
-      <p>{{ item.desc }}</p>
-      <p>{{ item.category  }}</p>
-      <p>{{ item.location }}</p>
-      <p>{{ item.event_date }}</p>
+      <p class="name">{{ item.category  }}</p>
+      <p class="location">{{ item.location }}</p>
+      <hr class="break"/>
+    {% if item.status == True %}
+      <p class="location">Lost
+    {% else %}
+      <p class="location">Found
+    {% endif %}
+      : {{ item.event_date }}</p>
+    <p class="location">{{ item.desc }}</p>
+        
 
-      <form action="" method="post">{% csrf_token %}
-       <input type="hidden" value="{{ item.id }}" name="identity">
-       {% if item.status == True %}
-           <button class="button" type="submit">I Found This!</button>
-       {% else %}
-           <button class="button" type="submit">This is Mine!</button>
-       {% endif %}
-     </form>
-   </div>
-   {% endif %}
-   {% endfor %}
+    <form action="" method="post" style="padding:0; margin:0;">{% csrf_token %}
+     <input type="hidden" value="{{ item.id }}" name="identity">
+     {% if item.status == True %}
+         <button class="btn btn-mini" type="submit">I Found This!</button>
+     {% else %}
+         <button class="btn btn-mini" type="submit">This is Mine!</button>
+     {% endif %}
+    </form>
+  </div>
+  {% endif %}
+ {% endfor %}
 
  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
  <script src="../media/jquery.isotope.min.js"></script>

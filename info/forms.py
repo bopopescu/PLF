@@ -14,7 +14,7 @@ class SubmitForm(forms.Form):
     status = forms.ChoiceField(choices=STATUS, widget=forms.RadioSelect())
     category = forms.ChoiceField(choices=CATEGORIES)
     location = forms.CharField(required=False)
-    event_date = forms.DateField(initial=now, widget=extras.SelectDateWidget(years=range(datetime.date.today().year, 2026)), required=False)
+    event_date = forms.DateField(initial=now, widget=extras.SelectDateWidget(years=range(2012, datetime.date.today().year + 1)), required=False)
     desc = forms.CharField(widget=forms.TextInput(attrs={'size':'100'}))
     picture = forms.ImageField(required=False)
     #netid = forms.CharField()
