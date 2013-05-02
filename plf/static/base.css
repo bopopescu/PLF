@@ -38,11 +38,21 @@ div.banner {
 	float: top;
 	text-align: center;
 	background-color: #DEDEDE;
-	border-bottom-style: solid;
+	/*border-bottom-style: solid;
 	border-width: 3px;
-	border-color: black;
+	border-color: black;*/
 	position: fixed;
 	z-index: 99;
+
+	border-bottom-width:0 0 3px 0;
+    -webkit-border-image: 
+    	-webkit-gradient(linear, 100% 0, 0 0, from(gray), to(rgba(0, 0, 0, 0))) 100% 1;
+    -webkit-border-image: 
+    	-webkit-linear-gradient(top, gray, rgba(0, 0, 0, 0)) 100% 1;
+    -o-border-image:
+    	     -o-linear-gradient(top, gray, rgba(0, 0, 0, 0)) 100% 1;
+    -moz-border-image:
+    	   -moz-linear-gradient(top, gray, rgba(0, 0, 0, 0)) 100% 1; 
 }
 
 div.body {
@@ -62,6 +72,17 @@ div.left {
 	border-bottom-style: solid;
 	border-width: 3px;
 	border-color: black;
+
+	/* Gradient border */
+	border-width:3px 3px 3px 0;
+    -webkit-border-image: 
+    	-webkit-gradient(linear, 0 0, 100% 0, from(gray), to(rgba(0, 0, 0, 0))) 1 100%;
+    -webkit-border-image: 
+    	-webkit-linear-gradient(left, gray, rgba(0, 0, 0, 0)) 1 100%;
+    -o-border-image:
+    	     -o-linear-gradient(left, gray, rgba(0, 0, 0, 0)) 1 100%;
+    -moz-border-image:
+    	   -moz-linear-gradient(left, gray, rgba(0, 0, 0, 0)) 1 100%; 
 }
 
 div.inlined {
