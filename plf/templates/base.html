@@ -13,8 +13,6 @@
   </head>
   <body>
 
-  {% load bootstrap_toolkit %}
-
     <!--Top Bar-->
     <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="navbar-inner" style="padding-left:20px;">
@@ -168,19 +166,19 @@
                           <!-- Category -->
                           <div class="field">
                            <!--   <label for="id_category"><strong>* Category:</strong></label>-->
-                              <p>{{ form.category | as_bootstrap }}</p>
+                              <p>{{ form.category }}</p>
                           </div>
                           <!-- Location -->
                           <div class="field">
                               <label for="id_location"><strong>Location: </strong></label>
-                              <p>{{ form.location | as_bootstrap }} </p>
+                              <p>{{ form.location }} </p>
                           </div>
                           <div class="field">
-                          <p>{{ form.name | as_bootstrap}}</p>
+                          <p>{{ form.name }}</p>
                         </div>
                           <div class="field">
                               <label for="id_event_date"><strong>Lost/Found On: </strong></label>
-                              <p>{{ form.event_date | as_bootstrap }} </p>
+                              <p>{{ form.event_date }} </p>
                           </div>
                           <!-- Event Date --><!--
                           <div class="field">
@@ -198,14 +196,14 @@
                           <div class="field">
                               <label for="id_desc"><strong>* Description: </strong></label>
                               {% if form.errors.desc %}
-                              <p style="color: red;">{{ errors.desc | as_bootstrap }}</p>
+                              <p style="color: red;">{{ errors.desc }}</p>
                               {% endif %}
-                              <p>{{ form.desc | as_bootstrap }} </p>
+                              <p>{{ form.desc }} </p>
                           </div>
                           <!-- Picture -->
                           <div class="field">
                               <!-- <label for="id_picture"><strong>Picture: </strong></label> -->
-                              <p>{{ form.picture | as_bootstrap }} </p>
+                              <p>{{ form.picture }} </p>
                           </div>
                           <!-- Net ID
                           <div class="field">
