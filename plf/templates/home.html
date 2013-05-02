@@ -2,17 +2,16 @@
 
 {% block header %}Home{% endblock %}
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> 
 {% block content %}
 
 <div id="right">
   {% for item in items %}
   {% if item.claimed != True %}
     {% if item.status == True %}
-      <div class="masonryImage lost" value={{ item.desc }}>
+      <div class="masonryImage lost" value={{ item.id }}>
       <p>LOST</p>
     {% else %}
-      <div class="masonryImage found" value={{ item.desc }}>
+      <div class="masonryImage found" value={{ item.id }}>
       <p>FOUND</p>
     {% endif %}
     {% if item.picture %}
@@ -43,7 +42,6 @@
  <script>
 
  $(function() {
-
    var $container = $('#right');
    $container.imagesLoaded( function() {
 
@@ -87,43 +85,39 @@
           var ret;
           var count = 0;
           var input = $(this).val();
+          /*
           $.getJSON("../data/", function(ret){
-            
             $.each(ret, function(index, item){
-              if (item.fields.category===input) {}
+
+              if (item.fields.category===input) {
                 $('.masonryImage').each(function() {
-                  if ($(this).val()===item.pk) {
+                  if ($(this).attr("value")==item.pk) {
                     $(this).addClass('shown');
                     count++;
                   }
                 })
               }
             });
-          });
-          if (count === 0) {
-            alert("no items match");
-          }
-          /*
-          var input = $(this).val();
-          var count = 0;
-          $('.masonryImage').each(function() {
-            if ($(this).is(":contains('" + input + "')")) {
-              $(this).addClass('shown');
-              count++;
-            }
           });*/
-          if (count === 0) {
-            alert("No items match your search criteria.");
-
-          }
-          else {
-           $container.isotope({ filter: ".shown"});
-            $('.masonryImage').each(function() {
+          $('.masonryImage').each(function() {
               if ($(this).is(":contains('" + input + "')")) {
-                $(this).removeClass('shown');
+                $(this).addClass('shown');
+                count++;
               }
             });
-          }
+            if (count === 0) {
+               alert("No items match your search criteria.");
+
+            }
+            else {
+             $container.isotope({ filter: ".shown"});
+              $('.masonryImage').each(function() {
+                if ($(this).is(":contains('" + input + "')")) {
+                $(this).removeClass('shown');
+                }
+              });
+            }
+
           return false;
         }
       });  
