@@ -41,6 +41,7 @@
  <script>
  $(function() {
    var $container = $('#right');
+
    $container.imagesLoaded( function() {
       var $location = $('#loc');
       original_loc = $location.val();
@@ -157,6 +158,46 @@
         $container.isotope({ filter: selector });
         return false;
       });
+
+      $('#advSearch').click(function() {
+        var location = $('#loc').val();
+        var name = $('#title').val();
+        var category = $('#cats').val();
+        var date = $('#date').val();
+        var descbox = $('#descbox').val();
+        var lost = $('#lf1').is(":checked");
+
+        var ret;
+        var count = 0;
+          
+        $.getJSON("../data/", function(ret){
+          $.each(ret, function(index, item){
+            if (item.fields.status===lost) {
+                if(item.fields.category===category[0]) {
+                  $('.masonryImage').each(function() {
+                    if ($(this).attr("value")===item.pk) {
+                    $(this).addClass('shown');
+                    count++;
+                  }
+                });
+              }
+            }
+          });
+          if (count === 0) {
+               alert("No items match your search criteria.");
+          }
+          else {
+             $container.isotope({ filter: ".shown"});
+              $('.masonryImage').each(function() {
+                if ($(this).is(":contains('" + input + "')")) {
+                $(this).removeClass('shown');
+                }
+              });
+          }
+        });
+        return false;
+      });
+
     });
   });
 

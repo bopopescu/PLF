@@ -162,7 +162,7 @@ def home(request):
     return render_to_response('home.html', context)
 
 def dataReturn(request):
-    data = serializers.serialize('json', Item.objects.all(), fields=('location', 'category', 'desc'))
+    data = serializers.serialize('json', Item.objects.all(), fields=('status', 'location', 'category', 'desc', 'event_date', 'name'))
     return HttpResponse(data, content_type="application/json")
 
 def myItems(request):

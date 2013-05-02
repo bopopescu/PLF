@@ -58,34 +58,35 @@
                 <div class="accordion-inner">
                   <u1 id="options" class = "nav nav-list">
                   	<form>
-                  	<input type="radio" name="lf" value="lost"> Lost<br>
-                  	<input type="radio" name="lf" value="found"> Found
+                  	<input type="radio" name="lf" id = "lf1" value="lost"> Lost<br>
+                  	<input type="radio" name="lf" id = "lf2" value="found"> Found
                   	</form>
                   	<form>
-                    Title: <input type="text" id = "title" value="e.g. Black North Face Jacket"><br>
+                    Name: <input type="text" id = "title" value="e.g. Black North Face Jacket"><br>
                     Category: 
-                    <select multiple="multiple" name="cats">
-                    	<option>Clothing</option>
-                    	<option>Wallet/Keys/Prox</option>
-                    	<option>Phone</option>
-                    	<option>Charger</option>
-                    	<option>Electronics</option>
-                    	<option>Accessories</option>
-                    	<option>Textbook</option>
-                    	<option>Backpack</option>
-                    	<option>Other</option>
+                    <select multiple="multiple" name="cats" id ="cats">
+                    	<option value="Clothing">Clothing</option>
+                    	<option value="Wallet/Keys/Prox">Wallet/Keys/Prox</option>
+                    	<option value="Phone">Phone</option>
+                    	<option value="Charger">Charger</option>
+                    	<option value="Electronics">Electronics</option>
+                    	<option value="Accessories">Accessories</option>
+                    	<option value="Textbook">Textbook</option>
+                    	<option value="Backpack">Backpack</option>
+                    	<option value="Other">Other</option>
                     </select>
                   	Location: <input type="text" id = "loc" value="e.g. Frist"><br>
   	                Date: <input type="date" id = "date"><br>
   	                <p>Show results within...</p>
-  	                <input type="radio" name="range" value="exact"> One day<br>
-  	                <input type="radio" name="range" value="few"> A few days<br>
-  	                <input type="radio" name="range" value="week"> One week<br>
-  	                <input type="radio" name="range" value="month"> One month<br>
+  	                <input type="radio" name="range" id="1d" value="exact"> One day<br>
+  	                <input type="radio" name="range" id="fd" value="few"> A few days<br>
+  	                <input type="radio" name="range" id="1w" value="week"> One week<br>
+  	                <input type="radio" name="range" id="1m" value="month"> One month<br>
   	                <p></p>
   	                <p>Description keywords (one line per keyword):</p>
-  	                <textarea name="desc" rows=3 cols=10></textarea>
+  	                <textarea name="desc" id = "descbox" rows=3 cols=10></textarea>
   	                </form>
+					<button type="submit" id="advSearch" class="btn" value="sval">Search!</button>
 
                   	<!-- drop down options -->
                   </u1>
