@@ -61,23 +61,35 @@
                 <div class="accordion-inner">
                   <u1 id="options" class = "nav nav-list">
                   	<form>
-                  	<input type="radio" name="lf" value="lost">Lost<br>
-                  	<input type="radio" name="lf" value="found">Found
+                  	<input type="radio" name="lf" value="lost"> Lost<br>
+                  	<input type="radio" name="lf" value="found"> Found
                   	</form>
                   	<form>
-                  	Location? <input type="text" id = "loc" value="e.g. Frist"><br>
-                  </form>
-                  	<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-  	                <script src="../media/datepicker/js/bootstrap-datepicker.js"></script>
-  	                <script>
-  	                $(function() {
-  	                  $( ".datepicker" ).datepicker();
-  	                });
-  	                </script>
-  	                	<div class="input-append date" id="dp3" data-date="12-02-2012" data-date-format="dd-mm-yyyy">
-  	                		<input class="span2" size="16" type="text" value="12-02-2012">
-  	                		<span class="add-on"><i class="icon-th"></i></span>
-  	                	</div>
+                    Title: <input type="text" id = "title" value="e.g. Black North Face Jacket"><br>
+                    Category: 
+                    <select multiple="multiple" name="cats">
+                    	<option>Clothing</option>
+                    	<option>Wallet/Keys/Prox</option>
+                    	<option>Phone</option>
+                    	<option>Charger</option>
+                    	<option>Electronics</option>
+                    	<option>Accessories</option>
+                    	<option>Textbook</option>
+                    	<option>Backpack</option>
+                    	<option>Other</option>
+                    </select>
+                  	Location: <input type="text" id = "loc" value="e.g. Frist"><br>
+  	                Date: <input type="date" id = "date"><br>
+  	                <p>Show results within...</p>
+  	                <input type="radio" name="range" value="exact"> One day<br>
+  	                <input type="radio" name="range" value="few"> A few days<br>
+  	                <input type="radio" name="range" value="week"> One week<br>
+  	                <input type="radio" name="range" value="month"> One month<br>
+  	                <p></p>
+  	                <p>Description keywords (one line per keyword):</p>
+  	                <textarea name="desc" rows=3 cols=10></textarea>
+  	                </form>
+
                   	<!-- drop down options -->
                   </u1>
                 </div>

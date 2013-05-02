@@ -57,6 +57,21 @@
         }
       });
 
+      var $title = $('#title');
+      original_tit = $title.val();
+      $title.focus(function(){
+        if($(this).val()===original_tit){
+
+          $(this).val('');
+        }
+      })
+      .blur(function(){
+        if($(this).val()===''){
+
+          $(this).val(original_tit);
+        }
+      });
+
       var $search = $('#search');
       original_val = $search.val();
       $search.focus(function(){
