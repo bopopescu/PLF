@@ -1,4 +1,3 @@
-# Create your views here.
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response, render
 from django.template import RequestContext
@@ -44,13 +43,16 @@ def login(request):
 def home(request):
 #    C = CASClient.CASClient()
 #    netid = C.Authenticate()
-    if 'auth' not in request.session:
-        return login(request)
+    #if 'auth' not in request.session:
+    #    return login(request)
     context = {}
     context.update(csrf(request))
     error = False
     errors = []
     items = Item.objects.order_by('id').reverse()
+
+    if 'auth' not in request.session:
+        context['must_log_in'] = True
     #if 'q' in request.GET:
     #    q = request.GET['q']
     #    if not q:
@@ -58,42 +60,51 @@ def home(request):
     #    else:
     #        items = Item.objects.filter(category__icontains=q)
     #        return render_to_response('search_results.html', {'items': items, 'query': q})
-    if 'q' in request.GET:
-        return login(request)
 
-    # This statement handles sending an email
     if request.method == 'POST':
-        status = request.POST.get('status')
-        em = request.session['netid']+'@princeton.edu'
-        if User.objects.filter(email=em):
-            u = User.objects.get(email=em)
-        else:                # if user not in database 
-            u = User(email=em)
-            u.save()
-        queryuser = request.session['netid'] + '@princeton.edu'#request.POST.get('email')
-        iden = request.POST.get('identity')
-        queryitem = Item.objects.get(id__icontains=iden)
-        #queryitem.claimed = True
-        #queryitem.save()
-        if status == True:
-            message = 'Your lost item %s was recently found on the Princeton Lost and Found app by %s. ' % (queryitem.desc, u)
-            message += 'Please get in touch with him/her to work out the logistics of returning your item.'
-            recipients = [ queryitem.student.email ]
-            send_mail('Your Item was Found!', message, 'princetonlostandfound@gmail.com', recipients)
-        else:
-            message = 'The item you found (%s) was recently claimed on the Princeton Lost and Found app by %s. ' % (queryitem.desc, u)
-            message += 'Please get in touch with him/her to work out the logistics of returning the item.'
-            recipients = [ queryitem.student.email ]
-            send_mail('An Item You Found was Claimed', message, 'princetonlostandfound@gmail.com', recipients)
+        # Login request
+        if request.POST.get('login_request'):
+            return login(request)
 
-        return render_to_response('submit_thanks.html', context)
+        # Users can't claim items without logging in
+        if 'auth' not in request.session:
+            return login(request)
+            #context['must_log_in'] = True
+        # Claiming an item
+        else:
+            status = request.POST.get('status')
+            em = request.session['netid']+'@princeton.edu'
+            if User.objects.filter(email=em):
+                u = User.objects.get(email=em)
+            else:                # if user not in database 
+                u = User(email=em)
+                u.save()
+            queryuser = request.session['netid'] + '@princeton.edu'#request.POST.get('email')
+            iden = request.POST.get('identity')
+            queryitem = Item.objects.get(id__icontains=iden)
+            #queryitem.claimed = True
+            #queryitem.save()
+            if status == True:
+                message = 'Your lost item %s was recently found on the Princeton Lost and Found app by %s. ' % (queryitem.desc, u)
+                message += 'Please get in touch with him/her to work out the logistics of returning your item.'
+                recipients = [ queryitem.student.email ]
+                send_mail('Your Item was Found!', message, 'princetonlostandfound@gmail.com', recipients)
+                context['options'] = 1
+            else:
+                message = 'The item you found (%s) was recently claimed on the Princeton Lost and Found app by %s. ' % (queryitem.desc, u)
+                message += 'Please get in touch with him/her to work out the logistics of returning the item.'
+                recipients = [ queryitem.student.email ]
+                send_mail('An Item You Found was Claimed', message, 'princetonlostandfound@gmail.com', recipients)
+                context['options'] = 2
+
+            return render_to_response('submit_thanks.html', context)
 
     context['items'] = items
     context['error'] = error
-    if 'auth' not in request.session:
-        context['logged_in'] = False
-    else:
-        context['logged_in'] = True
+    #if 'auth' not in request.session:
+    #    context['logged_in'] = False
+    #else:
+    #    context['logged_in'] = True
     return render_to_response('home.html', context)
 
 def dataReturn(request):
@@ -164,7 +175,9 @@ def submit(request):
             i.save()
             u.items.add(i)
 
-            return render_to_response('submit_thanks.html')
+            context['options'] = 0
+
+            return render_to_response('submit_thanks.html', context)
 
         else:
             cd = form.cleaned_data

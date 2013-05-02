@@ -3,5 +3,11 @@
 {% block title %}Submission Complete!!!{% endblock %}
 
 {% block content %}
-        <p style="color: black;">Thanks for submitting! You will receive an email if someone indicates that they found the item you're looking for.</p>
+	{% if options == 0 %}
+        <p>Thanks for submitting! You will receive an email if someone indicates that they have found the item you've submitted.</p>
+    {% elif options == 1 %}
+        <p>Thanks for claiming! An email has been sent to the person who lost the item, and they should contact you shortly.</p>
+    {% elif options == 2%}
+        <p>Thanks for claiming! An email has been sent to the person who found the item, and they should contact you shortly.</p>
+    {% endif %}
 {% endblock %}

@@ -9,23 +9,21 @@
   {% if item.claimed != True %}
     {% if item.status == True %}
       <div class="masonryImage lost" value={{ item.id }}>
-      <p>LOST</p>
+      <p style="text-align:center"><strong>LOST</strong></p>
     {% else %}
       <div class="masonryImage found" value={{ item.id }}>
-      <p>FOUND</p>
+      <p style="text-align:center"><strong>FOUND</strong></p>
     {% endif %}
     {% if item.picture %}
       <img src="..{{ item.picture.url }}" class="tileim"/>
     {% endif %}
-      <p>Description: {{ item.desc }}</p>
-      <p>Category: {{ item.category  }}</p>
-      <p>Location: {{ item.location }}</p>
-      <p>Date: {{ item.event_date }}</p>
-      <!--<p>subDate: {{ item.sub_date }}</p>-->
+      <p>{{ item.desc }}</p>
+      <p>{{ item.category  }}</p>
+      <p>{{ item.location }}</p>
+      <p>{{ item.event_date }}</p>
 
       <form action="" method="post">{% csrf_token %}
        <input type="hidden" value="{{ item.id }}" name="identity">
-       <!--<p>Your e-mail: <input type="text" name="email"></p>-->
        {% if item.status == True %}
            <button class="button" type="submit">I Found This!</button>
        {% else %}

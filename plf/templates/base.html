@@ -20,11 +20,13 @@
 			  <li><a href="#" data-filter=".lost">lost</a></li>
 			  <li><a href="#" data-filter=".found">found</a></li>
 			</u1>
-			<form action="" method="get">
-				<button type="submit" value="q">Login</button>
+			{% if must_log_in == True %}
+			<form action="" method="post">{% csrf_token %}
+				<button type="submit" value="login_request">Login</button>
 			</form>
+			{% else %}
 			<a href="https://fed.princeton.edu/cas/logout">Logout</a>
-
+			{% endif %}
 		</div>
 
 		<div class="body">
