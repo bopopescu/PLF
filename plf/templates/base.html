@@ -109,13 +109,8 @@
                           : {{ item.event_date }}</p>
                         <p class="location">{{ item.desc }}</p>
                         <form action="" method="post">{% csrf_token %}
-<<<<<<< HEAD
-                         <input type="hidden" value="resolved" name="resolved">
-                         <input type="hidden" value={{ item.id }} name="id">
-=======
                          <input type="hidden" value={{item.id}} name="resolved">
                          <!--<input type="hidden" value="{{ item.id }}" name="id">-->
->>>>>>> stuff
                          <input type="submit" value="Resolved?">
                        </form>
                       </div>
