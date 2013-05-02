@@ -15,11 +15,12 @@ class Item(models.Model):
     category = models.CharField(max_length=100)
     student = models.ForeignKey('User', null=True, blank=True, default=None)
     desc = models.CharField(max_length=250)
+    name = models.CharField(max_length=20)
     sub_date = models.DateField(null=True)
     event_date = models.DateField(null=True)
     location = models.CharField(max_length=100)
     picture = models.ImageField(upload_to='photos', blank=True, null=True)
-    claimed = models.BooleanField()
+    claimed = models.NullBooleanField(null=True, blank=True, default=False)
 
     def __unicode__(self):
         return u'%s' % (self.category)
