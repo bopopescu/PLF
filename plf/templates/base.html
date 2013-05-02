@@ -7,6 +7,9 @@
     <link href="{% static "item.css" %}" rel="stylesheet" type="text/css">
     <!-- Bootstrap -->
     <link href="{% static "bootstrap/css/bootstrap.min.css" %}" rel="stylesheet" media="screen">
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
+
+
   </head>
   <body>
 
@@ -56,7 +59,27 @@
               </div>
               <div id="advS" class="accordion-body collapse in">
                 <div class="accordion-inner">
-                  Advanced Search goes here
+                  <u1 id="options" class = "nav nav-list">
+                  	<form>
+                  	<input type="radio" name="lf" value="lost">Lost<br>
+                  	<input type="radio" name="lf" value="found">Found
+                  	</form>
+                  	<form>
+                  	Location? <input type="text" id = "loc" value="e.g. Frist"><br>
+                  </form>
+                  	<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+  	                <script src="../media/datepicker/js/bootstrap-datepicker.js"></script>
+  	                <script>
+  	                $(function() {
+  	                  $( ".datepicker" ).datepicker();
+  	                });
+  	                </script>
+  	                	<div class="input-append date" id="dp3" data-date="12-02-2012" data-date-format="dd-mm-yyyy">
+  	                		<input class="span2" size="16" type="text" value="12-02-2012">
+  	                		<span class="add-on"><i class="icon-th"></i></span>
+  	                	</div>
+                  	<!-- drop down options -->
+                  </u1>
                 </div>
               </div>
             </div>
@@ -86,11 +109,13 @@
                           : {{ item.event_date }}</p>
                         <p class="location">{{ item.desc }}</p>
                         <form action="" method="post">{% csrf_token %}
+<<<<<<< HEAD
                          <input type="hidden" value="resolved" name="resolved">
-                         <input type="hidden" value="{{ item.id }}" name="id">
                          <input type="hidden" value={{ item.id }} name="id">
+=======
                          <input type="hidden" value={{item.id}} name="resolved">
                          <!--<input type="hidden" value="{{ item.id }}" name="id">-->
+>>>>>>> stuff
                          <input type="submit" value="Resolved?">
                        </form>
                       </div>
