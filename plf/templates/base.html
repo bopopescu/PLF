@@ -9,7 +9,6 @@
     <link href="{% static "bootstrap/css/bootstrap.min.css" %}" rel="stylesheet" media="screen">
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
 
-
   </head>
   <body>
 
@@ -22,7 +21,7 @@
             {% if must_log_in == True %}
               <form action="" method="post">{% csrf_token %}
                 <li><button type="submit" class="btn" value="login_request">Login</button></li>
-              </form>{}
+              </form>
             {% else %}
               <li><button class="btn"><a href="https://fed.princeton.edu/cas/logout">Logout</a></button></li>
             {% endif %}
@@ -140,79 +139,26 @@
               </div>
               <div id="submit" class="accordion-body collapse">
                 <div class="accordion-inner">
-                  <u1 id="options" class = "nav nav-list">
-
-                  <!-- {% if form.errors %}
-                      <p style="color: red;">
-                          Please correct the error{{ form.errors|pluralize }} below.
-                      </p>
-                  {% endif %} -->
-
                   <form enctype="multipart/form-data" action="" method="post">{% csrf_token %}
-                      <table>
+                      <table style="padding-top:0;">
                           <input type="hidden" name="submit_request" value="submit_request">
-                          <!-- Status -->
-                          <div class="field">
-                              <!--<label for="id_status"><strong>* Status:</strong></label>-->
                               {% if form.errors.status %}
                               <p style="color: red;">{{ errors.status }}</p>
                               {% endif %}
 
                               <ul class="nobullet">
-                                  <li>{{ form.status }}</li>
-                                  <!--<li>{{ form.status.1 }}</li>-->
+                                  <li>{{ form.status.0 }}</li>
+                                  <li>{{ form.status.1 }}</li>
                               </ul>
-                          </div>
-                          <!-- Category -->
-                          <div class="field">
-                           <!--   <label for="id_category"><strong>* Category:</strong></label>-->
-                              <p>{{ form.category }}</p>
-                          </div>
-                          <!-- Location -->
-                          <div class="field">
-                              <label for="id_location"><strong>Location: </strong></label>
-                              <p>{{ form.location }} </p>
-                          </div>
-                          <div class="field">
-                          <p>{{ form.name }}</p>
-                        </div>
-                          <div class="field">
-                              <label for="id_event_date"><strong>Lost/Found On: </strong></label>
-                              <p>{{ form.event_date }} </p>
-                          </div>
-                          <!-- Event Date --><!--
-                          <div class="field">
-                              <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
-                              <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-                              <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
-                              <script>
-                              $(function() {
-                                  $( "#form_event_date" ).datepicker();
-                              });
-                              </script>
-                              <label for="id_event_date"><strong>Date: </strong><input type="text" id="form_event_date"></label>
-                          </div>-->
-                          <!-- Description -->
-                          <div class="field">
-                              <label for="id_desc"><strong>* Description: </strong></label>
+                              <p>Category: {{ form.category }}</p>
+                              <p>Location: {{ form.location }} </p>
+                          <p>Name: {{ form.name }}</p>
+                              <p>Date: <br>{{ form.event_date }} </p>
                               {% if form.errors.desc %}
                               <p style="color: red;">{{ errors.desc }}</p>
                               {% endif %}
-                              <p>{{ form.desc }} </p>
-                          </div>
-                          <!-- Picture -->
-                          <div class="field">
-                              <!-- <label for="id_picture"><strong>Picture: </strong></label> -->
-                              <p>{{ form.picture }} </p>
-                          </div>
-                          <!-- Net ID
-                          <div class="field">
-                              <label for="id_netid"><strong>* NetID: </strong></label>
-                              {% if form.errors.netid %}
-                              <p style="color: red;">{{ errors.netid }}</p>
-                              {% endif %}
-                              <p>{{ form.netid }} </p>
-                          </div>-->
+                              <p>Description: {{ form.desc }} </p>
+                              <p>Picture: {{ form.picture }} </p>
                       </table>
                       <input type="submit" value="Submit">
                   </form>

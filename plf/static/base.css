@@ -57,3 +57,7 @@ body {
 .myitem {
 	width: 100%;
 }
+
+.nobullet {
+	list-style-type: none;
+}
