@@ -88,6 +88,9 @@
                         <form action="" method="post">{% csrf_token %}
                          <input type="hidden" value="resolved" name="resolved">
                          <input type="hidden" value="{{ item.id }}" name="id">
+                         <input type="hidden" value={{ item.id }} name="id">
+                         <input type="hidden" value={{item.id}} name="resolved">
+                         <!--<input type="hidden" value="{{ item.id }}" name="id">-->
                          <input type="submit" value="Resolved?">
                        </form>
                       </div>

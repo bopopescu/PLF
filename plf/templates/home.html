@@ -42,6 +42,20 @@
  $(function() {
    var $container = $('#right');
    $container.imagesLoaded( function() {
+      var $location = $('#loc');
+      original_loc = $location.val();
+      $location.focus(function(){
+        if($(this).val()===original_loc){
+
+          $(this).val('');
+        }
+      })
+      .blur(function(){
+        if($(this).val()===''){
+
+          $(this).val(original_loc);
+        }
+      });
 
       var $search = $('#search');
       original_val = $search.val();

@@ -74,14 +74,19 @@ def home(request):
         if request.POST.get('resolved'):
             print "resolving"
             getid = request.POST.get('id')
+            itemlist = Item.objects.get(id__in = getid)
+            print getid
+            getid = request.POST.get('resolved')
             itemlist = Item.objects.filter(id__in = getid)
 
             if itemlist:
                 # remove item
                 user = User.objects.filter(email=request.session['netid']+'@princeton.edu')[0]
                 user.items.remove(item)
+                user.items.remove(itemlist[0])
                 user.save()
                 item.delete()
+                itemlist[0].delete()
             else:
                 print "something weird's happening"
 
