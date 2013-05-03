@@ -20,6 +20,11 @@ body {
 	max-height: 250px;
 }
 
+.myitemtileim {
+	max-width: 200px;
+	max-height: 197px;
+}
+
 .foot {
 	font-size: 9px;
 	padding: 0;
@@ -55,10 +60,6 @@ body {
 	font-size: 10px;
 }
 
-.myitem {
-	width: 100%;
-}
-
 .nobullet {
 	list-style-type: none;
 }
@@ -67,4 +68,10 @@ body {
 	font-size: 12px;
 	padding-top: 2px;
 	float: right;
+}
+
+.myitemscroll {
+	height: 450px;
+	overflow-y: scroll;
+	overflow-x: hidden;"
 }

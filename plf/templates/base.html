@@ -101,14 +101,14 @@
                 </a>
               </div>
               <div id="myItems" class="accordion-body collapse">
-                <div class="accordion-inner" style="overflow-y:scroll;overflow-x:hidden;">
+                <div class="accordion-inner" class="myitemscroll">
                   {% if myitems %}
                     {% for item in myitems %}
-                      <div class="masonryImage">
+                      <div class="masonryImage myitem">
                         {% if item.picture %}
-                          <img src="..{{ item.picture.url }}" class="tileim"/>
+                          <img src="..{{ item.picture.url }}" class="myitemtileim"/>
                         {% endif %}
-                          <p class="name">{{ item.name  }}<span class="right-small-header">{{ item.location }}</span></p>
+                          <p class="name">{{ item.name }}    <span class="right-small-header">{{ item.location }}</span></p>
       <hr class="break"/>
                         {% if item.status == True %}
                           <p class="location">Lost
@@ -133,14 +133,52 @@
               </div>
             </div>
 
+
+
             <div class="accordion-group">
               <div class="accordion-heading">
-                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#submit">
-                  Submit
+                <a class="accordion-toggle" data-parent="#accordion2" href="#submitModal" data-toggle="modal">
+                  Submit <!-- Button to trigger modal -->
                 </a>
               </div>
+
+                <!-- Modal -->
+              <div id="submitModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                  <h3 id="myModalLabel">Submit</h3>
+                </div>
+                <div class="modal-body" style="max-height: 460px; margin:0; padding-top:0;overflow: hidden;">
+                  <form enctype="multipart/form-data" action="" method="post" style="height:500px">{% csrf_token %}
+                        <table>
+                            <input type="hidden" name="submit_request" value="submit_request">
+                                {% if form.errors.status %}
+                                <p style="color: red;">{{ errors.status }}</p>
+                                {% endif %}
+                                <ul class="nobullet">
+                                    <li>{{ form.status.0 }}</li>
+                                    <li>{{ form.status.1 }}</li>
+                                </ul>
+                                <p>Category: {{ form.category }}</p>
+                                <p>Location: {{ form.location }} </p>
+                                <p>Item: {{ form.name }}</p>
+                                <p>Date: <br>{{ form.event_date }} </p>
+                                {% if form.errors.desc %}
+                                <p style="color: red;">{{ errors.desc }}</p>
+                                {% endif %}
+                                <p>Description: {{ form.desc }} </p>
+                                <p>Picture: {{ form.picture }} </p>
+                        </table>
+                        <div class="modal-footer">
+                          <input class="btn btn-primary" type="submit" value="Submit">
+                        </div>
+                    </form>
+                </div>
+              </div>
+
+
               <div id="submit" class="accordion-body collapse">
-                <div class="accordion-inner">
+                <!-- <div class="accordion-inner">
                   <form enctype="multipart/form-data" action="" method="post">{% csrf_token %}
                       <table style="padding-top:0;">
                           <input type="hidden" name="submit_request" value="submit_request">
@@ -164,7 +202,7 @@
                       </table>
                       <input type="submit" value="Submit">
                   </form>
-                </div>
+                </div> -->
               </div>
             </div>
           </div>
