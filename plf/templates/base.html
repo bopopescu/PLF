@@ -18,7 +18,8 @@
         <a class="brand" href="../">Princeton Lost & Found</a>
         <div class="pull-right">
           <ul class="nav">
-            <li><a href="../about">About</a></li>
+            <!-- "about" modal -->
+            <a href="#aboutModal" role="button" class="btn" data-toggle="modal">About</a>
             {% if must_log_in == True %}
               <li><a href="../login">Login</a></li>
             {% else %}
@@ -208,6 +209,20 @@
           <button class="btn btn-primary" type="submit">Send dat email!</button>
           </form>
 
+        </div>
+      </div>
+
+      <!-- Modal -->
+      <div id="aboutModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h3 id="myModalLabel">About</h3>
+        </div>
+        <div class="modal-body">
+          <p>Made by Deric, Reed, and Matt</p>
+        </div>
+        <div class="modal-footer">
+          <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
         </div>
       </div>
 
