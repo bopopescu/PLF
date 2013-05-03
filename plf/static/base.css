@@ -25,13 +25,6 @@ body {
 	max-height: 197px;
 }
 
-.foot {
-	font-size: 9px;
-	padding: 0;
-	margin: 0;
-	z-index: 1;
-}
-
 .button1 {
     background:none!important;
     border:none; 

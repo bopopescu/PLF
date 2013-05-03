@@ -166,107 +166,91 @@ def dataReturn(request):
     data = serializers.serialize('json', Item.objects.all(), fields=('status', 'location', 'category', 'desc', 'event_date', 'name'))
     return HttpResponse(data, content_type="application/json")
 
-def myItems(request):
-    if 'auth' not in request.session:
-        return login(request)
-    context = {}
-    context.update(csrf(request))
+def about(request):
+    return render_to_response('about.html')
 
-    # get netid, look up in database, return items
-    if request.method == 'POST':
-        getid = request.POST.get('id')
-        item = Item.objects.filter(id__in = getid)[0]
+# def myItems(request):
+#     if 'auth' not in request.session:
+#         return login(request)
+#     context = {}
+#     context.update(csrf(request))
 
-        user = User.objects.filter(email=request.session['netid']+'@princeton.edu')[0]
-        user.items.remove(item)
-        item.claimed = True
-        user.save()
-        item.save()
+#     # get netid, look up in database, return items
+#     if request.method == 'POST':
+#         getid = request.POST.get('id')
+#         item = Item.objects.filter(id__in = getid)[0]
 
-    items = Item.objects.filter(student__email__exact=request.session['netid'] + '@princeton.edu')
-    context['items'] = items
-    return render_to_response('my_items.html', context)
+#         user = User.objects.filter(email=request.session['netid']+'@princeton.edu')[0]
+#         user.items.remove(item)
+#         item.claimed = True
+#         user.save()
+#         item.save()
 
-def submit(request):
-    # search bar on left
-    if 'auth' not in request.session:
-        return login(request)
-    items = Item.objects.all()
+#     items = Item.objects.filter(student__email__exact=request.session['netid'] + '@princeton.edu')
+#     context['items'] = items
+#     return render_to_response('my_items.html', context)
 
-    # search bar
-    if 'q' in request.GET:
-        q = request.GET['q']
-        if not q:
-            error = True
-        else:
-            items = Item.objects.filter(category__icontains=q)
-            return render_to_response('search_results.html', {'items': items, 'query': q})
+# def submit(request):
+#     # search bar on left
+#     if 'auth' not in request.session:
+#         return login(request)
+#     items = Item.objects.all()
 
-    # main functionality of submit page
-    if request.method == 'POST':
-        form = SubmitForm(request.POST, request.FILES)
-        errors = {}
+#     # search bar
+#     if 'q' in request.GET:
+#         q = request.GET['q']
+#         if not q:
+#             error = True
+#         else:
+#             items = Item.objects.filter(category__icontains=q)
+#             return render_to_response('search_results.html', {'items': items, 'query': q})
 
-        if form.is_valid():
-            cd = form.cleaned_data
-            now = datetime.datetime.now()
-            x = False
-            if (cd['status'] == 'Lost'):
-                x = True
-            em = request.session['netid']+'@princeton.edu'
-            print em
-            ulist = User.objects.filter(email=em)#[0]
-            if not ulist:
-                u = User(email=em)
-                u.save()
-            if ulist:
-                u = ulist[0]
+#     # main functionality of submit page
+#     if request.method == 'POST':
+#         form = SubmitForm(request.POST, request.FILES)
+#         errors = {}
 
-            print u.email
-            i = Item(status=x, category=cd['category'], desc=cd['desc'], student=u, 
-                sub_date = now, location=cd['location'], picture=cd['picture'],
-                event_date = cd['event_date'], claimed=False)
-            i.save()
-            u.items.add(i)
+#         if form.is_valid():
+#             cd = form.cleaned_data
+#             now = datetime.datetime.now()
+#             x = False
+#             if (cd['status'] == 'Lost'):
+#                 x = True
+#             em = request.session['netid']+'@princeton.edu'
+#             print em
+#             ulist = User.objects.filter(email=em)#[0]
+#             if not ulist:
+#                 u = User(email=em)
+#                 u.save()
+#             if ulist:
+#                 u = ulist[0]
 
-            context['options'] = 0
+#             print u.email
+#             i = Item(status=x, category=cd['category'], desc=cd['desc'], student=u, 
+#                 sub_date = now, location=cd['location'], picture=cd['picture'],
+#                 event_date = cd['event_date'], claimed=False)
+#             i.save()
+#             u.items.add(i)
 
-            return render_to_response('submit_thanks.html', context)
+#             context['options'] = 0
 
-        else:
-            cd = form.cleaned_data
-            if not request.POST.get('status', ''):
-                errors['status'] = "Enter a status"
-            if not request.POST.get('desc', ''):
-                errors['desc'] = "Enter a description"
-            #if not request.POST.get('netid', ''):
-            #    errors['netid'] = "Enter your netid"
+#             return render_to_response('submit_thanks.html', context)
 
-            return render_to_response('submit_form.html', {'form': form, 'errors': errors}, context_instance=RequestContext(request))
+#         else:
+#             cd = form.cleaned_data
+#             if not request.POST.get('status', ''):
+#                 errors['status'] = "Enter a status"
+#             if not request.POST.get('desc', ''):
+#                 errors['desc'] = "Enter a description"
+#             #if not request.POST.get('netid', ''):
+#             #    errors['netid'] = "Enter your netid"
 
-    else:
-        now = datetime.datetime.now()
-        datefield = str(now.month) + '/' + str(now.day) + '/' + str(now.year)
-        form = SubmitForm(
-            initial={'event_date': datefield }
-            )
-    return render_to_response('submit_form.html', {'form': form}, context_instance=RequestContext(request))
+#             return render_to_response('submit_form.html', {'form': form, 'errors': errors}, context_instance=RequestContext(request))
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#     else:
+#         now = datetime.datetime.now()
+#         datefield = str(now.month) + '/' + str(now.day) + '/' + str(now.year)
+#         form = SubmitForm(
+#             initial={'event_date': datefield }
+#             )
+#     return render_to_response('submit_form.html', {'form': form}, context_instance=RequestContext(request))
