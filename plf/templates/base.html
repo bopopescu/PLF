@@ -17,9 +17,9 @@
       <div class="navbar-inner" style="padding-left:20px;">
         <a class="brand" href="../">Princeton Lost & Found</a>
         <div class="pull-right">
-        <!-- "about" modal -->
-          <a href="#aboutModal" role="button" class="btn" data-toggle="modal">About</a>
           <ul class="nav">
+            <!-- "about" modal -->
+            <li><a href="#aboutModal" data-toggle="modal">About</a><li>
             {% if must_log_in == True %}
               <li><a href="../login">Login</a></li>
             {% else %}
