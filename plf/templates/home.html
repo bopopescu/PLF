@@ -174,30 +174,63 @@
         var date = $('#date').val();
         var descbox = $('#descbox').val();
         var lost = $('#lf1').is(":checked");
+        var found = $('#lf2').is(":checked");
+        var locY;
+        var nameY;
+        var catY; 
+        var dateY;
+        var descY;
+
+        if (location!=="e.g. Frist") {
+          locY = true;
+        }
+        else locY = false;
+        if (name!="e.g. Black North Face Jacket") {nameY = true;}
+        else nameY = false;
+        if (category!=null) {catY = true;}
+        else catY = false;
+        if (date!="") {dateY = true;}
+        else dateY = false;
+        if (descbox!="") {descY = true;}
+        else descY = false;
 
         var ret;
         var count = 0;
+        var keywords = descbox.split("\n");
           
         $.getJSON("../data/", function(ret){
           $.each(ret, function(index, item){
-            if (item.fields.status===lost) {
-                if(item.fields.category===category[0]) {
-                  $('.masonryImage').each(function() {
-                    if ($(this).attr("value")===item.pk) {
-                    $(this).addClass('shown');
-                    count++;
-                  }
-                });
-              }
+            if (item.fields.status!=lost) {return true;}
+            if (catY && item.fields.category!=category[0]) return false;
+            if (nameY && item.fields.name!=name) return true;
+            if (dateY && item.fields.event_date!=date) return true;
+            if (locY && item.fields.location!=location) return true;
+
+            if (descY) {
+              var found = false;
+              $.each(keywords, function(index, element){
+                if (item.fields.desc.indexOf(element) >= 0) {
+                  found = true;
+                }
+              });
+              if (found==false) { return true;}
             }
+
+            $('.masonryImage').each(function() {
+              if ($(this).attr("value")==item.pk) {
+                $(this).addClass('shown');
+                  count++;
+              }
+            });
           });
           if (count === 0) {
                alert("No items match your search criteria.");
           }
           else {
              $container.isotope({ filter: ".shown"});
+             /* reset */
               $('.masonryImage').each(function() {
-                if ($(this).is(":contains('" + input + "')")) {
+                if ($(this).hasClass('shown')) {
                 $(this).removeClass('shown');
                 }
               });
