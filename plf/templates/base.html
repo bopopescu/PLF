@@ -197,39 +197,39 @@
 
     <script src="{% static "bootstrap/js/bootstrap.min.js" %}"></script>
 
-  <!-- Modal - put it here so we can have a fixed sidebar and avoid the problem of the modal appearing behind the backdrop -->
-  <div id="submitModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-header">
-      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-      <h3 id="myModalLabel">Submit</h3>
+    <!-- Modal - put it here so we can have a fixed sidebar and avoid the problem of the modal appearing behind the backdrop -->
+    <div id="submitModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">Submit</h3>
+      </div>
+      <div class="modal-body" style="max-height: 460px; margin:0; padding-top:0;overflow: hidden;">
+        <form enctype="multipart/form-data" action="" method="post" style="height:500px">{% csrf_token %}
+              <table>
+                  <input type="hidden" name="submit_request" value="submit_request">
+                      {% if form.errors.status %}
+                      <p style="color: red;">{{ errors.status }}</p>
+                      {% endif %}
+                      <ul class="nobullet">
+                          <li>{{ form.status.0 }}</li>
+                          <li>{{ form.status.1 }}</li>
+                      </ul>
+                      <p>Category: {{ form.category }}</p>
+                      <p>Location: {{ form.location }} </p>
+                      <p>Item: {{ form.name }}</p>
+                      <p>Date: <br>{{ form.event_date }} </p>
+                      {% if form.errors.desc %}
+                      <p style="color: red;">{{ errors.desc }}</p>
+                      {% endif %}
+                      <p>Description: {{ form.desc }} </p>
+                      <p>Picture: {{ form.picture }} </p>
+              </table>
+              <div class="modal-footer">
+                <input class="btn btn-primary" type="submit" value="Submit">
+              </div>
+          </form>
+      </div>
     </div>
-    <div class="modal-body" style="max-height: 460px; margin:0; padding-top:0;overflow: hidden;">
-      <form enctype="multipart/form-data" action="" method="post" style="height:500px">{% csrf_token %}
-            <table>
-                <input type="hidden" name="submit_request" value="submit_request">
-                    {% if form.errors.status %}
-                    <p style="color: red;">{{ errors.status }}</p>
-                    {% endif %}
-                    <ul class="nobullet">
-                        <li>{{ form.status.0 }}</li>
-                        <li>{{ form.status.1 }}</li>
-                    </ul>
-                    <p>Category: {{ form.category }}</p>
-                    <p>Location: {{ form.location }} </p>
-                    <p>Item: {{ form.name }}</p>
-                    <p>Date: <br>{{ form.event_date }} </p>
-                    {% if form.errors.desc %}
-                    <p style="color: red;">{{ errors.desc }}</p>
-                    {% endif %}
-                    <p>Description: {{ form.desc }} </p>
-                    <p>Picture: {{ form.picture }} </p>
-            </table>
-            <div class="modal-footer">
-              <input class="btn btn-primary" type="submit" value="Submit">
-            </div>
-        </form>
-    </div>
-  </div>
 
 
   </body>
