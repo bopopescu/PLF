@@ -22,21 +22,29 @@
     {% endif %}
       : {{ item.event_date }}</p>
     <p class="location">{{ item.desc }}</p>
-        
-    <form action="" method="post" style="padding:0; margin:0;">{% csrf_token %}
-     <input type="hidden" value="{{ item.id }}" name="identity">
-     {% if item.status == True %}
-        <button class="btn btn-mini" type="submit">I Found This!</button>
-     {% else %}
-        <button class="btn btn-mini" type="submit">This is Mine!</button>
-     {% endif %}
-    </form>
 
+   {% if item.status == True %}
+      <button class="btn btn-mini" value="{{ item.id }}" name="{{ item.status }}">I Found This!</button>
+   {% else %}
+      <button class="btn btn-mini" value="{{ item.id }}" name="{{ item.status }}">This is Mine!</button>
+   {% endif %}
   </div>
  {% endfor %}
 
  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
  <script src="../media/jquery.isotope.min.js"></script>
+ 
+ <script>
+   $('#right').imagesLoaded( function() {
+    var $but = $('.btn.btn-mini');
+    $but.click( function() {
+      $('.modal-footer.claiming #id').val(this.value);
+      $('.modal-footer.claiming #status').val(this.name);
+      $('#claimModal').modal("show");
+    })
+  });
+ </script>
+
  <script>
  $(function() {
    var $container = $('#right');

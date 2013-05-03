@@ -141,6 +141,8 @@ def home(request):
                 u.save()
             queryuser = request.session['netid'] + '@princeton.edu'
             iden = request.POST.get('identity')
+            print iden
+            print status
             queryitem = Item.objects.get(id__icontains=iden)
             #queryitem.claimed = True
             #queryitem.save()
@@ -156,7 +158,7 @@ def home(request):
                 recipients = [ queryitem.student.email ]
                 send_mail('An Item You Found was Claimed', message, 'princetonlostandfound@gmail.com', recipients)
                 context['options'] = 2
-
+                
             return render_to_response('submit_thanks.html', context)
     return render_to_response('home.html', context)
 
