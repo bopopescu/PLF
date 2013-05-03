@@ -137,9 +137,13 @@
 
               <div class="accordion-group">
                 <div class="accordion-heading">
+                  {% if must_log_in == True %}
+                  <a class="accordion-toggle submit" id="submitPopover" data-parent="#accordion2" data-toggle="popover">Submitaaa</a>
+                  {% else %}
                   <a class="accordion-toggle" data-parent="#accordion2" href="#submitModal" data-toggle="modal">
                     Submit <!-- Button to trigger modal -->
                   </a>
+                  {% endif %}
                 </div>
               </div>
             </div>

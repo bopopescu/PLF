@@ -162,6 +162,9 @@ def home(request):
             return render_to_response('submit_thanks.html', context)
     return render_to_response('home.html', context)
 
+from django.utils.translation import ugettext as _
+
+
 def dataReturn(request):
     data = serializers.serialize('json', Item.objects.all(), fields=('status', 'location', 'category', 'desc', 'event_date', 'name'))
     return HttpResponse(data, content_type="application/json")

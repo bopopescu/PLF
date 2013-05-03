@@ -31,15 +31,25 @@
 
  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
  <script src="../media/jquery.isotope.min.js"></script>
+
  
  <script>
-   $('#right').imagesLoaded( function() {
+  $('#right').imagesLoaded( function() {
     var $but = $('.btn.btn-mini');
     $but.click( function() {
       $('.modal-footer.claiming #id').val(this.value);
       $('.modal-footer.claiming #status').val(this.name);
       $('#claimModal').modal("show");
     })
+
+    $(function () {
+      var $submit = $('#submitPopover');
+      $submit.tooltip();
+      $submit.tooltip('show');
+      $submit.popover();
+      $submit.popover({ title: 'test', placement: 'right', trigger: 'click', content: 'YAYYYY'});
+    }); 
+
   });
  </script>
 
