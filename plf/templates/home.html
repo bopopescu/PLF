@@ -46,6 +46,11 @@
  </script>
 
  <script>
+ jQuery.expr[":"].Contains = jQuery.expr.createPseudo(function(arg) {
+    return function( elem ) {
+    return jQuery(elem).text().toUpperCase().indexOf(arg.toUpperCase()) >= 0;
+    };
+ });
  $(function() {
    var $container = $('#right');
 
@@ -135,8 +140,9 @@
               }
             });
           });*/
+
           $('.masonryImage').each(function() {
-              if ($(this).is(":contains('" + input + "')")) {
+              if ($(this).is(":Contains('" + input.toLowerCase() + "')")) {
                 $(this).addClass('shown');
                 count++;
               }
@@ -147,7 +153,7 @@
             else {
              $container.isotope({ filter: ".shown"});
               $('.masonryImage').each(function() {
-                if ($(this).is(":contains('" + input + "')")) {
+                if ($(this).hasClass('shown')) {
                 $(this).removeClass('shown');
                 }
               });
@@ -209,7 +215,8 @@
             if (descY) {
               var found = false;
               $.each(keywords, function(index, element){
-                if (item.fields.desc.indexOf(element) >= 0) {
+                var blah = item.fields.desc.toLowerCase();
+                if (blah.indexOf(element) >= 0) {
                   found = true;
                 }
               });
