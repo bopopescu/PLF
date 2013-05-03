@@ -7,6 +7,7 @@ from django.conf import settings
 # admin.autodiscover()
 
 urlpatterns = patterns('',
+    (r'^login/$', views.login),
     #(r'^search/$', views.search),
     (r'^submit/$', views.submit),
     #(r'^submit/thanks/$', views.submitthanks),

@@ -19,11 +19,9 @@
         <div class="pull-right">
           <ul class="nav">
             {% if must_log_in == True %}
-              <form action="" method="post">{% csrf_token %}
-                <li><button type="submit" class="btn" value="login_request">Login</button></li>
-              </form>
+              <li><a href="../login">Login</a></li>
             {% else %}
-              <li><button class="btn"><a href="https://fed.princeton.edu/cas/logout">Logout</a></button></li>
+              <li><a href="https://fed.princeton.edu/cas/logout">Logout</a></li>
             {% endif %}
           </ul>
         </div>
@@ -42,126 +40,126 @@
 
         <!--Sidebar content-->
         <div class="span3">
-          <!--Search Box-->
-          <form class="search search-indent">
-            <input type="text" id="search" class="search-query search-width" placeholder="Search...">
-          </form>
-          <!--Accordian menu-->
-          <div class="accordion" id="accordion2">
-            <div class="accordion-group">
-              <div class="accordion-heading">
-                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#advS">
-                  Advanced Search
-                </a>
-              </div>
-              <div id="advS" class="accordion-body collapse">
-                <div class="accordion-inner">
-                  <u1 id="options" class = "nav nav-list">
-                  	<form>
-                  	<input type="radio" name="lf" id = "lf1" value="lost"> Lost<br>
-                  	<input type="radio" name="lf" id = "lf2" value="found"> Found
-                  	</form>
-                  	<form>
-                    Name: <input type="text" id = "title" value="e.g. Black North Face Jacket"><br>
-                    Category: 
-                    <select multiple="multiple" name="cats" id ="cats">
-                    	<option value="Clothing">Clothing</option>
-                    	<option value="Wallet/Keys/Prox">Wallet/Keys/Prox</option>
-                    	<option value="Phone">Phone</option>
-                    	<option value="Charger">Charger</option>
-                    	<option value="Electronics">Electronics</option>
-                    	<option value="Accessories">Accessories</option>
-                    	<option value="Textbook">Textbook</option>
-                    	<option value="Backpack">Backpack</option>
-                    	<option value="Other">Other</option>
-                    </select>
-                  	Location: <input type="text" id = "loc" value="e.g. Frist"><br>
-  	                Date: <input type="date" id = "date"><br>
-  	                <p>Show results within...</p>
-  	                <input type="radio" name="range" id="1d" value="exact"> One day<br>
-  	                <input type="radio" name="range" id="fd" value="few"> A few days<br>
-  	                <input type="radio" name="range" id="1w" value="week"> One week<br>
-  	                <input type="radio" name="range" id="1m" value="month"> One month<br>
-  	                <p></p>
-  	                <p>Description keywords (one line per keyword):</p>
-  	                <textarea name="desc" id = "descbox" rows=3 cols=10></textarea>
-  	                </form>
-					<button type="submit" id="advSearch" class="btn" value="sval">Search!</button>
+          <div class="sidebar-nav sidebar-nav-fixed">
+            <!--Search Box-->
+            <form class="search search-indent">
+              <input type="text" id="search" class="search-query search-width" placeholder="Search...">
+            </form>
+            <!--Accordian menu-->
+            <div class="accordion" id="accordion2">
+              <div class="accordion-group">
+                <div class="accordion-heading">
+                  <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#advS">
+                    Advanced Search
+                  </a>
+                </div>
+                <div id="advS" class="accordion-body collapse">
+                  <div class="accordion-inner myitemscroll">
+                    <u1 id="options" class = "nav nav-list">
+                    	<form>
+                    	<input type="radio" name="lf" id = "lf1" value="lost"> Lost<br>
+                    	<input type="radio" name="lf" id = "lf2" value="found"> Found
+                    	</form>
+                    	<form>
+                      Name: <input type="text" id = "title" value="e.g. Black North Face Jacket"><br>
+                      Category: 
+                      <select multiple="multiple" name="cats" id ="cats">
+                      	<option value="Clothing">Clothing</option>
+                      	<option value="Wallet/Keys/Prox">Wallet/Keys/Prox</option>
+                      	<option value="Phone">Phone</option>
+                      	<option value="Charger">Charger</option>
+                      	<option value="Electronics">Electronics</option>
+                      	<option value="Accessories">Accessories</option>
+                      	<option value="Textbook">Textbook</option>
+                      	<option value="Backpack">Backpack</option>
+                      	<option value="Other">Other</option>
+                      </select>
+                    	Location: <input type="text" id = "loc" value="e.g. Frist"><br>
+    	                Date: <input type="date" id = "date"><br>
+    	                <p>Show results within...</p>
+    	                <input type="radio" name="range" id="1d" value="exact"> One day<br>
+    	                <input type="radio" name="range" id="fd" value="few"> A few days<br>
+    	                <input type="radio" name="range" id="1w" value="week"> One week<br>
+    	                <input type="radio" name="range" id="1m" value="month"> One month<br>
+    	                <p></p>
+    	                <p>Description keywords (one line per keyword):</p>
+    	                <textarea name="desc" id = "descbox" rows=3 cols=10></textarea>
+    	                </form>
+            					<button type="submit" id="advSearch" class="btn" value="sval">Search!</button>
 
-                  	<!-- drop down options -->
-                  </u1>
+                    	<!-- drop down options -->
+                    </u1>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div class="accordion-group">
-              <div class="accordion-heading">
-                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#myItems">
-                  My Items
-                </a>
-              </div>
-              <div id="myItems" class="accordion-body collapse">
-                <div class="accordion-inner" class="myitemscroll">
-                  {% if myitems %}
-                    {% for item in myitems %}
-                      <div class="masonryImage myitem">
-                        {% if item.picture %}
-                          <img src="..{{ item.picture.url }}" class="myitemtileim"/>
-                        {% endif %}
-                          <p class="name">{{ item.name }}    <span class="right-small-header">{{ item.location }}</span></p>
-      <hr class="break"/>
-                        {% if item.status == True %}
-                          <p class="location">Lost
-                        {% else %}
-                          <p class="location">Found
-                        {% endif %}
-                          : {{ item.event_date }}</p>
-                        <p class="location">{{ item.desc }}</p>
-                        <form action="" method="post">{% csrf_token %}
-                         <input type="hidden" value={{item.id}} name="resolved">
-                         <!--<input type="hidden" value="{{ item.id }}" name="id">-->
-                         <input type="submit" value="Resolved?">
-                       </form>
-                      </div>
-                    {% endfor %}
-                  {% elif must_log_in == True %}
-                    <p>Login to see your items!</p>
-                  {% else %}
-                    <p>You currently have no items.</p>
-                  {% endif %}
+              <div class="accordion-group">
+                <div class="accordion-heading">
+                  <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#myItems">
+                    My Items
+                  </a>
+                </div>
+                <div id="myItems" class="accordion-body collapse">
+                  <div class="accordion-inner myitemscroll">
+                    {% if myitems %}
+                      {% for item in myitems %}
+                        <div class="masonryImage myitem">
+                          {% if item.picture %}
+                            <img src="..{{ item.picture.url }}" class="myitemtileim"/>
+                          {% endif %}
+                            <p class="name">{{ item.name }}    <span class="right-small-header">{{ item.location }}</span></p>
+        <hr class="break"/>
+                          {% if item.status == True %}
+                            <p class="location">Lost
+                          {% else %}
+                            <p class="location">Found
+                          {% endif %}
+                            : {{ item.event_date }}</p>
+                          <p class="location">{{ item.desc }}</p>
+                          <form action="" method="post">{% csrf_token %}
+                           <input type="hidden" value={{item.id}} name="resolved">
+                           <!--<input type="hidden" value="{{ item.id }}" name="id">-->
+                           <input type="submit" value="Resolved?">
+                         </form>
+                        </div>
+                      {% endfor %}
+                    {% elif must_log_in == True %}
+                      <p>Login to see your items!</p>
+                    {% else %}
+                      <p>You currently have no items.</p>
+                    {% endif %}
+                  </div>
                 </div>
               </div>
-            </div>
 
 
 
-            <div class="accordion-group">
-              <div class="accordion-heading">
-                <a class="accordion-toggle" data-parent="#accordion2" href="#submitModal" data-toggle="modal">
-                  Submit <!-- Button to trigger modal -->
-                </a>
-              </div>
-
-                <!-- Modal -->
-              <div id="submitModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                  <h3 id="myModalLabel">Submit</h3>
+              <div class="accordion-group">
+                <div class="accordion-heading">
+                  <a class="accordion-toggle" data-parent="#accordion2" href="#submitModal" data-toggle="modal">
+                    Submit <!-- Button to trigger modal -->
+                  </a>
                 </div>
-                <div class="modal-body" style="max-height: 460px; margin:0; padding-top:0;overflow: hidden;">
-                  <form enctype="multipart/form-data" action="" method="post" style="height:500px">{% csrf_token %}
-                        <table>
+
+                
+
+
+                <div id="submit" class="accordion-body collapse">
+                  <!-- <div class="accordion-inner">
+                    <form enctype="multipart/form-data" action="" method="post">{% csrf_token %}
+                        <table style="padding-top:0;">
                             <input type="hidden" name="submit_request" value="submit_request">
                                 {% if form.errors.status %}
                                 <p style="color: red;">{{ errors.status }}</p>
                                 {% endif %}
+
                                 <ul class="nobullet">
                                     <li>{{ form.status.0 }}</li>
                                     <li>{{ form.status.1 }}</li>
                                 </ul>
                                 <p>Category: {{ form.category }}</p>
                                 <p>Location: {{ form.location }} </p>
-                                <p>Item: {{ form.name }}</p>
+                            <p>Item: {{ form.name }}</p>
                                 <p>Date: <br>{{ form.event_date }} </p>
                                 {% if form.errors.desc %}
                                 <p style="color: red;">{{ errors.desc }}</p>
@@ -169,44 +167,15 @@
                                 <p>Description: {{ form.desc }} </p>
                                 <p>Picture: {{ form.picture }} </p>
                         </table>
-                        <div class="modal-footer">
-                          <input class="btn btn-primary" type="submit" value="Submit">
-                        </div>
+                        <input type="submit" value="Submit">
                     </form>
+                  </div> -->
                 </div>
-              </div>
-
-
-              <div id="submit" class="accordion-body collapse">
-                <!-- <div class="accordion-inner">
-                  <form enctype="multipart/form-data" action="" method="post">{% csrf_token %}
-                      <table style="padding-top:0;">
-                          <input type="hidden" name="submit_request" value="submit_request">
-                              {% if form.errors.status %}
-                              <p style="color: red;">{{ errors.status }}</p>
-                              {% endif %}
-
-                              <ul class="nobullet">
-                                  <li>{{ form.status.0 }}</li>
-                                  <li>{{ form.status.1 }}</li>
-                              </ul>
-                              <p>Category: {{ form.category }}</p>
-                              <p>Location: {{ form.location }} </p>
-                          <p>Item: {{ form.name }}</p>
-                              <p>Date: <br>{{ form.event_date }} </p>
-                              {% if form.errors.desc %}
-                              <p style="color: red;">{{ errors.desc }}</p>
-                              {% endif %}
-                              <p>Description: {{ form.desc }} </p>
-                              <p>Picture: {{ form.picture }} </p>
-                      </table>
-                      <input type="submit" value="Submit">
-                  </form>
-                </div> -->
               </div>
             </div>
           </div>
         </div>
+
 
         <!--Body content-->
         <div class="span9" id="right">
@@ -227,5 +196,41 @@
 
 
     <script src="{% static "bootstrap/js/bootstrap.min.js" %}"></script>
+
+  <!-- Modal - put it here so we can have a fixed sidebar and avoid the problem of the modal appearing behind the backdrop -->
+  <div id="submitModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      <h3 id="myModalLabel">Submit</h3>
+    </div>
+    <div class="modal-body" style="max-height: 460px; margin:0; padding-top:0;overflow: hidden;">
+      <form enctype="multipart/form-data" action="" method="post" style="height:500px">{% csrf_token %}
+            <table>
+                <input type="hidden" name="submit_request" value="submit_request">
+                    {% if form.errors.status %}
+                    <p style="color: red;">{{ errors.status }}</p>
+                    {% endif %}
+                    <ul class="nobullet">
+                        <li>{{ form.status.0 }}</li>
+                        <li>{{ form.status.1 }}</li>
+                    </ul>
+                    <p>Category: {{ form.category }}</p>
+                    <p>Location: {{ form.location }} </p>
+                    <p>Item: {{ form.name }}</p>
+                    <p>Date: <br>{{ form.event_date }} </p>
+                    {% if form.errors.desc %}
+                    <p style="color: red;">{{ errors.desc }}</p>
+                    {% endif %}
+                    <p>Description: {{ form.desc }} </p>
+                    <p>Picture: {{ form.picture }} </p>
+            </table>
+            <div class="modal-footer">
+              <input class="btn btn-primary" type="submit" value="Submit">
+            </div>
+        </form>
+    </div>
+  </div>
+
+
   </body>
 </html>
