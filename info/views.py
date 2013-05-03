@@ -145,13 +145,13 @@ def home(request):
             #queryitem.claimed = True
             #queryitem.save()
             if status == True:
-                message = 'Your lost item %s was recently found on the Princeton Lost and Found app by %s. ' % (queryitem.desc, u)
+                message = 'Your lost item %s was recently found on the Princeton Lost and Found app by %s. ' % (queryitem.name, u)
                 message += 'Please get in touch with him/her to work out the logistics of returning your item.'
                 recipients = [ queryitem.student.email ]
                 send_mail('Your Item was Found!', message, 'princetonlostandfound@gmail.com', recipients)
                 context['options'] = 1
             else:
-                message = 'The item you found (%s) was recently claimed on the Princeton Lost and Found app by %s. ' % (queryitem.desc, u)
+                message = 'The item you found (%s) was recently claimed on the Princeton Lost and Found app by %s. ' % (queryitem.name, u)
                 message += 'Please get in touch with him/her to work out the logistics of returning the item.'
                 recipients = [ queryitem.student.email ]
                 send_mail('An Item You Found was Claimed', message, 'princetonlostandfound@gmail.com', recipients)

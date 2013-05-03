@@ -108,7 +108,7 @@
                             <img src="..{{ item.picture.url }}" class="myitemtileim"/>
                           {% endif %}
                             <p class="name">{{ item.name }}    <span class="right-small-header">{{ item.location }}</span></p>
-        <hr class="break"/>
+                          <hr class="break"/>
                           {% if item.status == True %}
                             <p class="location">Lost
                           {% else %}
@@ -133,16 +133,12 @@
               </div>
 
 
-
               <div class="accordion-group">
                 <div class="accordion-heading">
                   <a class="accordion-toggle" data-parent="#accordion2" href="#submitModal" data-toggle="modal">
                     Submit <!-- Button to trigger modal -->
                   </a>
                 </div>
-
-                
-
 
                 <div id="submit" class="accordion-body collapse">
                   <!-- <div class="accordion-inner">
@@ -186,15 +182,6 @@
       </div>
     </div>
 
-    <div id="footer" style="width:20%;">
-      <div class="navbar navbar-fixed-bottom footer-specs">
-        <p class="muted foot">© Princeton USG 2013, a CoS 333 Project</p>
-		<p class="muted foot">Design by Deric Cheng, Samuel Lichtenberg,</p>
-		<p class="muted foot">Matthew Goldsmith, and Dharit Tantiviramanond</p>
-      </div>
-    </div>
-
-
     <script src="{% static "bootstrap/js/bootstrap.min.js" %}"></script>
 
     <!-- Modal - put it here so we can have a fixed sidebar and avoid the problem of the modal appearing behind the backdrop -->
@@ -230,6 +217,10 @@
           </form>
       </div>
     </div>
+
+
+
+
 
 
   </body>

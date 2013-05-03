@@ -1,0 +1,28 @@
+div id="footer">
+                <div class="navbar navbar-fixed-bottom footer-specs">
+                  <p class="muted foot">© Princeton USG 2013, a CoS 333 Project</p>
+              <p class="muted foot">Design by Deric Cheng, Samuel Lichtenberg,</p>
+              <p class="muted foot">Matthew Goldsmith, and Dharit Tantiviramanond</p>
+                </div>
+              </div>
+
+
+                      <!-- Modal -->
+    <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h3 id="myModalLabel">Confirmation</h3>
+        </div>
+        <div class="modal-body">
+          <p>This will send an email to the poster of this item. Are you sure you wish to continue?</p>
+        </div>
+        <div class="modal-footer">
+          <button class="btn" data-dismiss="modal" aria-hidden="true">No</button>
+
+          <form action="" method="post" style="padding:0; margin:0;">{% csrf_token %}
+          <input type="hidden" value="{{ item.id }}" name="identity">
+          <button class="btn btn-primary" type="submit">Send dat email!</button>
+          </form>
+
+        </div>
+      </div>
