@@ -26,3 +26,65 @@ div id="footer">
 
         </div>
       </div>
+
+
+
+          /*$('.masonryImage').each(function() {
+            if ($(this).is(":contains('" + input + "')")) {
+                $(this).removeClass('shown');
+            }
+          });*/
+
+
+
+      /* $search.keypress(function(){
+        alert("blah");
+        if($(this).val()===''){
+          $container.isotope({ 
+  
+          });
+        } 
+      }); */
+
+
+
+      ":contains('" + input.toLowerCase() + "')")
+
+
+
+
+        function searchFunction(input) {
+    var count = 0;
+    $('.masonryImage').each(function() {
+      if ($(this).is(function() {
+        return stringYouHave.match(/^string:([0-9]+)$/);
+      }) {
+        $(this).addClass('shown');
+        count++;
+      }
+    });
+    if (count === 0) {
+      alert("No items match your search criteria.");
+    }
+    else {
+      $container.isotope({ filter: ".shown"});
+      $('.masonryImage').each(function() {
+        if ($(this).is(":contains('" + input + "')")) {
+          $(this).removeClass('shown');
+        }
+      });
+    }
+  };
+
+
+  
+ <script>
+   $('#right').imagesLoaded( function() {
+    var $but = $('.btn.btn-mini');
+    $but.click( function() {
+      $('.modal-footer.claiming #id').val(this.value);
+      $('.modal-footer.claiming #status').val(this.name);
+      $('#claimModal').modal("show");
+    })
+  });
+ </script>

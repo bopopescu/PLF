@@ -218,7 +218,7 @@
       </div>
     </div>
 
-    <!-- Modal -->
+    <!-- e-mail confirmation modal -->
     <div id="claimModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -228,11 +228,10 @@
           <p>This will send an email to the poster of this item. Are you sure you wish to continue?</p>
         </div>
         <div class="modal-footer claiming">
-          <button class="btn" data-dismiss="modal" aria-hidden="true">No</button>
-
           <form action="" method="post" style="padding:0; margin:0;">{% csrf_token %}
           <input type="hidden" id="status" value="" name="status">
           <input type="hidden" id="id" value="" name="identity">
+          <button class="btn" data-dismiss="modal" aria-hidden="true">No</button>
           <button class="btn btn-primary" type="submit">Send dat email!</button>
           </form>
 
