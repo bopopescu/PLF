@@ -315,7 +315,7 @@ locMappings[5] = "Frist\nFrist Campus Center\nFrist Center";
             if (locY && item.fields.location!=location) return true;
 
             /* date handling */
-            
+            if (item.fields.event_date==null) return true;
             if ((nd && dateY) && (item.fields.event_date!=date)) return true;
             if ((fd || nw) || nm) {
               if (dateY) {
@@ -339,6 +339,9 @@ locMappings[5] = "Frist\nFrist Campus Center\nFrist Center";
                   return true;
                 }
                 if (nm && (eMonth != fMonth)) {
+                  return true;
+                }
+                if (eYear != fYear) {
                   return true;
                 }
               }
