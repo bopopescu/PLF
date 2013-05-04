@@ -25,7 +25,7 @@ def login(request):
         r = urllib.urlopen(val_url).readlines() # returns 2 lines
         if len(r) == 2 and re.match("yes", r[0]) != None:
             # Set netid for this session. Must have sessions enabled in settings.py
-            request.session['netid'] = r[1].strip() 
+            request.session['netid'] = r[1].strip()
             request.session['auth'] = True
             # Redirect to homepage
             return HttpResponseRedirect("/home/")
