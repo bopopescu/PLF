@@ -223,8 +223,8 @@
             alert('dateY' + dateY);
             alert(lost + 'field:' + item.fields.status)*/
 
-            if (lost && item.fields.status!=lost) {return true;}
-            if (found && item.fields.status==found) {return true;}
+            if (lost && !item.fields.status) {return true;}
+            if (found && item.fields.status) {return true;}
             if (catY && item.fields.category!=category[0]) return true;
             if (nameY && item.fields.name!=name) return true;
             if (dateY && item.fields.event_date!=date) return true;
