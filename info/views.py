@@ -41,6 +41,9 @@ def login(request):
         login_url = cas_url + 'login?service=' + service_url
         return HttpResponseRedirect(login_url)
 
+def logout(request):
+    request.session.flush()
+    return HttpResponseRedirect('https://fed.princeton.edu/cas/logout')
 
 def home(request):
     #if 'auth' not in request.session:
