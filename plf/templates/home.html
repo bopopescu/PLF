@@ -369,6 +369,10 @@ locMappings[5] = "Frist\nFrist Campus Center\nFrist Center";
               });
               if (find==false) { return true;}
             }
+
+          /* I don't know why this needs to be here */
+
+          });
             $('.masonryImage').each(function() {
               if ($(this).attr("value")==item.pk) {
                 $(this).addClass('shown');
@@ -382,12 +386,7 @@ locMappings[5] = "Frist\nFrist Campus Center\nFrist Center";
                 $(this).removeClass('shown');
               }
             });
-          /* I don't know why this needs to be here */
 
-          });
-            if (count === 0) {
-               alert("No items match your search criteria.");
-            }
         });
         return false;
       });
