@@ -59,6 +59,53 @@
     return jQuery(elem).text().toUpperCase().indexOf(arg.toUpperCase()) >= 0;
     };
  });
+
+ function monthToDays(month) {
+  var d;
+  switch(month) {
+    case 1:
+      d = 0;
+      break;
+    case 2:
+      d = 31;
+      break;
+    case 3:
+      d = 31+28;
+      break;
+    case 4:
+      d = 31+28+31;
+      break;
+    case 5:
+      d = 31+28+31+30;
+      break;
+    case 6:
+      d = 31+28+31+30+31;
+      break;
+    case 7:
+      d = 31+28+31+30+31+30;
+      break;
+    case 8:
+      d = 31+28+31+30+31+30+31;
+      break;
+    case 9:
+      d = 31+28+31+30+31+30+31+31;
+      break;
+    case 10:
+      d = 31+28+31+30+31+30+31+31+30;
+      break;
+    case 11:
+      d = 31+28+31+30+31+30+31+31+30+31;
+      break;
+    case 12:
+      d = 31+28+31+30+31+30+31+31+30+31+30;
+      break;
+    default:
+      d = 0;
+      break;
+  }
+  return d;
+}
+
  $(function() {
    var $container = $('#right');
 
@@ -189,13 +236,17 @@
         var descbox = $('#descbox').val();
         var lost = $('#lf1').is(":checked");
         var found = $('#lf2').is(":checked");
+        var nd = $('#1d').is(":checked");
+        var fd = $('#fd').is(":checked");
+        var nw = $('#1w').is(":checked");
+        var nm = $('#1m').is(":checked");
         var locY;
         var nameY;
         var catY; 
         var dateY;
         var descY;
 
-        if (location!=="e.g. Frist") {
+        if (location!="e.g. Frist") {
           locY = true;
         }
         else locY = false;
@@ -211,6 +262,7 @@
         var ret;
         var count = 0;
         var keywords = descbox.split("\n");
+        var namewords = name.split(" ");
           
         $.getJSON("../data/", function(ret){
           $.each(ret, function(index, item){
@@ -224,41 +276,81 @@
 
             if (lost && !item.fields.status) {return true;}
             if (found && item.fields.status) {return true;}
+
             if (catY && item.fields.category!=category[0]) return true;
-            if (nameY && item.fields.name!=name) return true;
-            if (dateY && item.fields.event_date!=date) return true;
             if (locY && item.fields.location!=location) return true;
 
-            if (descY) {
-              var found = false;
-              $.each(keywords, function(index, element){
-                var blah = item.fields.desc.toLowerCase();
-                if (blah.indexOf(element) >= 0) {
-                  found = true;
+            /* date handling */
+            
+            if ((nd && dateY) && (item.fields.event_date!=date)) return true;
+            if ((fd || nw) || nm) {
+              if (dateY) {
+                /* e is event, f is form input - 10 is to prevent octal */
+                var eDay = parseInt(item.fields.event_date.substring(8, 10), 10);
+                var fDay = parseInt(date.substring(8, 10), 10);
+                var eMonth = parseInt(item.fields.event_date.substring(5, 7), 10);
+                var fMonth = parseInt(date.substring(5, 7), 10);
+                var eYear = parseInt(item.fields.event_date.substring(0, 4), 10);
+                var fYear = parseInt(date.substring(0, 4), 10);
+                /* convert date to easier format */
+                var eDayVal = monthToDays(eMonth) + eDay; //+ eYear*365;
+                var fDayVal = monthToDays(fMonth) + fDay; // + fYear*365;
+
+                var dist = Math.abs(fDayVal-eDayVal);
+                if (dist > 365) dist = dist - 365; // seems to work
+                if (fd && (dist > 3)) {
+                  return true;
                 }
-              });
-              if (found==false) { return true;}
+                if (nw && (dist > 7)) {
+                  return true;
+                }
+                if (nm && (eMonth != fMonth)) {
+                  return true;
+                }
+              }
             }
 
+
+            if (nameY) {
+              var find = false;
+              $.each(namewords, function(index, element){
+                var blah = item.fields.name.toLowerCase();
+                if (blah.indexOf(element.toLowerCase()) >= 0) {
+                  find = true;
+                }
+              });
+              if (find==false) { return true;}
+            }
+
+            if (descY) {
+              var find = false;
+              $.each(keywords, function(index, element){
+                var blah = item.fields.desc.toLowerCase();
+                if (blah.indexOf(element.toLowerCase()) >= 0) {
+                  find = true;
+                }
+              });
+              if (find==false) { return true;}
+            }
             $('.masonryImage').each(function() {
               if ($(this).attr("value")==item.pk) {
                 $(this).addClass('shown');
                   count++;
               }
             });
-          });
-          if (count === 0) {
-               alert("No items match your search criteria.");
-          }
-          else {
-             $container.isotope({ filter: ".shown"});
+            $container.isotope({ filter: ".shown"});
              /* reset */
-              $('.masonryImage').each(function() {
-                if ($(this).hasClass('shown')) {
+            $('.masonryImage').each(function() {
+              if ($(this).hasClass('shown')) {
                 $(this).removeClass('shown');
-                }
-              });
-          }
+              }
+            });
+          /* I don't know why this needs to be here */
+
+          });
+            if (count === 0) {
+               alert("No items match your search criteria.");
+            }
         });
         return false;
       });
