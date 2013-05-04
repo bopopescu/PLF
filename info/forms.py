@@ -4,8 +4,6 @@ from django.contrib.admin.widgets import AdminDateWidget
 from django.forms import extras
 import PIL
 import datetime
-from django.utils.translation import ugettext_lazy as _
-from html5.forms import fields as five_fields,widgets as five_widgets
 
 STATUS=[('Lost', 'Lost'), ('Found', 'Found')]
 CATEGORIES = (('Clothing', 'Clothing'), ('Wallet/Keys/Prox', 'Wallet/Keys/Prox'), ('Phone', 'Phone'), ('Charger', 'Charger'), ('Electronics', 'Electronics'), ('Accessories', 'Accessories'), ('Textbook', 'Textbook'), ('Backpack', 'Backpack'), ('Other', 'Other'))
