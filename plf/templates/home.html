@@ -371,14 +371,15 @@ locMappings[5] = "Frist\nFrist Campus Center\nFrist Center";
             }
 
           /* I don't know why this needs to be here */
-
-          });
-            $('.masonryImage').each(function() {
+          $('.masonryImage').each(function() {
               if ($(this).attr("value")==item.pk) {
                 $(this).addClass('shown');
                   count++;
               }
             });
+
+
+          });
             $container.isotope({ filter: ".shown"});
              /* reset */
             $('.masonryImage').each(function() {
