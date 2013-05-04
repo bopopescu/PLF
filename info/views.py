@@ -34,7 +34,7 @@ def login(request):
             return HttpResponse("Failed!")
     else:
         # Go to CAS login page to authenticate
-        service_url = re.sub(r'127.0.0.1', 'localhost', service_url)
+        # service_url = re.sub(r'127.0.0.1', 'localhost', service_url)
         # above line to make work on localhost
         login_url = cas_url + 'login?service=' + service_url
         return HttpResponseRedirect(login_url)

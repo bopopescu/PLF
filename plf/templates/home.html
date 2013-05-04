@@ -214,7 +214,8 @@
           
         $.getJSON("../data/", function(ret){
           $.each(ret, function(index, item){
-            if (item.fields.status!=lost) {return true;}
+            if (lost && item.fields.status!=lost) {return true;}
+            if (found && item.fields.status!=found) {return true;}
             if (catY && item.fields.category!=category[0]) return false;
             if (nameY && item.fields.name!=name) return true;
             if (dateY && item.fields.event_date!=date) return true;
