@@ -54,11 +54,21 @@
  </script>
 
  <script>
+ /* case insensitivity */
  jQuery.expr[":"].Contains = jQuery.expr.createPseudo(function(arg) {
     return function( elem ) {
     return jQuery(elem).text().toUpperCase().indexOf(arg.toUpperCase()) >= 0;
     };
  });
+
+/* create location mappings -- e.g. "Forbes College" == "Forbes" */
+var locMappings = new Array();
+locMappings[0] = "Forbes\nForbes College\nForbes Main Inn\nForbes Annex\nForbes Addition";
+locMappings[1] = "Rocky\nRockefeller\nRocky College\nRockefeller College";
+locMappings[2] = "Whitman\nWhitman College";
+locMappings[3] = "Wilson\nWilson College";
+locMappings[4] = "Firestone\nFirestone Library";
+locMappings[5] = "Frist\nFrist Campus Center\nFrist Center";
 
  function monthToDays(month) {
   var d;
@@ -195,12 +205,36 @@
               }
             });
           });*/
+          /* see if input matches an extant mapping */
+          var x;
+          var matched = 0;
+          for (var i = 0; i < locMappings.length; i++) {
+            x = locMappings[i].split('\n');
+            for (var j = 0; j < x.length; j++) {
+              if (input.toLowerCase() == x[j].toLowerCase()) {
+                matched = 1;
+              }
+            }
+            if (matched == 1) break;
+          }
+          /* x is now mapping that matches */
 
           $('.masonryImage').each(function() {
+            if (matched == 1) {
+              for (var k = 0; k < x.length; k++) {
+                var test = x[k].toLowerCase();
+                if ($(this).is(":Contains('" + test + "')")) {
+                  $(this).addClass('shown');
+                  count++;
+                }
+              }
+            }
+            else {
               if ($(this).is(":Contains('" + input.toLowerCase() + "')")) {
                 $(this).addClass('shown');
                 count++;
               }
+            }
             });
             if (count === 0) {
                alert("No items match your search criteria.");
