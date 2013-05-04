@@ -18,7 +18,11 @@
     {% else %}
       <p class="location">Found
     {% endif %}
-      : {{ item.event_date }}</p>
+    {% if item.event_date %}
+      : {{ item.event_date }}
+    {% endif %}
+    </p>
+
     <p class="location">{{ item.desc }}</p>
 
    {% if item.status == True %}
