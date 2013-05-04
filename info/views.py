@@ -33,6 +33,8 @@ def login(request):
             # Fraudulent ticket
             return HttpResponse("Failed!")
     else:
+        request.session['netid'] = ''
+        request.session['auth'] = False
         # Go to CAS login page to authenticate
         # service_url = re.sub(r'127.0.0.1', 'localhost', service_url)
         # above line to make work on localhost
@@ -51,11 +53,11 @@ def home(request):
     form = SubmitForm(request.POST, request.FILES)
     context['form'] = form
 
-    if 'auth' not in request.session:
+    if 'auth' not in request.session or request.session['auth'] is False:
         context['must_log_in'] = True
 
     # My Items tab
-    if 'auth' in request.session:
+    if 'auth' in request.session and request.session['auth'] is True:
         # get netid, look up in database, return items
         myitems = Item.objects.filter(student__email__exact=request.session['netid'] + '@princeton.edu')
         context['myitems'] = myitems
@@ -66,7 +68,7 @@ def home(request):
             return login(request)
 
         # Users can't claim items without logging in
-        if 'auth' not in request.session:
+        if 'netid' not in request.session:
             return login(request)
 
         # Resolve items
