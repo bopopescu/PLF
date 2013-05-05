@@ -84,3 +84,12 @@
 .shown {
 
 }
+
+.blocky {
+  min-width:200px!important;
+}
+
+.desc {
+  width: 200px;
+  word-wrap: break-word;
+}

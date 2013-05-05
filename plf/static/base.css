@@ -57,10 +57,10 @@ body {
 	list-style-type: none;
 }
 
-.right-small-header {
+.small-header {
 	font-size: 12px;
 	padding-top: 2px;
-	float: right;
+	float: left;
 }
 
 .myitemscroll {
@@ -91,3 +91,8 @@ body {
  .filters {
  	padding-left: 6.5%;
  }
+
+ .popover-content {
+   width: 160px !important;
+   position: relative;
+}

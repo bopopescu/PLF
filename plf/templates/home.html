@@ -4,38 +4,45 @@
 
   {% for item in items %}
     {% if item.status == True %}
-      <div class="masonryImage lost" value={{ item.id }}>
+      <div class="masonryImage lost blocky" value={{ item.id }}>
     {% else %}
-      <div class="masonryImage found" value={{ item.id }}>
+      <div class="masonryImage found blocky" value={{ item.id }}>
     {% endif %}
     {% if item.picture %}
       <img src="..{{ item.picture.url }}" class="tileim"/>
     {% endif %}
-      <p class="name">{{ item.name  }}   <span class="right-small-header">{{ item.location }}</span></p>
+      <p class="name">{{ item.name  }}</p>
+      <p class="small-header">{{ item.location }}</p>
       <hr class="break"/>
     {% if item.status == True %}
       <p class="location">Lost
     {% else %}
       <p class="location">Found
     {% endif %}
+<<<<<<< HEAD
     {% if item.event_date %}
       : {{ item.event_date }}
     {% endif %}
     </p>
 
     <p class="location">{{ item.desc }}</p>
+=======
+      : {{ item.event_date }}</p>
+    <div class="desc">
+      <p class="location desc">{{ item.desc }}</p>
+    </div>
+>>>>>>> stuff
 
    {% if item.status == True %}
-      <button class="btn btn-mini" value="{{ item.id }}" name="{{ item.status }}">I Found This!</button>
+      <button class="btn btn-mini pop" value="{{ item.id }}" name="{{ item.status }}">I Found This!</button>
    {% else %}
-      <button class="btn btn-mini" value="{{ item.id }}" name="{{ item.status }}">This is Mine!</button>
+      <button class="btn btn-mini pop" value="{{ item.id }}" name="{{ item.status }}">This is Mine!</button>
    {% endif %}
   </div>
  {% endfor %}
 
  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
  <script src="../media/jquery.isotope.min.js"></script>
-
  
  <script>
   $('#right').imagesLoaded( function() {
@@ -46,14 +53,13 @@
       $('#claimModal').modal("show");
     })
 
-    $(function () {
-      var $submit = $('#submitPopover');
-      $submit.tooltip();
-      $submit.tooltip('show');
-      $submit.popover();
-      $submit.popover({ title: 'test', placement: 'right', trigger: 'click', content: 'YAYYYY'});
-    }); 
+    {% if errors %}
+      $('#submitModal').modal("show");
+    {% endif %}
 
+    $('.btn.btn-mini.pop').popover({ placement: 'right', trigger: 'hover', content: 'Login to claim items'});
+    $('#myItemsPopover').popover({ placement: 'right', trigger: 'hover', content: 'Login to view your items'});
+    $('#submitPopover').popover({ placement: 'right', trigger: 'click', content: 'Login to submit'});
   });
  </script>
 

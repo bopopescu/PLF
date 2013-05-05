@@ -97,7 +97,11 @@
 
               <div class="accordion-group">
                 <div class="accordion-heading">
-                  <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#myItems">
+                  {% if must_log_in == True %}
+                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#myItems" id="myItemsPopover">
+                  {% else %}
+                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#myItems">
+                  {% endif %}
                     My Items
                   </a>
                 </div>
@@ -105,11 +109,12 @@
                   <div class="accordion-inner myitemscroll">
                     {% if myitems %}
                       {% for item in myitems %}
-                        <div class="masonryImage myitem">
+                        <div class="masonryImage">
                           {% if item.picture %}
                             <img src="..{{ item.picture.url }}" class="myitemtileim"/>
                           {% endif %}
-                            <p class="name">{{ item.name }}    <span class="right-small-header">{{ item.location }}</span></p>
+                            <p class="name">{{ item.name }}</p>
+                            <p class="small-header">{{ item.location }}</p>
                           <hr class="break"/>
                           {% if item.status == True %}
                             <p class="location">Lost
@@ -121,7 +126,7 @@
                           <form action="" method="post">{% csrf_token %}
                            <input type="hidden" value={{item.id}} name="resolved">
                            <!--<input type="hidden" value="{{ item.id }}" name="id">-->
-                           <input type="submit" value="Resolved?">
+                           <input type="submit" class="btn btn-mini" value="Resolved?">
                          </form>
                         </div>
                       {% endfor %}
@@ -138,7 +143,7 @@
               <div class="accordion-group">
                 <div class="accordion-heading">
                   {% if must_log_in == True %}
-                  <a class="accordion-toggle submit" id="submitPopover" data-parent="#accordion2" data-toggle="popover">Submitaaa</a>
+                  <a class="accordion-toggle submit" id="submitPopover" data-parent="#accordion2" data-toggle="popover">Submit</a>
                   {% else %}
                   <a class="accordion-toggle" data-parent="#accordion2" href="#submitModal" data-toggle="modal">
                     Submit <!-- Button to trigger modal -->
@@ -168,7 +173,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
         <h3 id="myModalLabel">Submit</h3>
       </div>
-      <div class="modal-body" style="max-height: 460px; margin:0; padding-top:0;overflow: hidden;">
+      <div class="modal-body" style="{% if errors %} max-height: 510px; {% else %} max-height: 460px; {% endif %}margin:0; padding-top:0;overflow: hidden;">
         <form enctype="multipart/form-data" action="" method="post" style="height:500px">{% csrf_token %}
               <table>
                   <input type="hidden" name="submit_request" value="submit_request">
