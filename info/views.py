@@ -4,12 +4,18 @@ from django.template import RequestContext
 from info.models import Item, User
 from info.forms import SubmitForm
 import datetime
+from datetime import date
+from datetime import timedelta
 from django.core.mail import send_mail
 from django.core.context_processors import csrf
 from django.core import serializers
 from django.utils import simplejson
 import urllib, re
 import _ssl;_ssl.PROTOCOL_SSLv23 = _ssl.PROTOCOL_SSLv3
+
+def cleanCounts(): 
+    for user in User.objects.all():
+        user.count = 0
 
 
 def login(request):
@@ -46,6 +52,12 @@ def logout(request):
     return HttpResponseRedirect('https://fed.princeton.edu/cas/logout')
 
 def home(request):
+    if not 'lastDay' in globals():
+        global lastDay
+        lastDay = date.today()
+    if (date.today()-lastDay).days > 2:
+        lastDay=date.today()
+        cleanCounts()
     #if 'auth' not in request.session:
     #    return login(request)
     context = {}
@@ -109,6 +121,7 @@ def home(request):
                 ulist = User.objects.filter(email=em)#[0]
                 if not ulist:
                     u = User(email=em)
+                    u.count = 0
                     u.save()
                 else:
                     u = ulist[0]
@@ -143,15 +156,18 @@ def home(request):
                 u = User.objects.get(email=em)
             else:                # if user not in database 
                 u = User(email=em)
+                u.count = 0
                 u.save()
             queryuser = request.session['netid'] + '@princeton.edu'
             iden = request.POST.get('identity')
-            print iden
-            print status
+            u.count += 1
+            u.save()
             queryitem = Item.objects.get(id__icontains=iden)
             #queryitem.claimed = True
             #queryitem.save()
-            if status == True:
+            if (u.count > 3):
+                context['options'] = 3
+            elif status == True:
                 message = 'Your lost item %s was recently found on the Princeton Lost and Found app by %s. ' % (queryitem.name, u)
                 message += 'Please get in touch with him/her to work out the logistics of returning your item.'
                 recipients = [ queryitem.student.email ]

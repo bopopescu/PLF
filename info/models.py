@@ -6,6 +6,7 @@ import PIL
 class User(models.Model):
     email = models.EmailField()
     items = models.ManyToManyField('Item', null=True, blank=True)
+    count = models.IntegerField()
 
     def __unicode__(self):
         return u'%s' %(self.email)
@@ -23,4 +24,4 @@ class Item(models.Model):
     claimed = models.NullBooleanField(null=True, blank=True, default=False)
 
     def __unicode__(self):
-        return u'%s' % (self.category)
+        return u'%s' % (self.name)

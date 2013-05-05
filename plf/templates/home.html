@@ -79,6 +79,7 @@ locMappings[2] = "Whitman\nWhitman College";
 locMappings[3] = "Wilson\nWilson College";
 locMappings[4] = "Firestone\nFirestone Library";
 locMappings[5] = "Frist\nFrist Campus Center\nFrist Center";
+locMappings[6] = "Butler\nButler College";
 
  function monthToDays(month) {
   var d;
@@ -348,7 +349,7 @@ locMappings[5] = "Frist\nFrist Campus Center\nFrist Center";
                 if (nw && (dist > 7)) {
                   return true;
                 }
-                if (nm && (eMonth != fMonth)) {
+                if (nm && (dist > 30)) {
                   return true;
                 }
                 if (eYear != fYear) {
@@ -386,7 +387,7 @@ locMappings[5] = "Frist\nFrist Campus Center\nFrist Center";
                 $(this).addClass('shown');
                   count++;
               }
-            });
+           });
 
 
           });

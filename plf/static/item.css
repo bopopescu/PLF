@@ -42,6 +42,11 @@
           transition-property:         transform, opacity;
 }
 
+p {
+  max-width:250px;
+  word-wrap: break-word;
+}
+
 .masonryImage {
     border-style:solid;
     border-width:3px;
