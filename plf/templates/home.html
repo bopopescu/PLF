@@ -27,11 +27,15 @@
       <p class="location desc">{{ item.desc }}</p>
     </div>
 
-   {% if item.status == True %}
-      <button class="btn btn-mini pop" value="{{ item.id }}" name="{{ item.status }}">I Found This!</button>
-   {% else %}
-      <button class="btn btn-mini pop" value="{{ item.id }}" name="{{ item.status }}">This is Mine!</button>
-   {% endif %}
+    {% if must_log_in == True %}
+      <button class="btn btn-mini pop">Login to claim</button>
+    {% else %}
+      {% if item.status == True %}
+        <button class="btn btn-mini pop" value="{{ item.id }}" name="{{ item.status }}">I Found This!</button>
+      {% else %}
+        <button class="btn btn-mini pop" value="{{ item.id }}" name="{{ item.status }}">This is Mine!</button>
+      {% endif %}
+    {% endif %}
   </div>
  {% endfor %}
 
@@ -41,22 +45,7 @@
  <script>
   $('#right').imagesLoaded( function() {
 
-    {% if errors %}
-      $('#submitModal').modal("show");
-    {% endif %}
-
-    $('.btn.btn-mini.pop').popover({ placement: 'right', trigger: 'hover', content: 'Login to claim items'});
-    $('#myItemsPopover').popover({ placement: 'right', trigger: 'hover', content: 'Login to view your items'});
-    $('#submitPopover').popover({ placement: 'right', trigger: 'click', content: 'Login to submit'});
-
-    {% if must_log_in == False %}
-    var $but = $('.btn.btn-mini');
-    $but.click( function() {
-      $('.modal-footer.claiming #id').val(this.value);
-      $('.modal-footer.claiming #status').val(this.name);
-      $('#claimModal').modal("show");
-      });
-    {% endif %}
+    
   });
  </script>
 
@@ -128,6 +117,28 @@ locMappings[6] = "Butler\nButler College";
    var $container = $('#right');
 
    $container.imagesLoaded( function() {
+
+
+
+
+    {% if errors %}
+      $('#submitModal').modal("show");
+    {% endif %}
+
+    // $('.btn.btn-mini.pop').popover({ placement: 'right', trigger: 'hover', content: 'Login to claim items'});
+    // $('#myItemsPopover').popover({ placement: 'right', trigger: 'hover', content: 'Login to view your items'});
+    // $('#submitPopover').popover({ placement: 'right', trigger: 'click', content: 'Login to submit'});
+
+    {% if must_log_in == False %}
+    var $but = $('.btn.btn-mini');
+    $but.click( function() {
+      $('.modal-footer.claiming #id').val(this.value);
+      $('.modal-footer.claiming #status').val(this.name);
+      $('#claimModal').modal("show");
+      });
+    {% endif %}
+
+    
       var $location = $('#loc');
       original_loc = $location.val();
       $location.focus(function(){
