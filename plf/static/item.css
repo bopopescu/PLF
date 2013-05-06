@@ -15,7 +15,6 @@
 }
 
 
-
 .isotope,
 .isotope .isotope-item {
   /* change duration value to whatever you like */
@@ -40,11 +39,6 @@
       -ms-transition-property:     -ms-transform, opacity;
        -o-transition-property:      -o-transform, opacity;
           transition-property:         transform, opacity;
-}
-
-p {
-  max-width:250px;
-  word-wrap: break-word;
 }
 
 .masonryImage {
