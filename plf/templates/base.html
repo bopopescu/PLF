@@ -171,14 +171,10 @@
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
         <h3 id="myModalLabel">Submit</h3>
       </div>
-      <div class="modal-body" style="{% if errors %} max-height: 510px; {% else %} max-height: 460px; {% endif %}margin:0; padding-top:0;overflow: hidden;">
+      <div class="modal-body" style="max-height: 450px; margin:0; padding-top:0;overflow: hidden;">
         <form enctype="multipart/form-data" action="" method="post" style="height:500px">{% csrf_token %}
           <input type="hidden" name="submit_request" value="submit_request">
-<<<<<<< HEAD
-          <div style="width:50%; float: right;">
-=======
           <div style="width:50%; float: right; margin-top: 13px">
->>>>>>> erm
             {% if form.errors.status %}
             <p style="color: red;">{{ errors.status }}</p>
             {% endif %}
@@ -191,11 +187,7 @@
           </div>
           <div style="clear: both;">
           </div>
-<<<<<<< HEAD
-          <div style="padding-left: 25px">
-=======
           <div style="padding-left: 25px;">
->>>>>>> erm
             <p>Category: {{ form.category }}</p>
             <p>Location: <span style="padding-left: 2px;"></span>{{ form.location }} </p>
             <p>Item: <span style="padding-left: 29px;"></span>{{ form.name }}</p>
