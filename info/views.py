@@ -148,9 +148,11 @@ def home(request):
                 context['errors'] = errors
                 cd = form.cleaned_data
                 if not request.POST.get('status', ''):
-                    errors['status'] = "Enter a status"
+                    errors['status'] = "This field is required"
                 if not request.POST.get('desc', ''):
-                    errors['desc'] = "Enter a description"
+                    errors['desc'] = "This field is required"
+                if not request.POST.get('name', ''):
+                    errors['name'] = "This field is required"
 
                 return render_to_response('home.html', context)#, context_instance=RequestContext(request))
 
