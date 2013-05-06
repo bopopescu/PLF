@@ -8,7 +8,6 @@
     <!-- Bootstrap -->
     <link href="{% static "bootstrap/css/bootstrap.min.css" %}" rel="stylesheet" media="screen">
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 
   </head>
   <body>
@@ -170,17 +169,18 @@
     <div id="submitModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h3 id="myModalLabel">Submit</h3>
+        <h3 id="myModalLabel">Submit an Item</h3>
+        <h5>* Required Fields</h5>
       </div>
-      <div class="modal-body" style="max-height: 450px; margin:0; padding-top:0;overflow: hidden;">
+      <div class="modal-body" style="max-height: 410px; margin:0; padding-top:0;overflow: hidden;">
         <form enctype="multipart/form-data" action="" method="post" style="height:500px">{% csrf_token %}
           <input type="hidden" name="submit_request" value="submit_request">
-          <div style="width:50%; float: right; margin-top: 13px">
+          <div style="width:30%; float: right; margin-top: 6px">
             {% if form.errors.status %}
             <p style="color: red;">{{ errors.status }}</p>
             {% endif %}
           </div>
-          <div style="width:50%; float: left;">
+          <div style="width:70%; float: left;">
             <ul class="nobullet">
                 <li>{{ form.status.0 }}</li>
                 <li>{{ form.status.1 }}</li>
@@ -189,22 +189,30 @@
           <div style="clear: both;">
           </div>
           <div style="padding-left: 25px;">
-            <p>Category: {{ form.category }}</p>
-            <p>Location: <span style="padding-left: 2px;"></span>{{ form.location }} </p>
-            <p>Item: <span style="padding-left: 29px;"></span>{{ form.name }}</p>
-            <p>Date: <br>{{ form.event_date }} </p>
+            <p>*Category: <span style="padding-left: 43px;"></span>{{ form.category }}</p>
+            <p>Location: <span style="padding-left: 54px;"></span>{{ form.location }} </p>
+            <div style="width:30%; float: right; margin-top: 4px;">
+              {% if form.errors.status %}
+              <p style="color: red;">{{ errors.name }}</p>
+              {% endif %}
+            </div>
+            <div style="width:70%; float: left;">
+              <p class="marg">*Item: <span style="padding-left: 72px;"></span>{{ form.name }} </p>
+            </div>
+            <div style="clear: both;">
+            <p>Approx. Date: <span style="padding-left: 23px;"></span>{{ form.event_date }} </p>
             
-            <div style="width:50%; float: right; margin-top: 25px;">
+            <div style="width:30%; float: right; margin-top: 13px;">
               {% if form.errors.status %}
               <p style="color: red;">{{ errors.desc }}</p>
               {% endif %}
             </div>
-            <div style="width:50%; float: left;">
-              <p class="marg">Description: {{ form.desc }} </p>
+            <div style="width:70%; float: left;">
+              <p class="marg">*Description: <span style="padding-left: 25px;"></span>{{ form.desc }} </p>
             </div>
             <div style="clear: both;">
             </div>
-            <p>Picture: {{ form.picture }} </p>
+            <p>Picture: <span style="padding-left: 63px;"></span>{{ form.picture }} </p>
             <div class="modal-footer">
               <input class="btn btn-primary" type="submit" value="Submit">
             </div>
