@@ -174,13 +174,19 @@
       <div class="modal-body" style="{% if errors %} max-height: 510px; {% else %} max-height: 460px; {% endif %}margin:0; padding-top:0;overflow: hidden;">
         <form enctype="multipart/form-data" action="" method="post" style="height:500px">{% csrf_token %}
           <input type="hidden" name="submit_request" value="submit_request">
-          {% if form.errors.status %}
-          <p style="color: red;">{{ errors.status }}</p>
-          {% endif %}
-          <ul class="nobullet">
-              <li>{{ form.status.0 }}</li>
-              <li>{{ form.status.1 }}</li>
-          </ul>
+          <div style="width:50%; float: right;">
+            {% if form.errors.status %}
+            <p style="color: red;">{{ errors.status }}</p>
+            {% endif %}
+          </div>
+          <div style="width:50%; float: left;">
+            <ul class="nobullet">
+                <li>{{ form.status.0 }}</li>
+                <li>{{ form.status.1 }}</li>
+            </ul>
+          </div>
+          <div style="clear: both;">
+          </div>
           <div style="padding-left: 25px">
             <p>Category: {{ form.category }}</p>
             <p>Location: <span style="padding-left: 2px;"></span>{{ form.location }} </p>
