@@ -91,10 +91,14 @@ p {
 }
 
 .blocky {
-  min-width:200px!important;
+  min-width:230px!important;
+}
+
+.low-priority {
+  z-index: 1 !important;
 }
 
 .desc {
-  width: 200px;
+  width: 230px;
   word-wrap: break-word;
 }

@@ -57,13 +57,12 @@
                 </div>
                 <div id="advS" class="accordion-body collapse">
                   <div class="accordion-inner myitemscroll">
-                    <u1 id="options" class = "nav nav-list">
-                    	<form>
+                    <p>
+                    	<form style="margin-top: 0px !important;">
                     	<input type="radio" name="lf" id = "lf1" value="lost"> Lost<br>
                     	<input type="radio" name="lf" id = "lf2" value="found"> Found
-                    	</form>
-                    	<form>
-                      Name: <input type="text" id = "title" value="e.g. Black North Face Jacket"><br>
+                      <br style="padding-bottom: 50px;">
+                      <div style="padding-top: 7px;">Name: <input type="text" id = "title" value="e.g. Black North Face Jacket"></div>
                       Category: 
                       <select multiple="multiple" name="cats" id ="cats">
                       	<option value="Clothing">Clothing</option>
@@ -78,27 +77,24 @@
                       </select>
                     	Location: <input type="text" id = "loc" value="e.g. Frist"><br>
     	                Date: <input type="date" id = "date"><br>
-    	                <p>Show results within...</p>
+    	                Show results within...<br>
     	                <input type="radio" name="range" id="1d" value="exact"> One day<br>
     	                <input type="radio" name="range" id="fd" value="few"> A few days<br>
     	                <input type="radio" name="range" id="1w" value="week"> One week<br>
     	                <input type="radio" name="range" id="1m" value="month"> One month<br>
-    	                <p></p>
-    	                <p>Description keywords (one line per keyword):</p>
-    	                <textarea name="desc" id = "descbox" rows=3 cols=10></textarea>
-    	                </form>
+    	                <div style="padding-top: 10px;">Description keywords (one line per keyword):</div><br>
+    	                <textarea name="desc" id="descbox" rows=3 cols=10 style="padding-top: 0px; max-width: 220px; max-height: 150px;"></textarea>
             					<button type="submit" id="advSearch" class="btn" value="sval">Search!</button>
-
-                    	<!-- drop down options -->
-                    </u1>
-                  </div>
+                      </form>
+                    </p>
+                 </div>
                 </div>
               </div>
 
               <div class="accordion-group">
                 <div class="accordion-heading">
                   {% if must_log_in == True %}
-                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#myItems" id="myItemsPopover">
+                    <a class="accordion-toggle" data-parent="#accordion2" id="myItemsPopover">
                   {% else %}
                     <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#myItems">
                   {% endif %}
@@ -175,29 +171,29 @@
       </div>
       <div class="modal-body" style="{% if errors %} max-height: 510px; {% else %} max-height: 460px; {% endif %}margin:0; padding-top:0;overflow: hidden;">
         <form enctype="multipart/form-data" action="" method="post" style="height:500px">{% csrf_token %}
-              <table>
-                  <input type="hidden" name="submit_request" value="submit_request">
-                      {% if form.errors.status %}
-                      <p style="color: red;">{{ errors.status }}</p>
-                      {% endif %}
-                      <ul class="nobullet">
-                          <li>{{ form.status.0 }}</li>
-                          <li>{{ form.status.1 }}</li>
-                      </ul>
-                      <p>Category: {{ form.category }}</p>
-                      <p>Location: {{ form.location }} </p>
-                      <p>Item: {{ form.name }}</p>
-                      <p>Date: <br>{{ form.event_date }} </p>
-                      {% if form.errors.desc %}
-                      <p style="color: red;">{{ errors.desc }}</p>
-                      {% endif %}
-                      <p>Description: {{ form.desc }} </p>
-                      <p>Picture: {{ form.picture }} </p>
-              </table>
-              <div class="modal-footer">
-                <input class="btn btn-primary" type="submit" value="Submit">
-              </div>
-          </form>
+          <input type="hidden" name="submit_request" value="submit_request">
+          {% if form.errors.status %}
+          <p style="color: red;">{{ errors.status }}</p>
+          {% endif %}
+          <ul class="nobullet">
+              <li>{{ form.status.0 }}</li>
+              <li>{{ form.status.1 }}</li>
+          </ul>
+          <div style="padding-left: 25px">
+            <p>Category: {{ form.category }}</p>
+            <p>Location: <span style="padding-left: 2px;"></span>{{ form.location }} </p>
+            <p>Item: <span style="padding-left: 29px;"></span>{{ form.name }}</p>
+            <p>Date: <br>{{ form.event_date }} </p>
+            {% if form.errors.desc %}
+            <p style="color: red;">{{ errors.desc }}</p>
+            {% endif %}
+            <p class="marg">Description: {{ form.desc }} </p>
+            <p>Picture: {{ form.picture }} </p>
+            <div class="modal-footer">
+              <input class="btn btn-primary" type="submit" value="Submit">
+            </div>
+          </div>
+        </form>
       </div>
     </div>
 

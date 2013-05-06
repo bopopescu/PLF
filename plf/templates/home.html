@@ -4,12 +4,12 @@
 
   {% for item in items %}
     {% if item.status == True %}
-      <div class="masonryImage lost blocky" value={{ item.id }}>
+      <div class="masonryImage lost blocky low-priority" value={{ item.id }}>
     {% else %}
-      <div class="masonryImage found blocky" value={{ item.id }}>
+      <div class="masonryImage found blocky low-priority" value={{ item.id }}>
     {% endif %}
     {% if item.picture %}
-      <img src="..{{ item.picture.url }}" class="tileim"/>
+      <img src="..{{ item.picture.url }}" class="tileim low-priority"/>
     {% endif %}
       <p class="name">{{ item.name  }}</p>
       <p class="small-header">{{ item.location }}</p>
@@ -19,19 +19,13 @@
     {% else %}
       <p class="location">Found
     {% endif %}
-<<<<<<< HEAD
     {% if item.event_date %}
       : {{ item.event_date }}
     {% endif %}
     </p>
-
-    <p class="location">{{ item.desc }}</p>
-=======
-      : {{ item.event_date }}</p>
     <div class="desc">
       <p class="location desc">{{ item.desc }}</p>
     </div>
->>>>>>> stuff
 
    {% if item.status == True %}
       <button class="btn btn-mini pop" value="{{ item.id }}" name="{{ item.status }}">I Found This!</button>
@@ -46,12 +40,6 @@
  
  <script>
   $('#right').imagesLoaded( function() {
-    var $but = $('.btn.btn-mini');
-    $but.click( function() {
-      $('.modal-footer.claiming #id').val(this.value);
-      $('.modal-footer.claiming #status').val(this.name);
-      $('#claimModal').modal("show");
-    })
 
     {% if errors %}
       $('#submitModal').modal("show");
@@ -60,6 +48,15 @@
     $('.btn.btn-mini.pop').popover({ placement: 'right', trigger: 'hover', content: 'Login to claim items'});
     $('#myItemsPopover').popover({ placement: 'right', trigger: 'hover', content: 'Login to view your items'});
     $('#submitPopover').popover({ placement: 'right', trigger: 'click', content: 'Login to submit'});
+
+    {% if must_log_in == False %}
+    var $but = $('.btn.btn-mini');
+    $but.click( function() {
+      $('.modal-footer.claiming #id').val(this.value);
+      $('.modal-footer.claiming #status').val(this.name);
+      $('#claimModal').modal("show");
+      });
+    {% endif %}
   });
  </script>
 
