@@ -15,7 +15,7 @@ class SubmitForm(forms.Form):
     category = forms.ChoiceField(choices=CATEGORIES)
     location = forms.CharField(required=False, max_length=100)
     event_date = forms.DateField(initial=now, widget=extras.SelectDateWidget(years=range(2012, datetime.date.today().year + 1)), required=False)
-    desc = forms.CharField(widget=forms.Textarea(attrs={'size':'250'}), max_length=250)
+    desc = forms.CharField(widget=forms.Textarea(attrs={'rows':'4', 'cols':'40'}), max_length=250)
     picture = forms.ImageField(required=False)
     name = forms.CharField(widget=forms.TextInput(attrs={'size':'20'}), max_length=20)
     #netid = forms.CharField()
