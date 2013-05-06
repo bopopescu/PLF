@@ -5,6 +5,7 @@ from info.models import Item, User
 from info.forms import SubmitForm
 import datetime
 from datetime import date
+import time
 from datetime import timedelta
 from django.core.mail import send_mail
 from django.core.context_processors import csrf
@@ -16,6 +17,7 @@ import _ssl;_ssl.PROTOCOL_SSLv23 = _ssl.PROTOCOL_SSLv3
 def cleanCounts(): 
     for user in User.objects.all():
         user.count = 0
+        user.save()
 
 
 def login(request):
@@ -55,9 +57,13 @@ def home(request):
     if not 'lastDay' in globals():
         global lastDay
         lastDay = date.today()
-    if (date.today()-lastDay).days > 2:
-        lastDay=date.today()
+        #lastTime = time.time()
+    if (date.today()-lastDay).days >= 3:
+    #if (time.time()-lastTime) > :
+        #lastDay=date.today()
+        #lastTime = time.time()
         cleanCounts()
+    #print double(time.clock()-lastDay)
     #if 'auth' not in request.session:
     #    return login(request)
     context = {}
