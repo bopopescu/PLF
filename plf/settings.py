@@ -147,7 +147,6 @@ INSTALLED_APPS = (
     'plf',
     'south',
     'storages',
-    'django-stdimage',
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
