@@ -118,7 +118,10 @@
                           {% else %}
                             <p class="location">Found
                           {% endif %}
-                            : {{ item.event_date }}</p>
+                          {% if item.event_date %}
+                            : {{ item.event_date }}
+                          {% endif %}
+                          </p>
                           <p class="location">Date submitted: {{ item.sub_date }}</p>
                           <p class="location">{{ item.desc }}</p>
                           <form action="" method="post" style="margin-bottom: 0px;">{% csrf_token %}
