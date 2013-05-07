@@ -178,8 +178,8 @@
       </div>
       <div class="modal-footer claiming">
         <form action="" method="post" style="padding:0; margin:0;">{% csrf_token %}
-          <input type="hidden" id="status" name="status">
-          <input type="hidden" id="id" name="identity">
+          <input type="hidden" id="status" value="" name="status">
+          <input type="hidden" id="id" value="" name="identity">
           <button class="btn" data-dismiss="modal" aria-hidden="true">No</button>
           <button class="btn btn-primary" type="submit">Send that email!</button>
         </form>
