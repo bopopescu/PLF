@@ -170,7 +170,7 @@ def home(request):
             iden = request.POST.get('identity')
             u.count += 1
             u.save()
-            queryitem = Item.objects.get(id=iden)
+            queryitem = Item.objects.get(id=int(iden))
             #queryitem.claimed = True
             #queryitem.save()
             if (u.count > 3):
