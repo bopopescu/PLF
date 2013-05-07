@@ -4,9 +4,10 @@
 
   {% for item in items %}
     {% if item.status == True %}
-      <div class="masonryImage lost blocky low-priority" value={{ item.id }}>
+      <div class="masonryImage lost blocky low-priority" value="{{ item.id }}">
+
     {% else %}
-      <div class="masonryImage found blocky low-priority" value={{ item.id }}>
+      <div class="masonryImage found blocky low-priority" value="{{ item.id }}">
     {% endif %}
     {% if item.picture %}
       <img src="..{{ item.picture.url }}" class="tileim low-priority"/>
@@ -37,9 +38,10 @@
       <button class="btn btn-mini pop">Login to claim</button>
     {% else %}
       {% if item.status == True %}
-        <a href="#claimModal" data-toggle="modal" class="btn btn-mini claim" value="{{ item.id }}" name="{{ item.status }}">I Found This!</a>
+        <button href="#claimModal" data-toggle="modal" class="btn btn-mini pop" value="{{ item.id }}" name="{{ item.status }}">I Found This!</button>
       {% else %}
-        <a href="#claimModal" class="btn btn-mini claim" data-toggle="modal" value="{{ item.id }}" name="{{ item.status }}">This is Mine!</a>
+        <button href="#claimModal" class="btn btn-mini pop" data-toggle="modal" value="{{ item.id }}" name="{{ item.status }}">This is Mine!</button>
+
       {% endif %}
     {% endif %}
   </div>
@@ -49,10 +51,7 @@
  <script src="../media/jquery.isotope.min.js"></script>
  
  <script>
-  $('#right').imagesLoaded( function() {
 
-    
-  });
  </script>
 
  <script>
@@ -156,7 +155,10 @@ locMappings[38] = "Poe Field\nPoe\n1912\n1912 Pavilion\nLourie\nLove Pavilion\nP
 
    $container.imagesLoaded( function() {
 
-
+    $('.btn.btn-mini.pop').click(function(){
+      var bntval = $(this).val();
+      $('.modal-footer.claiming #id').val(btnval);
+    });
 
 
     {% if errors %}
@@ -184,7 +186,6 @@ locMappings[38] = "Poe Field\nPoe\n1912\n1912 Pavilion\nLourie\nLove Pavilion\nP
       });
     {% endif %}
 
-    
       var $location = $('#loc');
       original_loc = $location.val();
       $location.focus(function(){
