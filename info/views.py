@@ -19,6 +19,8 @@ def cleanCounts():
         user.count = 0
         user.save()
 
+def thanks(request):
+    return HttpResponseRedirect('../')
 
 def login(request):
     cas_url = "https://fed.princeton.edu/cas/"
@@ -89,7 +91,7 @@ def home(request):
             return login(request)
 
         # Users can't claim items without logging in
-        if 'netid' not in request.session:
+        if 'auth' not in request.session:
             return login(request)
 
         # Resolve items
@@ -103,16 +105,14 @@ def home(request):
                 user.items.remove(itemlist[0])
                 user.save()
                 itemlist[0].delete()
-            else:
-                print "something weird's happening"
 
             # requery myitems and items
-            myitems = Item.objects.filter(student__email__exact=request.session['netid'] + '@princeton.edu')
-            context['myitems'] = myitems
-            items = Item.objects.order_by('id').reverse()
-            context['items'] = items
+            #myitems = Item.objects.filter(student__email__exact=request.session['netid'] + '@princeton.edu')
+            #context['myitems'] = myitems
+            #items = Item.objects.order_by('id').reverse()
+            #context['items'] = items
 
-            return render_to_response('home.html', context)#, context_instance=RequestContext(request))
+            return HttpResponseRedirect('../thanks')
 
         # main functionality of submit page
         if request.POST.get('submit_request'):
@@ -140,7 +140,8 @@ def home(request):
 
                 context['options'] = 0
 
-                return render_to_response('submit_thanks.html', context)
+                #return render_to_response('submit_thanks.html', context)
+                return HttpResponseRedirect('../thanks')
 
             else:
 
@@ -187,8 +188,8 @@ def home(request):
                 recipients = [ queryitem.student.email ]
                 send_mail('An Item You Found was Claimed', message, 'princetonlostandfound@gmail.com', recipients)
                 context['options'] = 2
-                
-            return render_to_response('submit_thanks.html', context)
+            
+            return HttpResponseRedirect('../thanks')
     return render_to_response('home.html', context)
 
 def dataReturn(request):

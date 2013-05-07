@@ -106,7 +106,7 @@
                   <div class="accordion-inner myitemscroll">
                     {% if myitems %}
                       {% for item in myitems %}
-                        <div class="masonryImage">
+                        <div class="masonryImage myitems">
                           {% if item.picture %}
                             <img src="..{{ item.picture.url }}" class="myitemtileim"/>
                           {% endif %}
@@ -125,8 +125,6 @@
                           </form>
                         </div>
                       {% endfor %}
-                    {% elif must_log_in == True %}
-                      <p>Login to see your items!</p>
                     {% else %}
                       <p>You currently have no items.</p>
                     {% endif %}
