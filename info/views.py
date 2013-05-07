@@ -95,7 +95,7 @@ def home(request):
         # Resolve items
         if request.POST.get('resolved'):
             getid = request.POST.get('resolved')
-            itemlist = Item.objects.filter(id = getid)
+            itemlist = Item.objects.filter(id = int(getid))
 
             if itemlist:
                 # remove item
