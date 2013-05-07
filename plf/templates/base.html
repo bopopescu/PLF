@@ -108,7 +108,7 @@
                       {% for item in myitems %}
                         <div class="masonryImage myitems">
                           {% if item.picture %}
-                            <img src="..{{ item.picture.url }}" class="myitemtileim"/>
+                            <img src="{{ item.picture.url }}" class="myitemtileim"/>
                           {% endif %}
                             <p class="name">{{ item.name }}</p>
                             <p class="small-header">{{ item.location }}</p>
