@@ -75,21 +75,12 @@
 
 /**** Identifiers for items ****/
 .lost { 
-  border-color: red;
-  border-width: 1px;
-}
-
-.line {
-  height: 0px;
 }
 
 .found {
-  border-color: green;
-  border-radius: 1px;
 }
 
 .shown {
-
 }
 
 .blocky {

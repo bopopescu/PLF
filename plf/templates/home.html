@@ -149,25 +149,28 @@ locMappings[38] = "Poe Field\nPoe\n1912\n1912 Pavilion\nLourie\nLove Pavilion\nP
   return d;
 }
 
- $(function() {
-   var $container = $('#right');
+$(function() {
+  var $container = $('#right');
 
-   $container.imagesLoaded( function() {
+  $container.imagesLoaded( function() {
 
+    /* Open submit modal upon reloading if errors occurred */
     {% if errors %}
       $('#submitModal').modal("show");
     {% endif %}
 
+    /* Pass data to claim modal */
     var $but = $('.btn.btn-mini.claim');
     $but.click( function() {
       $('.modal-footer.claiming #id').val(this.value);
       $('.modal-footer.claiming #status').val(this.name);
     });
 
+    /* Pass data to resolve modal */
     var $res = $('.btn.btn-mini.resolve');
     $res.click( function() {
+      alert(this.value);
       $('.modal-footer.resolving #id').val(this.value);
-      $('.modal-footer.resolving #status').val(this.name);
     });
 
       var $location = $('#loc');
