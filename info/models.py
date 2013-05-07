@@ -1,4 +1,5 @@
 from django.db import models
+from stdimage import StdImageField
 # from PIL import *
 import PIL
 
@@ -20,7 +21,7 @@ class Item(models.Model):
     sub_date = models.DateField(null=True)
     event_date = models.DateField(null=True)
     location = models.CharField(max_length=100)
-    picture = models.ImageField(upload_to='photos', blank=True, null=True)
+    picture = StdImageField(upload_to='photos', size=(640, 480, True))
     claimed = models.NullBooleanField(null=True, blank=True, default=False)
 
     def __unicode__(self):

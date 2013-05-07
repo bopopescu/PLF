@@ -2,7 +2,6 @@ from django import forms
 from django.forms.fields import DateField
 from django.contrib.admin.widgets import AdminDateWidget 
 from django.forms import extras
-from stdimage import StdImageField
 import PIL
 import datetime
 import html5.forms.widgets as html5_widgets
@@ -19,7 +18,7 @@ class SubmitForm(forms.Form):
     #event_date = forms.DateField(initial=now, widget=extras.SelectDateWidget(years=range(2012, datetime.date.today().year + 1)), required=False)
     event_date = forms.DateField(widget=html5_widgets.DateInput, required=False)
     desc = forms.CharField(widget=forms.Textarea(attrs={'rows':'2', 'cols':'40'}), max_length=250)
-    picture = StdImageField(upload_to='')
+    picture = forms.ImageField(required=False)
     name = forms.CharField(widget=forms.TextInput(attrs={'size':'20'}), max_length=20)
     #netid = forms.CharField()
 
