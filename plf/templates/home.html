@@ -13,7 +13,13 @@
     {% endif %}
       <p class="name">{{ item.name  }}</p>
       <p class="small-header">{{ item.location }}</p>
-      <hr class="break"/>
+
+    {% if item.status == True %}
+      <hr class="break lost line"/>
+    {% else %}
+      <hr class="break found line"/>
+    {% endif %}
+
     {% if item.status == True %}
       <p class="location">Lost
     {% else %}
@@ -31,9 +37,9 @@
       <button class="btn btn-mini pop">Login to claim</button>
     {% else %}
       {% if item.status == True %}
-        <a href="#claimModal" data-toggle="modal" class="btn btn-mini pop" value="{{ item.id }}" name="{{ item.status }}">I Found This!</a>
+        <a href="#claimModal" data-toggle="modal" class="btn btn-mini claim" value="{{ item.id }}" name="{{ item.status }}">I Found This!</a>
       {% else %}
-        <a href="#claimModal" class="btn btn-mini pop" data-toggle="modal" value="{{ item.id }}" name="{{ item.status }}">This is Mine!</a>
+        <a href="#claimModal" class="btn btn-mini claim" data-toggle="modal" value="{{ item.id }}" name="{{ item.status }}">This is Mine!</a>
       {% endif %}
     {% endif %}
   </div>
@@ -162,11 +168,19 @@ locMappings[38] = "Poe Field\nPoe\n1912\n1912 Pavilion\nLourie\nLove Pavilion\nP
     // $('#submitPopover').popover({ placement: 'right', trigger: 'click', content: 'Login to submit'});
 
     {% if must_log_in == False %}
-    var $but = $('.btn.btn-mini');
+    var $but = $('.btn.btn-mini.claim');
     $but.click( function() {
       $('.modal-footer.claiming #id').val(this.value);
       $('.modal-footer.claiming #status').val(this.name);
       $('#claimModal').modal("show");
+      });
+
+
+    var $res = $('.btn.btn-mini.resolve');
+    $res.click( function() {
+      $('.modal-footer.resolving #id').val(this.value);
+      $('.modal-footer.resolving #status').val(this.name);
+      $('#resolveModal').modal("show");
       });
     {% endif %}
 

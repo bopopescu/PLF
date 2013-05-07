@@ -32,7 +32,6 @@
             <li><a href="#" data-filter=".lost">lost</a></li>
             <li><a href="#" data-filter=".found">found</a></li>
           </u1>
-
         </ul>
       </div>
     </div>
@@ -120,11 +119,10 @@
                           {% endif %}
                             : {{ item.event_date }}</p>
                           <p class="location">{{ item.desc }}</p>
-                          <form action="" method="post">{% csrf_token %}
-                           <input type="hidden" value={{item.id}} name="resolved">
-                           <!--<input type="hidden" value="{{ item.id }}" name="id">-->
-                           <input type="submit" class="btn btn-mini" value="Resolved?">
-                         </form>
+                          <form action="" method="post" style="margin-bottom: 0px;">{% csrf_token %}
+                            <input type="hidden" value={{item.id}} name="resolved">
+                            <a href="#resolveModal" class="btn btn-mini resolve" data-toggle="modal" value="{{ item.id }}">Resolved?</a>
+                          </form>
                         </div>
                       {% endfor %}
                     {% elif must_log_in == True %}
@@ -166,6 +164,25 @@
 
     <!-- Put modals here so they won't show up behind the backdrop -->
     <script src="{% static "bootstrap/js/bootstrap.min.js" %}"></script>
+
+    <!-- resolve confirmation modal -->
+    <div id="resolveModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">Confirmation</h3>
+      </div>
+      <div class="modal-body">
+        <p>This will permanently remove this item from the database. Are you sure you wish to continue?</p>
+      </div>
+      <div class="modal-footer resolving">
+        <form action="" method="post" style="padding:0; margin:0;">{% csrf_token %}
+          <input type="hidden" id="status" value="" name="status">
+          <input type="hidden" id="id" value="" name="identity">
+          <button class="btn" data-dismiss="modal" aria-hidden="true">No</button>
+          <button class="btn btn-primary" type="submit">Remove it!</button>
+        </form>
+      </div>
+    </div>
 
     <!-- e-mail confirmation modal -->
     <div id="claimModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -210,7 +227,7 @@
       <div class="modal-body" style="max-height: 410px; margin:0; padding-top:0;overflow: hidden;">
         <form enctype="multipart/form-data" action="" method="post" style="height:500px">{% csrf_token %}
           <input type="hidden" name="submit_request" value="submit_request">
-          <div style="width:30%; float: right; margin-top: 6px">
+          <div style="width:30%; float: right; margin-top: 6px; text-align: right;">
             {% if form.errors.status %}
             <p style="color: red;">{{ errors.status }}</p>
             {% endif %}
@@ -224,9 +241,7 @@
           <div style="clear: both;">
           </div>
           <div style="padding-left: 25px;">
-            <p>*Category: <span style="padding-left: 43px;"></span>{{ form.category }}</p>
-            <p>Location: <span style="padding-left: 54px;"></span>{{ form.location }} </p>
-            <div style="width:30%; float: right; margin-top: 4px;">
+             <div style="width:30%; float: right; margin-top: 4px; text-align: right;">
               {% if form.errors.name %}
               <p style="color: red;">{{ errors.name }}</p>
               {% endif %}
@@ -235,9 +250,11 @@
               <p class="marg">*Item: <span style="padding-left: 72px;"></span>{{ form.name }} </p>
             </div>
             <div style="clear: both;">
+            <p>Location: <span style="padding-left: 54px;"></span>{{ form.location }} </p>
+            <p>*Category: <span style="padding-left: 43px;"></span>{{ form.category }}</p>
             <p>Approx. Date: <span style="padding-left: 23px;"></span>{{ form.event_date }} </p>
             
-            <div style="width:30%; float: right; margin-top: 13px;">
+            <div style="width:30%; float: right; margin-top: 13px; text-align: right;">
               {% if form.errors.desc %}
               <p style="color: red;">{{ errors.desc }}</p>
               {% endif %}
