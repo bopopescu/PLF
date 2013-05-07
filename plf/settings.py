@@ -85,6 +85,9 @@ STATICFILES_DIRS = (
     # Don't forget to use absolute paths, not relative paths.
 )
 
+DEFAULT_FILE_STORAGE = 'myproyect.s3utils.MediaRootS3BotoStorage'
+STATICFILES_STORAGE = 'myproyect.s3utils.StaticRootS3BotoStorage'
+
 # List of finder classes that know how to find static files in
 # various locations.
 STATICFILES_FINDERS = (
@@ -138,6 +141,7 @@ INSTALLED_APPS = (
     'info',
     'plf',
     'south',
+    'storages',
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
