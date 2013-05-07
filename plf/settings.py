@@ -61,7 +61,7 @@ AWS_STORAGE_BUCKET_NAME = 'plfpictures'
 #MEDIA_ROOT = '/Users/samlichtenberg/Documents/cs333/PLF/media'
 #MEDIA_ROOT = os.path.join(PROJECT_DIR,'media/')
 #MEDIA_ROOT = '/Users/tortorareed/Desktop/HW/cos333/PLF/media/'
-
+MEDIA_ROOT = ''
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
