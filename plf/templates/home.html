@@ -161,7 +161,168 @@ locMappings[51] = "Edwards\nDodd";
 $(function() {
   var $container = $('#right');
 
+
   $container.imagesLoaded( function() {
+
+    /* serialize the form information and search existing items */
+  var checkForMatches = 1;
+  $('#yo').submit(function() {
+    if (checkForMatches == 0) {
+      return;
+    }
+      /* serialize form info */
+      var myobj = $(this).serializeArray();
+      var loc='';
+      var name='';
+      var cat='';
+      var date='';
+      var desc='';
+      var lost='';
+      var found='';
+
+      $.each(myobj, function(ind, indVal){
+
+        if (indVal.name == 'status') {
+          if (indVal.value == 'Lost') {
+            found = true;
+          }
+          else if (indVal.value == 'Found') {
+            lost = true;
+          }
+        }
+        if (indVal.name == 'name') {
+          name = indVal.value;
+        }
+        if (indVal.name == 'loc') {
+          loc = indVal.value;
+        }
+        if (indVal.name == 'category') {
+          cat = indVal.value;
+        }
+        if (indVal.name == 'event_date') {
+          date = indVal.value;
+        }
+
+
+      });
+
+        var locY;
+        var nameY;
+        var catY; 
+        var dateY;
+        var descY;
+        var nw = true;
+
+        if (loc!='') {locY = true;}
+
+        else locY = false;
+        if (name!='') {nameY = true;}
+        else nameY = false;
+        if (cat!='') {catY = true;}
+        else catY = false;
+        if (date!='') {dateY = true;}
+        else dateY = false;
+        
+        descY = false;
+
+        var ret;
+        var count = 0;
+        var namewords = name.split(" ");
+
+        $.getJSON("../data/", function(ret) {
+          $.each(ret, function(index, item){
+
+            if (lost && !item.fields.status) {return true;}
+            if (found && item.fields.status) {return true;}
+
+            if (catY && item.fields.category!=cat) return true;
+            if (locY && item.fields.location!=loc) return true;
+
+            if (item.fields.event_date==null && dateY) return true;
+
+            if ((fd || nw) || nm) {
+              if (dateY) {
+                var eDay = parseInt(item.fields.event_date.substring(8, 10), 10);
+                var fDay = parseInt(date.substring(8, 10), 10);
+                var eMonth = parseInt(item.fields.event_date.substring(5, 7), 10);
+                var fMonth = parseInt(date.substring(5, 7), 10);
+                var eYear = parseInt(item.fields.event_date.substring(0, 4), 10);
+                var fYear = parseInt(date.substring(0, 4), 10);
+                var eDayVal = monthToDays(eMonth) + eDay; //+ eYear*365;
+                var fDayVal = monthToDays(fMonth) + fDay; // + fYear*365;
+
+                var dist = Math.abs(fDayVal-eDayVal);
+                if (dist > 365) dist = dist - 365; // seems to work
+                if (fd && (dist > 3)) {
+                  return true;
+                }
+                if (nw && (dist > 7)) {
+                  return true;
+                }
+                if (nm && (dist > 30)) {
+                  return true;
+                }
+                if (eYear != fYear) {
+                  return true;
+                }
+              }
+            }
+
+            if (nameY) {
+              var find = false;
+              $.each(namewords, function(index, element){
+                var blah = item.fields.name.toLowerCase();
+                if (blah.indexOf(element.toLowerCase()) >= 0) {
+                  find = true;
+                }
+              });
+              if (find==false) { return true;}
+            }
+
+            if (descY) {
+              var find = false;
+              $.each(keywords, function(index, element){
+                var blah = item.fields.desc.toLowerCase();
+                if (blah.indexOf(element.toLowerCase()) >= 0) {
+                  find = true;
+                }
+              });
+              if (find==false) { return true;}
+            }
+
+          $('.masonryImage').each(function() {
+              if ($(this).attr("value")==item.pk) {
+                $(this).addClass('shown');
+                  count++;
+              }
+           });
+
+        });
+        /* now show dem! */
+        /* pop up a new modal */
+        if (count > 0) {
+          var html = $('.shown:first').html();
+          $('#matchModal').append("<div class=\'masonryImage\'>" + html + "</div>");
+          if (count > 1) {
+            html = $('.shown').eq(2).html();
+            $('#matchModal').append("<div class=\'masonryImage\'>" + html + "</div>");
+          }
+          $('#matchModal').modal("show");
+        }
+        $('.masonryImage').each(function() {
+          if ($(this).hasClass('shown')) {
+            $(this).removeClass('shown');
+          }
+        });
+      });
+      return false;
+    });
+
+    $('#matchsub').click(function() {
+      checkForMatches = 0;
+      $('#yo').submit();
+      checkForMatches = 1;
+    });
 
     /* Open submit modal upon reloading if errors occurred */
     {% if errors %}
@@ -362,7 +523,7 @@ $(function() {
         var count = 0;
         var keywords = descbox.split("\n");
         var namewords = name.split(" ");
-          
+
         $.getJSON("../data/", function(ret){
           $.each(ret, function(index, item){
            /* alert('item');
@@ -380,7 +541,7 @@ $(function() {
             if (locY && item.fields.location!=location) return true;
 
             /* date handling */
-            if (item.fields.event_date==null) return true;
+            if (item.fields.event_date==null && dateY) return true;
             if ((nd && dateY) && (item.fields.event_date!=date)) return true;
             if ((fd || nw) || nm) {
               if (dateY) {

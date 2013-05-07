@@ -230,24 +230,7 @@
       </div>
     </div>
 
-    <!-- e-mail confirmation modal -->
-    <div id="claimModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h3 id="myModalLabel">Confirmation</h3>
-      </div>
-      <div class="modal-body">
-        <p>This will send an email to the poster of this item. Are you sure you wish to continue?</p>
-      </div>
-      <div class="modal-footer claiming">
-        <form action="" method="post" style="padding:0; margin:0;">{% csrf_token %}
-          <input type="hidden" id="status" value="" name="status">
-          <input type="hidden" id="id" value="" name="identity">
-          <button class="btn" data-dismiss="modal" aria-hidden="true">No</button>
-          <button class="btn btn-primary" type="submit">Send that email!</button>
-        </form>
-      </div>
-    </div>
+
 
     <!-- About Modal -->
     <div id="aboutModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -271,7 +254,7 @@
         <h5>* Required Fields</h5>
       </div>
       <div class="modal-body" style="max-height: 410px; margin:0; padding-top:0;overflow: hidden;">
-        <form enctype="multipart/form-data" action="" method="post" style="height:500px">{% csrf_token %}
+        <form enctype="multipart/form-data" id = "yo" action="" method="post" style="height:500px">{% csrf_token %}
           <input type="hidden" name="submit_request" value="submit_request">
           <div style="width:30%; float: right; margin-top: 6px; text-align: right;">
             {% if form.errors.status %}
@@ -312,12 +295,44 @@
             </div>
             <p>Picture: <span style="padding-left: 63px;"></span>{{ form.picture }} </p>
             <div class="modal-footer">
-              <input class="btn btn-primary" type="submit" value="Submit">
+              <input class="btn btn-primary" id="ms" type="submit" value="Submit">
             </div>
           </div>
         </form>
       </div>
     </div>
+    <!-- shows possible matches -->
+    <div id="matchModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="height: 510px">
+      <div class="modal-header" >
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">Possible matches exist!</h3>
+      </div>
+      <div class="modal-body" >
+        <p>Possible matches to the item you're submitting have been found. You can respond to one of these listings, or submit anyway.</p>
+      </div>
+      <div class="modal-footer claiming">
+      <button class="btn btn-primary" id="matchsub" type="submit">Submit Anyway!</button>
 
+      </div>
+    </div>
+    <!-- e-mail confirmation modal -->
+    <div id="claimModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">Confirmation</h3>
+      </div>
+      <div class="modal-body">
+        <p>This will send an email to the poster of this item. Are you sure you wish to continue?</p>
+      </div>
+      <div class="modal-footer claiming">
+        <form action="" method="post" style="padding:0; margin:0;">{% csrf_token %}
+          <input type="hidden" id="status" value="" name="status">
+          <input type="hidden" id="id" value="" name="identity">
+          <button class="btn" data-dismiss="modal" aria-hidden="true">No</button>
+          <button class="btn btn-primary" type="submit">Send that email!</button>
+        </form>
+      </div>
+    </div>
+    
   </body>
 </html>
