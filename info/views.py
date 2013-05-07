@@ -60,7 +60,7 @@ def home(request):
         global lastDay
         lastDay = date.today()
         #lastTime = time.time()
-    if (date.today()-lastDay).days >= 3:
+    if (date.today()-lastDay).days >= 0:
     #if (time.time()-lastTime) > :
         #lastDay=date.today()
         #lastTime = time.time()
