@@ -73,6 +73,13 @@ def home(request):
     items = Item.objects.order_by('id').reverse()
     context['items'] = items
 
+    if 'options' in request.session:
+        context['options'] = request.session['options']
+        print "options: " + str(request.session['options'])
+        request.session['options'] = 0
+    else:
+        context['options'] = 0
+
     form = SubmitForm(request.POST, request.FILES)
     context['form'] = form
 
@@ -138,7 +145,7 @@ def home(request):
                 i.save()
                 u.items.add(i)
 
-                context['options'] = 0
+                request.session['options'] = 1
 
                 #return render_to_response('submit_thanks.html', context)
                 return HttpResponseRedirect('../thanks')
@@ -175,19 +182,19 @@ def home(request):
             #queryitem.claimed = True
             #queryitem.save()
             if (u.count > 3):
-                context['options'] = 3
+                request.session['options'] = 4
             elif status == True:
                 message = 'Your lost item %s was recently found on the Princeton Lost and Found app by %s. ' % (queryitem.name, u)
                 message += 'Please get in touch with him/her to work out the logistics of returning your item.'
                 recipients = [ queryitem.student.email ]
                 send_mail('Your Item was Found!', message, 'princetonlostandfound@gmail.com', recipients)
-                context['options'] = 1
+                request.session['options'] = 2
             else:
                 message = 'The item you found (%s) was recently claimed on the Princeton Lost and Found app by %s. ' % (queryitem.name, u)
                 message += 'Please get in touch with him/her to work out the logistics of returning the item.'
                 recipients = [ queryitem.student.email ]
                 send_mail('An Item You Found was Claimed', message, 'princetonlostandfound@gmail.com', recipients)
-                context['options'] = 2
+                request.session['options'] = 3
             
             return HttpResponseRedirect('../thanks')
     return render_to_response('home.html', context)

@@ -48,10 +48,6 @@
 
  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
  <script src="../media/jquery.isotope.min.js"></script>
- 
- <script>
-
- </script>
 
  <script>
  /* case insensitivity */
@@ -165,6 +161,10 @@ $(function() {
       $('.modal-footer.claiming #id').val(this.value);
       $('.modal-footer.claiming #status').val(this.name);
     });
+
+    {% if options != 0 %}
+      $('#thanksModal').modal("show");
+    {% endif %}
 
     /* Pass data to resolve modal */
     var $res = $('.btn.btn-mini.resolve');
