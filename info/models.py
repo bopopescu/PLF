@@ -1,5 +1,6 @@
 from django.db import models
 from stdimage import StdImageField
+from south.modelsinspector import add_introspection_rules
 # from PIL import *
 import PIL
 
@@ -11,6 +12,9 @@ class User(models.Model):
 
     def __unicode__(self):
         return u'%s' %(self.email)
+
+# introspection rules
+add_introspection_rules([], ['^stdimage\.fields\.StdImageField'])
 
 class Item(models.Model):
     status = models.BooleanField()
