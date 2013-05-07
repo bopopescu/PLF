@@ -19,7 +19,7 @@
         <div class="pull-right">
           <ul class="nav">
             <!-- "about" modal -->
-            <li><a href="#aboutModal" data-toggle="modal">About</a><li>
+            <li><a href="#aboutModal" role="button" data-toggle="modal">About</a><li>
             {% if must_log_in == True %}
               <li><a href="../login">Login</a></li>
             {% else %}
@@ -163,9 +163,44 @@
       </div>
     </div>
 
+
+    <!-- Put modals here so they won't show up behind the backdrop -->
     <script src="{% static "bootstrap/js/bootstrap.min.js" %}"></script>
 
-    <!-- Modal - put it here so we can have a fixed sidebar and avoid the problem of the modal appearing behind the backdrop -->
+    <!-- e-mail confirmation modal -->
+    <div id="claimModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">Confirmation</h3>
+      </div>
+      <div class="modal-body">
+        <p>This will send an email to the poster of this item. Are you sure you wish to continue?</p>
+      </div>
+      <div class="modal-footer claiming">
+        <form action="" method="post" style="padding:0; margin:0;">{% csrf_token %}
+          <input type="hidden" id="status" value="" name="status">
+          <input type="hidden" id="id" value="" name="identity">
+          <button class="btn" data-dismiss="modal" aria-hidden="true">No</button>
+          <button class="btn btn-primary" type="submit">Send that email!</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- About Modal -->
+    <div id="aboutModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">About</h3>
+      </div>
+      <div class="modal-body">
+        <p>Made by Sam Lichtenberg, Reed Tan, Matt Goldsmith, and Deric Cheng (Class of 2015)</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+      </div>
+    </div>
+
+    <!-- Submit Modal -->
     <div id="submitModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -220,41 +255,6 @@
         </form>
       </div>
     </div>
-
-    <!-- e-mail confirmation modal -->
-    <div id="claimModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-          <h3 id="myModalLabel">Confirmation</h3>
-        </div>
-        <div class="modal-body">
-          <p>This will send an email to the poster of this item. Are you sure you wish to continue?</p>
-        </div>
-        <div class="modal-footer claiming">
-          <form action="" method="post" style="padding:0; margin:0;">{% csrf_token %}
-          <input type="hidden" id="status" value="" name="status">
-          <input type="hidden" id="id" value="" name="identity">
-          <button class="btn" data-dismiss="modal" aria-hidden="true">No</button>
-          <button class="btn btn-primary" type="submit">Send dat email!</button>
-          </form>
-
-        </div>
-      </div>
-
-      <!-- Modal -->
-      <div id="aboutModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-          <h3 id="myModalLabel">About</h3>
-        </div>
-        <div class="modal-body">
-          <p>Made by Sam Lichtenberg, Reed Tan, Matt Goldsmith, and Deric Cheng (Class of 2015)</p>
-        </div>
-        <div class="modal-footer">
-          <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-        </div>
-      </div>
-
 
   </body>
 </html>

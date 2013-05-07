@@ -31,9 +31,9 @@
       <button class="btn btn-mini pop">Login to claim</button>
     {% else %}
       {% if item.status == True %}
-        <button class="btn btn-mini pop" value="{{ item.id }}" name="{{ item.status }}">I Found This!</button>
+        <a href="#claimModal" data-toggle="modal" class="btn btn-mini pop" value="{{ item.id }}" name="{{ item.status }}">I Found This!</a>
       {% else %}
-        <button class="btn btn-mini pop" value="{{ item.id }}" name="{{ item.status }}">This is Mine!</button>
+        <a href="#claimModal" class="btn btn-mini pop" data-toggle="modal" value="{{ item.id }}" name="{{ item.status }}">This is Mine!</a>
       {% endif %}
     {% endif %}
   </div>
