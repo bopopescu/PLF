@@ -227,7 +227,7 @@
             <p>*Category: <span style="padding-left: 43px;"></span>{{ form.category }}</p>
             <p>Location: <span style="padding-left: 54px;"></span>{{ form.location }} </p>
             <div style="width:30%; float: right; margin-top: 4px;">
-              {% if form.errors.status %}
+              {% if form.errors.name %}
               <p style="color: red;">{{ errors.name }}</p>
               {% endif %}
             </div>
@@ -238,7 +238,7 @@
             <p>Approx. Date: <span style="padding-left: 23px;"></span>{{ form.event_date }} </p>
             
             <div style="width:30%; float: right; margin-top: 13px;">
-              {% if form.errors.status %}
+              {% if form.errors.desc %}
               <p style="color: red;">{{ errors.desc }}</p>
               {% endif %}
             </div>
