@@ -60,18 +60,33 @@ def home(request):
         global lastDay
         lastDay = date.today()
         #lastTime = time.time()
-    if (date.today()-lastDay).days >= 0:
+    if (date.today()-lastDay).days >= 3:
     #if (time.time()-lastTime) > :
         #lastDay=date.today()
         #lastTime = time.time()
         cleanCounts()
+
     #print double(time.clock()-lastDay)
     #if 'auth' not in request.session:
     #    return login(request)
+
     context = {}
     context.update(csrf(request))
     items = Item.objects.order_by('id').reverse()
     context['items'] = items
+
+    #remove items older than 90 days
+    today = date.today()
+    for i in items:
+        if (today-i.sub_date).days >= 90:        
+            # remove item
+            user = User.objects.filter(items__id__exact=i.id)[0]
+            user.items.remove(i)
+            user.save()
+            i.delete()
+
+    # should we requery?
+    items = Item.objects.order_by('id').reverse()
 
     if 'options' in request.session:
         context['options'] = request.session['options']
