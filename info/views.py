@@ -95,7 +95,7 @@ def home(request):
         # Resolve items
         if request.POST.get('resolved'):
             getid = request.POST.get('resolved')
-            itemlist = Item.objects.filter(id = int(getid))
+            itemlist = Item.objects.filter(id = getid)
 
             if itemlist:
                 # remove item
@@ -170,7 +170,7 @@ def home(request):
             iden = request.POST.get('identity')
             u.count += 1
             u.save()
-            queryitem = Item.objects.get(id=int(iden))
+            queryitem = Item.objects.get(id=iden)
             #queryitem.claimed = True
             #queryitem.save()
             if (u.count > 3):
