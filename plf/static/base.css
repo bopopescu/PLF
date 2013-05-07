@@ -115,7 +115,3 @@ input[type="radio"] {
 	margin-top: 0 !important;
 	margin-bottom: 4px !important;
 }
-
-.custom > li > a:hover {
-    color: orange;
-}
