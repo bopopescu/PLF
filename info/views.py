@@ -95,7 +95,7 @@ def home(request):
         # Resolve items
         if request.POST.get('resolved'):
             getid = request.POST.get('resolved')
-            itemlist = Item.objects.filter(id__in = getid)
+            itemlist = Item.objects.filter(id = getid)
 
             if itemlist:
                 # remove item
@@ -170,7 +170,7 @@ def home(request):
             iden = request.POST.get('identity')
             u.count += 1
             u.save()
-            queryitem = Item.objects.get(id__icontains=iden)
+            queryitem = Item.objects.get(id=iden)
             #queryitem.claimed = True
             #queryitem.save()
             if (u.count > 3):
@@ -207,7 +207,7 @@ def about(request):
 #     # get netid, look up in database, return items
 #     if request.method == 'POST':
 #         getid = request.POST.get('id')
-#         item = Item.objects.filter(id__in = getid)[0]
+#         item = Item.objects.filter(id = getid)[0]
 
 #         user = User.objects.filter(email=request.session['netid']+'@princeton.edu')[0]
 #         user.items.remove(item)
