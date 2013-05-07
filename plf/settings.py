@@ -99,8 +99,7 @@ STATICFILES_FINDERS = (
 #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
-STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+DEFAULT_FILE_STORAGE = 'storages.backends.s3.S3Storage'
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = 'vx2f!p3@g+%-k2-b1$!wtu25kl0^b_yi2s7@g19wvpxv-%!m#r'
