@@ -10,7 +10,7 @@
       <div class="masonryImage found blocky low-priority" value="{{ item.id }}">
     {% endif %}
     {% if item.picture %}
-      <img src="..{{ item.picture.url }}" class="tileim low-priority"/>
+      <img src="{{ item.picture.url }}" class="tileim low-priority"/>
     {% endif %}
       <p class="name">{{ item.name  }}</p>
       <p class="small-header">{{ item.location }}</p>
