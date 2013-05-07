@@ -58,9 +58,6 @@ AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME = 'plfpictures'
 
-# Image resizing
-DJANGORESIZED_DEFAULT_SIZE = [800, 600]
-
 #MEDIA_ROOT = '/Users/samlichtenberg/Documents/cs333/PLF/media'
 #MEDIA_ROOT = os.path.join(PROJECT_DIR,'media/')
 #MEDIA_ROOT = '/Users/tortorareed/Desktop/HW/cos333/PLF/media/'
@@ -150,7 +147,7 @@ INSTALLED_APPS = (
     'plf',
     'south',
     'storages',
-    'django-resized',
+    'django-stdimage',
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
