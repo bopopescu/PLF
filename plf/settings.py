@@ -59,7 +59,7 @@ AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME = 'plfpictures'
 
 #MEDIA_ROOT = '/Users/samlichtenberg/Documents/cs333/PLF/media'
-MEDIA_ROOT = os.path.join(PROJECT_DIR,'media/')
+#MEDIA_ROOT = os.path.join(PROJECT_DIR,'media/')
 #MEDIA_ROOT = '/Users/tortorareed/Desktop/HW/cos333/PLF/media/'
 
 
