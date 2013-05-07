@@ -71,8 +71,8 @@ MEDIA_URL = 'http://plfpictures.s3.amazonaws.com/'
 # Example: "/var/www/example.com/static/"
 STATIC_ROOT = ''
 
-AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
-AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+AWS_ACCESS_KEY_ID = 'AKIAJNGCON7N727ORE7Q'
+AWS_SECRET_ACCESS_KEY = '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'
 AWS_STORAGE_BUCKET_NAME = 'plfpictures'
 
 # URL prefix for static files.
