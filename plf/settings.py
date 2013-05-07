@@ -75,15 +75,15 @@ STATIC_ROOT = ''
 STATIC_URL = 'https://s3.amazonaws.com/plfpictures/'
 
 # Additional locations of static files
-STATICFILES_DIRS = (
+#STATICFILES_DIRS = (
 #    '/Users/tortorareed/Desktop/HW/cos333/PLF/plf/static',
 #    '/Users/matthew/Desktop/code/github/PLF/plf/static',
-    os.path.join(SITE_ROOT, 'static'),
+#    os.path.join(PROJECT_DIR,'plf/static'),
 #    '/Users/samlichtenberg/Documents/cs333/PLF/plf/static',
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-)
+#)
  
 # List of finder classes that know how to find static files in
 # various locations.
