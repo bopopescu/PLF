@@ -72,7 +72,7 @@ STATIC_ROOT = ''
 
 # URL prefix for static files.
 # Example: "http://example.com/static/", "http://static.example.com/"
-STATIC_URL = '/static/'
+STATIC_URL = 'https://s3.amazonaws.com/plfpictures/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
@@ -92,6 +92,12 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
+
+STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+
+AWS_ACCESS_KEY_ID = 'AKIAJNGCON7N727ORE7Q'
+AWS_SECRET_ACCESS_KEY = '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'
+AWS_STORAGE_BUCKET_NAME = 'plfpictures'
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = 'vx2f!p3@g+%-k2-b1$!wtu25kl0^b_yi2s7@g19wvpxv-%!m#r'
@@ -138,6 +144,7 @@ INSTALLED_APPS = (
     'info',
     'plf',
     'south',
+    'storages',
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
