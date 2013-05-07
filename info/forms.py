@@ -2,7 +2,7 @@ from django import forms
 from django.forms.fields import DateField
 from django.contrib.admin.widgets import AdminDateWidget 
 from django.forms import extras
-from django_resized import ResizedImageField
+from stdimage import StdImageField
 import PIL
 import datetime
 import html5.forms.widgets as html5_widgets
