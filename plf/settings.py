@@ -78,7 +78,7 @@ STATIC_URL = 'https://s3.amazonaws.com/plfpictures/'
 STATICFILES_DIRS = (
 #    '/Users/tortorareed/Desktop/HW/cos333/PLF/plf/static',
 #    '/Users/matthew/Desktop/code/github/PLF/plf/static',
-    os.path.join(SITE_ROOT, 'static'),
+    os.path.join(PROJECT_DIR, 'static'),
 #    '/Users/samlichtenberg/Documents/cs333/PLF/plf/static',
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
