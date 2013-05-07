@@ -119,6 +119,7 @@
                             <p class="location">Found
                           {% endif %}
                             : {{ item.event_date }}</p>
+                          <p class="location">Date submitted: {{ item.sub_date }}</p>
                           <p class="location">{{ item.desc }}</p>
                           <form action="" method="post" style="margin-bottom: 0px;">{% csrf_token %}
                            <button href="#resolveModal" class="btn btn-mini resolve" data-toggle="modal" value="{{ item.id }}">Resolved?</button>
