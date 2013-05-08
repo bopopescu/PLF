@@ -202,9 +202,15 @@ $(function() {
         if (indVal.name == 'event_date') {
           date = indVal.value;
         }
-
+        if (indVal.name == 'desc') {
+          desc = indVal.desc;
+        }
 
       });
+      if (((!found && !lost) || name=='') || desc=='') {
+        $('#submitModal').modal("show");
+        return;
+      }
 
         var locY;
         var nameY;
