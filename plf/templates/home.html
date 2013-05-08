@@ -158,11 +158,12 @@ locMappings[51] = "Edwards\nDodd";
   return d;
 }
 
+
+
 $(function() {
   var $container = $('#right');
 
-
-  $(document).ready( function() {
+  $(document).ready(function(){ 
 
     /* serialize the form information and search existing items */
   var checkForMatches = 1;
@@ -308,14 +309,13 @@ $(function() {
         if (count > 0) {
           var html = $('.shown:first').html();
           html = html.replace("claimModal1", "claimModal");
-          alert('hi');
           html = html.replace("<img src=.*/>", "");
+          alert(html);
           $('#matchModal').append("<div class=\'masonryImage\'>" + html + "</div>");
           if (count > 1) {
             html = $('.shown').eq(1).html();
-            alert('hey');
             html = html.replace("<img src=.*/>", "");
-            alert('cool');
+            alert(html);
             html = html.replace("claimModal1", "claimModal");
             $('#matchModal').append("<div class=\'masonryImage\'>" + html + "</div>");
           }
@@ -382,6 +382,10 @@ $(function() {
     $res.click( function() {
       $('.modal-footer.resolving #id').val(this.value);
     });
+  });
+
+  $container.imagesLoaded( function() {
+
 
       var $location = $('#loc');
       original_loc = $location.val();
