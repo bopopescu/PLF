@@ -28,6 +28,10 @@ a:hover {
 	color: #ED9A34;
 }
 
+.navbar .nav > a.brand:hover {
+	color: #ED9A34;
+}
+
 button.btn.btn-mini.claim {
 	background-color: hsl(10, 0%, 78%) !important;
 	background-repeat: repeat-x;
