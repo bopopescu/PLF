@@ -308,11 +308,14 @@ $(function() {
         if (count > 0) {
           var html = $('.shown:first').html();
           html = html.replace("claimModal1", "claimModal");
+          alert('hi');
           html = html.replace("<img src=.*/>", "");
           $('#matchModal').append("<div class=\'masonryImage\'>" + html + "</div>");
           if (count > 1) {
             html = $('.shown').eq(1).html();
+            alert('hey');
             html = html.replace("<img src=.*/>", "");
+            alert('cool');
             html = html.replace("claimModal1", "claimModal");
             $('#matchModal').append("<div class=\'masonryImage\'>" + html + "</div>");
           }
