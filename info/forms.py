@@ -7,7 +7,7 @@ import datetime
 import html5.forms.widgets as html5_widgets
 
 STATUS=[('Lost', 'Lost'), ('Found', 'Found')]
-CATEGORIES = (('Clothing', 'Clothing'), ('Wallet/Keys/Prox', 'Wallet/Keys/Prox'), ('Phone', 'Phone'), ('Charger', 'Charger'), ('Electronics', 'Electronics'), ('Accessories', 'Accessories'), ('Textbook', 'Textbook'), ('Backpack', 'Backpack'), ('Other', 'Other'), ('Black North Face', 'Black North Face'))
+CATEGORIES = (('Clothing', 'Clothing'), ('Wallet/Keys/Prox', 'Wallet/Keys/Prox'), ('Phone', 'Phone'), ('Charger', 'Charger'), ('Electronics', 'Electronics'), ('Accessories', 'Accessories'), ('Textbook', 'Textbook'), ('Backpack', 'Backpack'), ('Black North Face', 'Black North Face'), ('Other', 'Other'))
 
 now = datetime.datetime.today()
 
