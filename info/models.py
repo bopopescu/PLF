@@ -1,6 +1,4 @@
 from django.db import models
-from stdimage import StdImageField
-from south.modelsinspector import add_introspection_rules
 # from PIL import *
 import PIL
 
@@ -13,9 +11,6 @@ class User(models.Model):
     def __unicode__(self):
         return u'%s' %(self.email)
 
-# introspection rules
-add_introspection_rules([], ['^stdimage\.fields\.StdImageField'])
-
 class Item(models.Model):
     status = models.BooleanField()
     category = models.CharField(max_length=100)
@@ -25,7 +20,7 @@ class Item(models.Model):
     sub_date = models.DateField(null=True)
     event_date = models.DateField(null=True)
     location = models.CharField(max_length=100)
-    picture = StdImageField(upload_to='photos', size=(640, 480, True))
+    picture = models.ImageField(upload_to='photos', blank=True, null=True)
     claimed = models.NullBooleanField(null=True, blank=True, default=False)
 
     def __unicode__(self):
