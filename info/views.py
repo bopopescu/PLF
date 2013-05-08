@@ -201,6 +201,7 @@ def home(request):
             u.claim_count += 1
             u.save()
             queryitem = Item.objects.get(id=iden)
+
             #queryitem.claimed = True
             #queryitem.save()
             if (u.claim_count > 3):
@@ -216,6 +217,12 @@ def home(request):
                 message += 'Please get in touch with him/her to work out the logistics of returning the item.'
                 recipients = [ queryitem.student.email ]
                 send_mail('An Item You Found was Claimed', message, 'princetonlostandfound@gmail.com', recipients)
+
+                message = 'You claimed a found item that was posted by a user whose email is %s. ' % queryitem.student.email
+                message += 'Please get in touch with him/her to work out the logistics of returning the item.'
+                recipients = [ em ]
+                send_mail('You Claimed an Item', message, 'princetonlostandfound@gmail.com', recipients)
+                
                 request.session['options'] = 3
             
             return HttpResponseRedirect('../thanks')
