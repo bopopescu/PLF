@@ -590,7 +590,6 @@ $(function() {
             if (found && item.fields.status) {return true;}
 
             if (catY && item.fields.category!=category[0]) return true;
-            if (locY && item.fields.location!=location) return true;
 
             /* date handling */
             if (item.fields.event_date==null && dateY) return true;
@@ -630,6 +629,17 @@ $(function() {
               var find = false;
               $.each(namewords, function(index, element){
                 var blah = item.fields.name.toLowerCase();
+                if (blah.indexOf(element.toLowerCase()) >= 0) {
+                  find = true;
+                }
+              });
+              if (find==false) { return true;}
+            }
+
+            if (locY) {
+              var find = false;
+              $.each(namewords, function(index, element){
+                var blah = item.fields.location.toLowerCase();
                 if (blah.indexOf(element.toLowerCase()) >= 0) {
                   find = true;
                 }
