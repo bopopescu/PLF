@@ -237,6 +237,7 @@ $(function() {
         var ret;
         var count = 0;
         var namewords = name.split(" ");
+        var locwords = loc.split(" ");
 
         $.getJSON("../data/", function(ret) {
           $.each(ret, function(index, item){
@@ -291,7 +292,7 @@ $(function() {
 
             if (locY) {
               var find = false;
-              $.each(namewords, function(index, element){
+              $.each(locwords, function(index, element){
                 var blah = item.fields.location.toLowerCase();
                 if (blah.indexOf(element.toLowerCase()) >= 0) {
                   find = true;
@@ -575,6 +576,7 @@ $(function() {
         var count = 0;
         var keywords = descbox.split("\n");
         var namewords = name.split(" ");
+        var locwords = location.split(" ");
 
         $.getJSON("../data/", function(ret){
           $.each(ret, function(index, item){
@@ -638,7 +640,7 @@ $(function() {
 
             if (locY) {
               var find = false;
-              $.each(namewords, function(index, element){
+              $.each(locwords, function(index, element){
                 var blah = item.fields.location.toLowerCase();
                 if (blah.indexOf(element.toLowerCase()) >= 0) {
                   find = true;
