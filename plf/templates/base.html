@@ -94,7 +94,7 @@
               <div class="accordion-group">
                 <div class="accordion-heading">
                   {% if must_log_in == True %}
-                    <a class="accordion-toggle" data-parent="#accordion2">
+                    <a href="../login" class="accordion-toggle" data-parent="#accordion2">
                       Login to see your items
                   {% else %}
                     <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#myItems">
@@ -140,7 +140,7 @@
               <div class="accordion-group">
                 <div class="accordion-heading">
                   {% if must_log_in == True %}
-                  <a class="accordion-toggle submit" data-parent="#accordion2">
+                  <a href="../login" class="accordion-toggle submit" data-parent="#accordion2">
                     Login to Submit
                   {% else %}
                   <a class="accordion-toggle" data-parent="#accordion2" href="#submitModal" data-toggle="modal">
@@ -191,7 +191,7 @@
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
         <h3 id="myModalLabel">
-          {% if options == 4 %}
+          {% if options == 4 or options == 5 %}
             Sorry!
           {% else %}
             Thanks!
@@ -207,7 +207,9 @@
           {% elif options == 3 %}
             Thanks for claiming! An email has been sent to the person who found the item, and he or she should contact you shortly.
           {% elif options == 4 %}
-            You've responded to a lot of item postings lately! Please wait a couple days before responding to more.
+            You've responded to a lot of item postings lately. Please wait a couple of days before responding to more.
+          {% elif options == 5 %}
+            You've been posting a lot of items lately. Please wait a couple of days before posting more.
           {% endif %}
         </p>
       </div>

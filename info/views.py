@@ -16,7 +16,8 @@ import _ssl;_ssl.PROTOCOL_SSLv23 = _ssl.PROTOCOL_SSLv3
 
 def cleanCounts(): 
     for user in User.objects.all():
-        user.count = 0
+        user.claim_count = 0
+        user.submit_count = 0
         user.save()
 
 def thanks(request):
@@ -56,34 +57,32 @@ def logout(request):
     return HttpResponseRedirect('https://fed.princeton.edu/cas/logout')
 
 def home(request):
-    if not 'lastDay' in globals():
-        global lastDay
-        lastDay = date.today()
-        #lastTime = time.time()
-    if (date.today()-lastDay).days >= 3:
-    #if (time.time()-lastTime) > :
-        #lastDay=date.today()
-        #lastTime = time.time()
-        cleanCounts()
-
-    #print double(time.clock()-lastDay)
-    #if 'auth' not in request.session:
-    #    return login(request)
-
+    # initialize context
     context = {}
     context.update(csrf(request))
     items = Item.objects.order_by('id').reverse()
     context['items'] = items
 
-    #remove items older than 90 days
+    if not 'lastDay' in globals():
+        global lastDay
+        lastDay = date.today()
+        #lastTime = time.time()
+
+    # cleanup loop that should run once every three days
     today = date.today()
-    for i in items:
-        if (today-i.sub_date).days >= 90:        
-            # remove item
-            user = User.objects.filter(items__id__exact=i.id)[0]
-            user.items.remove(i)
-            user.save()
-            i.delete()
+    if (today - lastDay).days >= 3:
+    #if (time.time()-lastTime) > :
+        lastDay = today
+        #lastTime = time.time()
+        cleanCounts()
+        #remove items older than 90 days
+        for i in items:
+            if (today-i.sub_date).days >= 90:        
+                # remove item
+                user = User.objects.filter(items__id__exact=i.id)[0]
+                user.items.remove(i)
+                user.save()
+                i.delete()
 
     # should we requery?
     items = Item.objects.order_by('id').reverse()
@@ -138,21 +137,28 @@ def home(request):
 
         # main functionality of submit page
         if request.POST.get('submit_request'):
-            if form.is_valid():
+            em = request.session['netid']+'@princeton.edu'
+            ulist = User.objects.filter(email=em)
+            if not ulist:
+                u = User(email=em)
+                u.claim_count = 0
+                u.submit_count = 0
+                u.save()
+            else:
+                u = ulist[0]
+
+            # if this user's been submitting too much, redirect back to home with the "sorry" modal popup
+            if u.submit_count >= 5:
+                context['options'] = 5
+                return HttpResponseRedirect('../thanks')
+
+            # if the form's valid...
+            elif form.is_valid():
                 cd = form.cleaned_data
                 now = datetime.datetime.now()
                 x = False
                 if (cd['status'] == 'Lost'):
                     x = True
-                em = request.session['netid']+'@princeton.edu'
-                print em
-                ulist = User.objects.filter(email=em)#[0]
-                if not ulist:
-                    u = User(email=em)
-                    u.count = 0
-                    u.save()
-                else:
-                    u = ulist[0]
 
                 i = Item(status=x, category=cd['category'], desc=cd['desc'], student=u, 
                     sub_date = now, location=cd['location'], picture=cd['picture'],
@@ -165,8 +171,8 @@ def home(request):
                 #return render_to_response('submit_thanks.html', context)
                 return HttpResponseRedirect('../thanks')
 
+            # reload home page and submit modal with error messages
             else:
-
                 errors = {}
                 context['errors'] = errors
                 cd = form.cleaned_data
@@ -187,16 +193,17 @@ def home(request):
                 u = User.objects.get(email=em)
             else:                # if user not in database 
                 u = User(email=em)
-                u.count = 0
+                u.claim_count = 0
+                u.submit_count = 0
                 u.save()
             queryuser = request.session['netid'] + '@princeton.edu'
             iden = request.POST.get('identity')
-            u.count += 1
+            u.claim_count += 1
             u.save()
             queryitem = Item.objects.get(id=iden)
             #queryitem.claimed = True
             #queryitem.save()
-            if (u.count > 3):
+            if (u.claim_count > 3):
                 request.session['options'] = 4
             elif status == True:
                 message = 'Your lost item %s was recently found on the Princeton Lost and Found app by %s. ' % (queryitem.name, u)

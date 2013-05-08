@@ -6,7 +6,8 @@ import PIL
 class User(models.Model):
     email = models.EmailField()
     items = models.ManyToManyField('Item', null=True, blank=True)
-    count = models.IntegerField()
+    submit_count = models.IntegerField(default=0)
+    claim_count = models.IntegerField(default=0)
 
     def __unicode__(self):
         return u'%s' %(self.email)

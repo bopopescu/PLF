@@ -35,7 +35,7 @@
     </div>
 
     {% if must_log_in == True %}
-      <button class="btn btn-mini">Login to claim</button>
+      <button href="../login" class="btn btn-mini">Login to claim</button>
     {% else %}
       {% if item.status == True %}
         <button href="#claimModal" data-toggle="modal" class="btn btn-mini claim" value="{{ item.id }}" name="{{ item.status }}">I Found This!</button>
