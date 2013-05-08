@@ -57,6 +57,10 @@ def logout(request):
     return HttpResponseRedirect('https://fed.princeton.edu/cas/logout')
 
 def home(request):
+    from django.core.files.storage import default_storage
+    from django.core.files.base import ContentFile
+    from django.core.cache import cache
+    from models import MyStorage
     # initialize context
     context = {}
     context.update(csrf(request))
@@ -82,6 +86,8 @@ def home(request):
                 user = User.objects.filter(items__id__exact=i.id)[0]
                 user.items.remove(i)
                 user.save()
+                if default_storage.exists('photos/storage_test'):
+                    default_storage.delete('photos/storage_test')
                 i.delete()
 
     # should we requery?
@@ -105,6 +111,8 @@ def home(request):
         # get netid, look up in database, return items
         myitems = Item.objects.filter(student__email__exact=request.session['netid'] + '@princeton.edu')
         context['myitems'] = myitems
+        for x in myitems:
+            print x.picture
 
     if request.method == 'POST':
         # Login request
