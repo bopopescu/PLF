@@ -49,6 +49,7 @@
     overflow: hidden;
     float: left;
     position: relative;
+    border-radius: 4px;
 
     background-color: #ededed;
 

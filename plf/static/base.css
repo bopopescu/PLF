@@ -15,6 +15,36 @@ body {
 	text-align: center;
 }
 
+a {
+	color:black;
+}
+
+a:hover {
+	text-decoration:none;
+	color: #ED9A34;
+}
+
+button.btn.btn-mini.claim {
+	background-color: hsl(10, 0%, 78%) !important;
+	background-repeat: repeat-x;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#f4f4f4", endColorstr="#c6c6c6");
+    background-image: -khtml-gradient(linear, left top, left bottom, from(#f4f4f4), to(#c6c6c6));
+    background-image: -moz-linear-gradient(top, #f4f4f4, #c6c6c6);
+    background-image: -ms-linear-gradient(top, #f4f4f4, #c6c6c6);
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f4f4f4), color-stop(100%, #c6c6c6));
+    background-image: -webkit-linear-gradient(top, #f4f4f4, #c6c6c6);
+    background-image: -o-linear-gradient(top, #f4f4f4, #c6c6c6);
+    background-image: linear-gradient(#f4f4f4, #c6c6c6);
+    border-color: #c6c6c6 #c6c6c6 hsl(10, 0%, 73.5%);
+    color: #333 !important;
+    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.29);
+    -webkit-font-smoothing: antialiased;
+    border-radius: 4px;
+    font-size: 12px;
+    float: left;
+
+}
+
 .tileim {
 	display: block;
 	margin-left: auto;
@@ -37,7 +67,7 @@ body {
 }
 
 .name {
-	font-size: 18px;
+	font-size: 20px;
 	margin:0;
 }
 
@@ -47,7 +77,7 @@ body {
 }
 
 .break {
-	margin:0;
+	margin:30;
 	color:black;
 	width: 100%;
 }
@@ -63,9 +93,10 @@ body {
 }
 
 .small-header {
-	font-size: 12px;
+	font-size: 14px;
 	padding-top: 2px;
 	float: left;
+	font-style: italic;
 }
 
 .myitemscroll {
