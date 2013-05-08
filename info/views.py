@@ -207,7 +207,7 @@ def home(request):
             if (u.claim_count > 3):
                 request.session['options'] = 4
             elif status == True:
-                message = 'Your lost item %s was recently found on the Princeton Lost and Found app by %s. ' % (queryitem.name, u)
+                message = 'Your lost item (%s) was recently found on the Princeton Lost and Found app by %s. ' % (queryitem.name, u)
                 message += 'Please get in touch with him/her to work out the logistics of returning your item.'
                 recipients = [ queryitem.student.email ]
                 send_mail('Your Item was Found!', message, 'princetonlostandfound@gmail.com', recipients)
@@ -218,7 +218,7 @@ def home(request):
                 recipients = [ str(queryitem.student.email) ]
                 send_mail('An Item You Found was Claimed', message, 'princetonlostandfound@gmail.com', recipients)
 
-                message = 'You claimed a found item (%s) that was posted by a user whose email is %s. ' % (queryitem.name, queryitem.student.email)
+                message = 'The item you claimed (%s) was found by the user %s. ' % (queryitem.name, queryitem.student.email)
                 message += 'Please get in touch with him/her to work out the logistics of returning the item.'
                 recipients = [ em ]
                 send_mail('You Claimed an Item', message, 'princetonlostandfound@gmail.com', recipients)
