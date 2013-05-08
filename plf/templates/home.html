@@ -21,6 +21,7 @@
       <hr class="break found line"/>
     {% endif %}
 
+    <u>
     {% if item.status == True %}
       <p class="location">Lost
     {% else %}
@@ -29,7 +30,7 @@
     {% if item.event_date %}
       : {{ item.event_date }}
     {% endif %}
-    </p>
+    </p></u>
     <div class="desc">
       <p class="location desc">{{ item.desc }}</p>
     </div>
