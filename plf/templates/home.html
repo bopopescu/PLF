@@ -320,6 +320,12 @@ $(function() {
             $(this).removeClass('shown');
           }
         });
+        if (count == 0) {
+          checkForMatches = 0;
+          $('#yo').submit();
+          checkForMatches = 1;
+          return;
+        }
       });
       return false;
     });
