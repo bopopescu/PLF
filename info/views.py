@@ -217,14 +217,12 @@ def home(request):
                 message += 'Please get in touch with him/her to work out the logistics of returning the item.'
                 recipients = [ str(queryitem.student.email) ]
                 send_mail('An Item You Found was Claimed', message, 'princetonlostandfound@gmail.com', recipients)
-                print recipients
 
-                message = 'You claimed a found item that was posted by a user whose email is %s. ' % queryitem.student.email
+                message = 'You claimed a found item (%s) that was posted by a user whose email is %s. ' % (queryitem.name, queryitem.student.email)
                 message += 'Please get in touch with him/her to work out the logistics of returning the item.'
                 recipients = [ em ]
                 send_mail('You Claimed an Item', message, 'princetonlostandfound@gmail.com', recipients)
                 
-                print recipients
                 request.session['options'] = 3
             
             return HttpResponseRedirect('../thanks')
