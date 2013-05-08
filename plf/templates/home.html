@@ -12,7 +12,7 @@
     {% if item.picture %}
       <img src="{{ item.picture.url }}" class="tileim low-priority"/>
     {% endif %}
-      <p class="name">{{ item.name  }}</p>
+      <p class="name" style="font-size: 20px">{{ item.name  }}</p>
       <p class="small-header">{{ item.location }}</p>
 
     {% if item.status == True %}
@@ -283,6 +283,17 @@ $(function() {
               var find = false;
               $.each(namewords, function(index, element){
                 var blah = item.fields.name.toLowerCase();
+                if (blah.indexOf(element.toLowerCase()) >= 0) {
+                  find = true;
+                }
+              });
+              if (find==false) { return true;}
+            }
+
+            if (locY) {
+              var find = false;
+              $.each(namewords, function(index, element){
+                var blah = item.fields.location.toLowerCase();
                 if (blah.indexOf(element.toLowerCase()) >= 0) {
                   find = true;
                 }
