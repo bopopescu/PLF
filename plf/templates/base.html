@@ -185,6 +185,19 @@
       </div>
     </div>
 
+    <!-- About Modal -->
+    <div id="aboutModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">About</h3>
+      </div>
+      <div class="modal-body">
+        <p>Made by Sam Lichtenberg, Reed Tan, Matt Goldsmith, and Deric Cheng (Class of 2015)</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+      </div>
+    </div>
 
     <!-- Thanks modal -->
     <div id="thanksModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -308,25 +321,13 @@
     </div>
 
 
-    <!-- About Modal -->
-    <div id="aboutModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h3 id="myModalLabel">About</h3>
-      </div>
-      <div class="modal-body">
-        <p>Made by Sam Lichtenberg, Reed Tan, Matt Goldsmith, and Deric Cheng (Class of 2015)</p>
-      </div>
-      <div class="modal-footer">
-        <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-      </div>
-    </div>
+
 
 
 
     <div id="matchModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="height: 510px">
       <div class="modal-header" >
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <button type="button" class="close" id="nomatch" aria-hidden="true">×</button>
         <h3 id="myModalLabel">Possible matches exist!</h3>
       </div>
       <div class="modal-body" >
@@ -341,25 +342,30 @@
 
    <div id="claimModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <button type="button" class="close" id="noemail1" aria-hidden="true">×</button>
         <h3 id="myModalLabel">Confirmation</h3>
       </div>
       <div class="modal-body">
         <p>This will send an email to the poster of this item. Are you sure you wish to continue?</p>
       </div>
       <div class="modal-footer claiming">
+        <div style="width:30%; float: right; margin-top: 13px; text-align: right;">
         <form action="" method="post" style="padding:0; margin:0;">{% csrf_token %}
           <input type="hidden" id="status" value="" name="status">
           <input type="hidden" id="id" value="" name="identity">
-          <button class="btn" data-dismiss="modal" aria-hidden="true">No</button>
           <button class="btn btn-primary" type="submit">Send that email!</button>
         </form>
+        </div>
+        <div style="width:70%; float: left; padding-top: 13px;">
+        <button class="btn" id="noemail" aria-hidden="true">No</button>
+        </div>
+            <div style="clear: both;">
       </div>
     </div>
     <!-- shows possible matches -->
 
     <!-- e-mail confirmation modal -->
 
-    
+
   </body>
 </html>

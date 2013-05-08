@@ -302,11 +302,11 @@ $(function() {
                   count++;
               }
            });
-
         });
         /* now show dem! */
         /* pop up a new modal */
         if (count > 0) {
+
           var html = $('.shown:first').html();
           html = html.replace("#claimModal1", "#claimModal");
           $('#matchModal').append("<div class=\'masonryImage\'>" + html + "</div>");
@@ -358,6 +358,19 @@ $(function() {
         $('.modal-footer.claiming #status').val(this.name);
       });
     });
+
+      $('#noemail').click(function() {
+        $('#claimModal').modal('hide');
+      });
+      $('#noemail1').click(function() {
+        $('#claimModal').modal('hide');
+      });
+
+      $('#nomatch').click(function() {
+        $('#matchModal').modal('hide');
+        $('#matchModal .masonryImage').detach();
+
+      });
 
     {% if options != 0 %}
       $('#thanksModal').modal("show");
