@@ -309,12 +309,12 @@ $(function() {
         if (count > 0) {
           var html = $('.shown:first').html();
           html = html.replace("claimModal1", "claimModal");
-          html = html.replace("<img src=.*/>", "");
+          html = html.replace("<img src=.*>", "");
           alert(html);
           $('#matchModal').append("<div class=\'masonryImage\'>" + html + "</div>");
           if (count > 1) {
             html = $('.shown').eq(1).html();
-            html = html.replace("<img src=.*/>", "");
+            html = html.replace("<img src=.*>", "");
             alert(html);
             html = html.replace("claimModal1", "claimModal");
             $('#matchModal').append("<div class=\'masonryImage\'>" + html + "</div>");
