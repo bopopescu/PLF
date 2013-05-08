@@ -70,7 +70,7 @@ def home(request):
 
     # cleanup loop that should run once every three days
     today = date.today()
-    if (today - lastDay).days >= 3:
+    if (today - lastDay).days >= 0:
     #if (time.time()-lastTime) > :
         lastDay = today
         #lastTime = time.time()
@@ -89,7 +89,7 @@ def home(request):
 
     if 'options' in request.session:
         context['options'] = request.session['options']
-        print "options: " + str(request.session['options'])
+        #print "options: " + str(request.session['options'])
         request.session['options'] = 0
     else:
         context['options'] = 0
@@ -215,14 +215,16 @@ def home(request):
             else:
                 message = 'The item you found (%s) was recently claimed on the Princeton Lost and Found app by %s. ' % (queryitem.name, u)
                 message += 'Please get in touch with him/her to work out the logistics of returning the item.'
-                recipients = [ queryitem.student.email ]
+                recipients = [ str(queryitem.student.email) ]
                 send_mail('An Item You Found was Claimed', message, 'princetonlostandfound@gmail.com', recipients)
+                print recipients
 
                 message = 'You claimed a found item that was posted by a user whose email is %s. ' % queryitem.student.email
                 message += 'Please get in touch with him/her to work out the logistics of returning the item.'
                 recipients = [ em ]
                 send_mail('You Claimed an Item', message, 'princetonlostandfound@gmail.com', recipients)
                 
+                print recipients
                 request.session['options'] = 3
             
             return HttpResponseRedirect('../thanks')
