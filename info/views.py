@@ -70,7 +70,7 @@ def home(request):
 
     # cleanup loop that should run once every three days
     today = date.today()
-    if (today - lastDay).days >= 0:
+    if (today - lastDay).days >= 3:
     #if (time.time()-lastTime) > :
         lastDay = today
         #lastTime = time.time()
