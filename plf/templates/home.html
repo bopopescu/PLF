@@ -38,9 +38,9 @@
       <a href="../login" class="btn btn-mini">Login to claim</a>
     {% else %}
       {% if item.status == True %}
-        <button href="#claimModal1" data-toggle="modal" class="btn btn-mini claim" value="{{ item.id }}" name="{{ item.status }}">I Found This!</button>
+        <button href="#claimModal1" data-toggle="modal" class="btn btn-mini claim" value="{{ item.id }}" name="{{ item.status }}">I Found This</button>
       {% else %}
-        <button href="#claimModal1" class="btn btn-mini claim" data-toggle="modal" value="{{ item.id }}" name="{{ item.status }}">This is Mine!</button>
+        <button href="#claimModal1" class="btn btn-mini claim" data-toggle="modal" value="{{ item.id }}" name="{{ item.status }}">This is Mine</button>
       {% endif %}
     {% endif %}
   </div>
