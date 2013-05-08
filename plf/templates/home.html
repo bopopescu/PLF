@@ -202,7 +202,6 @@ $(function() {
         }
         if (indVal.name == 'event_date') {
           date = indVal.value;
-          alert(indVal.value);
         }
         if (indVal.name == 'desc') {
           desc = indVal.desc;
@@ -315,12 +314,10 @@ $(function() {
           var html = $('.shown:first').html();
           html = html.replace("claimModal1", "claimModal");
           html = html.replace(/<img src=(.)*>/, "");
-          alert(html);
           $('#matchModal').append("<div class=\'masonryImage\'>" + html + "</div>");
           if (count > 1) {
             html = $('.shown').eq(1).html();
             html = html.replace(/<img src=(.)*>/, "");
-            alert(html);
             html = html.replace("claimModal1", "claimModal");
             $('#matchModal').append("<div class=\'masonryImage\'>" + html + "</div>");
           }
@@ -437,7 +434,6 @@ $(function() {
         }
       });
       /* $search.keypress(function(){
-        alert("blah");
         if($(this).val()===''){
           $container.isotope({ 
 
