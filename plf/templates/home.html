@@ -202,6 +202,7 @@ $(function() {
         }
         if (indVal.name == 'event_date') {
           date = indVal.value;
+          alert(indVal.value);
         }
         if (indVal.name == 'desc') {
           desc = indVal.desc;
@@ -219,6 +220,8 @@ $(function() {
         var dateY;
         var descY;
         var nw = true;
+        var fd = false;
+        var nm = false;
 
         if (loc!='') {locY = true;}
 
@@ -248,7 +251,9 @@ $(function() {
             if (item.fields.event_date==null && dateY) return true;
 
             if ((fd || nw) || nm) {
+
               if (dateY) {
+
                 var eDay = parseInt(item.fields.event_date.substring(8, 10), 10);
                 var fDay = parseInt(date.substring(8, 10), 10);
                 var eMonth = parseInt(item.fields.event_date.substring(5, 7), 10);
@@ -309,12 +314,12 @@ $(function() {
         if (count > 0) {
           var html = $('.shown:first').html();
           html = html.replace("claimModal1", "claimModal");
-          html = html.replace("<img src=.*>", "");
+          html = html.replace(/<img src=(.)*>/, "");
           alert(html);
           $('#matchModal').append("<div class=\'masonryImage\'>" + html + "</div>");
           if (count > 1) {
             html = $('.shown').eq(1).html();
-            html = html.replace("<img src=.*>", "");
+            html = html.replace(/<img src=(.)*>/, "");
             alert(html);
             html = html.replace("claimModal1", "claimModal");
             $('#matchModal').append("<div class=\'masonryImage\'>" + html + "</div>");
