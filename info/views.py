@@ -70,7 +70,7 @@ def home(request):
 
     # cleanup loop that should run once every three days
     today = date.today()
-    if (today - lastDay).days >= 3:
+    if (today - lastDay).days >= 0:
     #if (time.time()-lastTime) > :
         lastDay = today
         #lastTime = time.time()
@@ -204,13 +204,14 @@ def home(request):
 
             #queryitem.claimed = True
             #queryitem.save()
+
             if (u.claim_count > 3):
                 request.session['options'] = 4
-            elif status == True:
+            elif status == True: # means it's a lost item
                 message = 'Your lost item (%s) was recently found on the Princeton Lost and Found app by %s. ' % (queryitem.name, u)
                 message += 'Please get in touch with him/her to work out the logistics of returning your item.'
                 recipients = [ queryitem.student.email ]
-                send_mail('Your Item was Found!', message, 'princetonlostandfound@gmail.com', recipients)
+                send_mail('Your Lost Item was Found!', message, 'princetonlostandfound@gmail.com', recipients)
                 request.session['options'] = 2
             else:
                 message = 'The item you found (%s) was recently claimed on the Princeton Lost and Found app by %s. ' % (queryitem.name, u)
@@ -218,7 +219,7 @@ def home(request):
                 recipients = [ str(queryitem.student.email) ]
                 send_mail('An Item You Found was Claimed', message, 'princetonlostandfound@gmail.com', recipients)
 
-                message = 'The item you claimed (%s) was found by the user %s. ' % (queryitem.name, queryitem.student.email)
+                message = 'The item you claimed (%s) was posted by user %s. ' % (queryitem.name, queryitem.student.email)
                 message += 'Please get in touch with him/her to work out the logistics of returning the item.'
                 recipients = [ em ]
                 send_mail('You Claimed an Item', message, 'princetonlostandfound@gmail.com', recipients)
