@@ -13,6 +13,7 @@ from django.core import serializers
 from django.utils import simplejson
 import urllib, re
 import _ssl;_ssl.PROTOCOL_SSLv23 = _ssl.PROTOCOL_SSLv3
+from django.core.files.storage import default_storage
 
 def cleanCounts(): 
     for user in User.objects.all():
@@ -125,6 +126,7 @@ def home(request):
                 user = User.objects.filter(email=request.session['netid']+'@princeton.edu')[0]
                 user.items.remove(itemlist[0])
                 user.save()
+                default_storage.delete(itemlist[0].picture)
                 itemlist[0].delete()
 
             # requery myitems and items
