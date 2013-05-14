@@ -3,12 +3,22 @@
 {% block content %}
 
   {% for item in items %}
-    {% if item.status == True %}
-      <div class="masonryImage lost blocky low-priority" value="{{ item.id }}">
+    {% if forloop.counter < 5 %}
 
+    {% if item.status == True %}
+      {% if forloop.counter < 5 %}
+      <div class="masonryImage lost blocky low-priority shown" value="{{ item.id }}">
+      {% else %}
+      <div class="masonryImage lost blocky low-priority" value="{{ item.id }}">
+      {% endif %}
     {% else %}
+      {% if forloop.counter < 5 %}
+      <div class="masonryImage found blocky low-priority shown" value="{{ item.id }}">
+      {% else %}
       <div class="masonryImage found blocky low-priority" value="{{ item.id }}">
+      {% endif %}
     {% endif %}
+
     {% if item.picture %}
       <img src="{{ item.picture.url }}" class="tileim low-priority"/>
     {% endif %}
@@ -207,7 +217,6 @@ $(function() {
         if (indVal.name == 'desc') {
           desc = indVal.desc;
         }
-
       });
       if (((!found && !lost) || name=='') || desc=='') {
         $('#submitModal').modal("show");
@@ -327,7 +336,8 @@ $(function() {
           html = html.replace("claimModal1", "claimModal");
           html = html.replace(/<img src=(.)*>/, "");
           $('#matchModal').append("<div class=\'masonryImage\'>" + html + "</div>");
-          if (count > 1) {
+          alert($('.shown:first').text().length);
+          if (count > 1 && $('.shown:first').text().length+$('.shown').eq(1).text().length < 400) {
             html = $('.shown').eq(1).html();
             html = html.replace(/<img src=(.)*>/, "");
             html = html.replace("claimModal1", "claimModal");
@@ -471,27 +481,31 @@ $(function() {
           var ret;
           var count = 0;
           var input = $(this).val();
-          /*
+
+          var locwords = input.split(' ');
+          
           $.getJSON("../data/", function(ret){
             $.each(ret, function(index, item){
 
-              if (item.fields.category===input) {
-                $('.masonryImage').each(function() {
-                  if ($(this).attr("value")==item.pk) {
-                    $(this).addClass('shown');
-                    count++;
-                  }
-                })
-              }
+
+              var find = false;
+              $.each(locwords, function(index, element){
+                var blah = item.fields.location.toLowerCase();
+                if (blah.indexOf(element.toLowerCase()) >= 0) {
+                  find = true;
+                }
+              });
+              if (find==false) { return true;}
+
             });
-          });*/
+          });
           /* see if input matches an extant mapping */
           var x;
           var matched = 0;
           for (var i = 0; i < locMappings.length; i++) {
             x = locMappings[i].split('\n');
             for (var j = 0; j < x.length; j++) {
-              if (input.toLowerCase() == x[j].toLowerCase()) {
+              if (input.toLowerCase().indexOf(x[j].toLowerCase()) > 0) {
                 matched = 1;
               }
             }
