@@ -509,7 +509,7 @@ $(function() {
           for (var i = 0; i < locMappings.length; i++) {
             x = locMappings[i].split('\n');
             for (var j = 0; j < x.length; j++) {
-              if (input.toLowerCase().indexOf(x[j].toLowerCase()) > 0) {
+              if (input.toLowerCase().indexOf(x[j].toLowerCase()) >= 0 && x[j] != '') {
                 matched = 1;
               }
             }
@@ -551,7 +551,7 @@ $(function() {
       });  
 
       $container.isotope({
-        
+
       });
 
       $('#filters a').click(function(){

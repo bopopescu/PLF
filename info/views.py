@@ -181,6 +181,8 @@ def home(request):
                 errors = {}
                 context['errors'] = errors
                 cd = form.cleaned_data
+                if not 'event_date' in cd:
+                    errors['event_date'] = "Invalid date field"
                 if not request.POST.get('status', ''):
                     errors['status'] = "This field is required"
                 if not request.POST.get('desc', ''):
