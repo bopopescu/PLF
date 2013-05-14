@@ -126,7 +126,8 @@ def home(request):
                 user = User.objects.filter(email=request.session['netid']+'@princeton.edu')[0]
                 user.items.remove(itemlist[0])
                 user.save()
-                default_storage.delete(itemlist[0].picture.name)
+                if itemlist[0].picture.name:
+                    default_storage.delete(itemlist[0].picture.name)
                 itemlist[0].delete()
 
             # requery myitems and items
