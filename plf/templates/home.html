@@ -102,7 +102,7 @@ locMappings[37] = "McCarter\nMcCarter Theater\nMcCarter Theatre\nBerlind\nBerlin
 locMappings[38] = "Poe Field\nPoe\n1912\n1912 Pavilion\nLourie\nLove Pavilion\nPardee Field\nWest Pavilion";
 locMappings[39] = "U-Store\nU Store\nUniversity Store\nLockhart\nLockhart Hall\nCareer Services\nCareer\nFoulke\nFoulke Hall";
 locMappings[40] = "Henry\nHenry Hall\nLaughlin\nLaughlin Hall\n1901\n1901 Hall\nPyne\nPyne Hall\nJunior\nJunior Slums";
-locMappings[41] = "Wa\nWaWa\nThe Wa\nDinky\nNJ Transit\nTrain\nTrain Station\nNew South";
+locMappings[41] = "WaWa\nThe Wa\nDinky\nNJ Transit\nTrain\nTrain Station\nNew South";
 locMappings[42] = "Thomas\nThomas Hall\nIcahn\nIcahn Lab\nIcahn Laboratory";
 locMappings[43] = "Guyot\nGuyot Hall\nMoffett\nMoffett Hall\nSchultz\nSchultz Hall";
 locMappings[44] = "Nassau\nNassau Hall\nEast Pyne\nChancellor Green\nStanhope\nMaclean";
@@ -501,8 +501,6 @@ $(function() {
             for (var j = 0; j < x.length; j++) {
               if (input.toLowerCase().indexOf(x[j].toLowerCase()) >= 0 && x[j] != '') {
                 matched = 1;
-                alert(input);
-                alert(x[j]);
               }
             }
             if (matched == 1) break;
@@ -519,11 +517,9 @@ $(function() {
                 }
               }
             }
-            else {
-              if ($(this).is(":Contains('" + input.toLowerCase() + "')")) {
-                $(this).addClass('shown');
-                count++;
-              }
+            if ($(this).is(":Contains('" + input.toLowerCase() + "')")) {
+              $(this).addClass('shown');
+              count++;
             }
             });
             if (count === 0) {
