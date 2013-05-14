@@ -77,7 +77,7 @@
                       	<option value="Other">Other</option>
                       </select>
                     	Location: <br><input type="text" id = "loc" value="e.g. Frist"><br>
-    	                Date: <br><input type="date" id = "date"><br>
+    	                Date: (mm/dd/yyyy)<br><input type="date" id = "date"><br>
     	                Show results within...<br>
     	                <input type="radio" name="range" id="1d" value="exact" checked="checked"> One day<br>
     	                <input type="radio" name="range" id="fd" value="few"> A few days<br>
@@ -305,7 +305,7 @@
             <div style="clear: both;">
             <p>Location: <span style="padding-left: 54px;"></span>{{ form.location }} <span style="padding-left: 25px;"></span><a href="http://etcweb.princeton.edu/pumap/" target="_blank">Princeton Map</a></p>
             <p>*Category: <span style="padding-left: 43px;"></span>{{ form.category }}</p>
-            <p>Approx. Date: <span style="padding-left: 23px;"></span>{{ form.event_date }} </p>
+            <p>Approx. Date: <span style="padding-left: 23px;"></span>{{ form.event_date }}<span style="padding-left: 30px;"><b>(mm/dd/yyyy)</b>{% if form.errors.event_date %} <p style="color: red;">{{errors.event_date}}</p>{% endif %} </span></p> 
             
             <div style="width:30%; float: right; margin-top: 13px; text-align: right;">
               {% if form.errors.desc %}

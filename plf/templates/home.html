@@ -9,7 +9,9 @@
       <div class="masonryImage lost blocky low-priority shown" value="{{ item.id }}">
       {% else %}
       <div class="masonryImage lost blocky low-priority" value="{{ item.id }}">
+
       {% endif %}
+
     {% else %}
       {% if forloop.counter < 5 %}
       <div class="masonryImage found blocky low-priority shown" value="{{ item.id }}">
@@ -335,7 +337,9 @@ $(function() {
           html = html.replace("claimModal1", "claimModal");
           html = html.replace(/<img src=(.)*>/, "");
           $('#matchModal').append("<div class=\'masonryImage\'>" + html + "</div>");
+
           alert($('.shown:first').text().length);
+
           if (count > 1 && $('.shown:first').text().length+$('.shown').eq(1).text().length < 400) {
             html = $('.shown').eq(1).html();
             html = html.replace(/<img src=(.)*>/, "");
@@ -481,6 +485,7 @@ $(function() {
           var count = 0;
           var input = $(this).val();
 
+/*
           var locwords = input.split(' ');
           
           $.getJSON("../data/", function(ret){
@@ -546,7 +551,7 @@ $(function() {
       });  
 
       $container.isotope({
-
+        
       });
 
       $('#filters a').click(function(){

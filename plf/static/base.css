@@ -19,6 +19,11 @@ a {
 	color:black;
 }
 
+b {
+	color:gray;
+	font-weight:lighter;
+}
+
 a:hover {
 	text-decoration:none;
 	color: #ED9A34;
@@ -61,6 +66,7 @@ input[type=text]:focus, input[type=date]:focus, input[type=range]:focus, input[t
 	color:#ED9A34;
 }
 
+
 .tileim {
 	display: block;
 	margin-left: auto;
@@ -71,10 +77,12 @@ input[type=text]:focus, input[type=date]:focus, input[type=range]:focus, input[t
 	max-height: 230px;
 }
 
+
 .myitemtileim {
 	max-width: 200px;
 	max-height: 197px;
 }
+
 
 .button1 {
     background:none!important;
