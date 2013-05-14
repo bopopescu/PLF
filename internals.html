@@ -1,0 +1,27 @@
+<!-- internals.html -->
+
+<h1>Internals</h1>
+
+<h2>Main Structure</h2>
+<p>
+	Princeton Lost and Found was developed on Mac OSX in Python, although any operating system with <a href="http://www.python.org/download/releases/2.7/">Python 2.7</a> installed will work. We used the web framework Django to build the basic structure of our website. Django can be <a href="https://www.djangoproject.com/download/">downloaded</a> for free and has excellent <a href="http://www.djangobook.com/en/2.0/index.html">documentation</a>. Since Python is not compiled, all one must do to edit the website is change the code and push to GitHub.
+</p>
+
+<h2>Frontend</h2>
+<p>
+
+</p>
+
+<h2>Backend</h2>
+<p>
+	For backend, we used Postgresql (for our database), Heroku (for our web hosting), and Amazon Web Services' S3 storage (for storing pictures and staticfiles). The Postgres database is on Heroku's website in the app's addons section. To maintain and sync the database, we are using South. However, we have yet to successfully change the app's models or database schema without wiping the entire database. After making all of your changed to models.py, use the command "$ heroku pg:reset" and follow these <a href="https://devcenter.heroku.com/articles/heroku-postgresql">instructions</a>.
+</p>
+
+<p>
+	
+</p>
+
+<h2>Contact Info</h2>
+<p>
+	For account info and passwords for Gmail, Heroku, AWS, etc., send email to Matt Goldsmith (<a href="mailto:matthewjg@mac.com">matthewjg@mac.com</a>).
+</p>
