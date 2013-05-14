@@ -501,6 +501,8 @@ $(function() {
             for (var j = 0; j < x.length; j++) {
               if (input.toLowerCase().indexOf(x[j].toLowerCase()) >= 0 && x[j] != '') {
                 matched = 1;
+                alert(input);
+                alert(x[j]);
               }
             }
             if (matched == 1) break;
