@@ -83,6 +83,8 @@ def home(request):
                 user = User.objects.filter(items__id__exact=i.id)[0]
                 user.items.remove(i)
                 user.save()
+                if i.picture.name:
+                    default_storage.delete(i.picture.name)
                 i.delete()
 
     # should we requery?
