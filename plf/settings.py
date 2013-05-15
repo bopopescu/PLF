@@ -1,6 +1,6 @@
 # Django settings for plf project.
 
-DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
