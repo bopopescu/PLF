@@ -1,0 +1,55 @@
+<!-- internals.html -->
+
+<!-- css -->
+<html>
+<head>
+	<style media="screen" type="text/css">
+a {
+	font-family: 'Open Sans', sans-serif, "Century Gothic", CenturyGothic, "AppleGothic", sans-serif;    font-size:15px;
+	text-shadow:1px 1px 0px #ffffff;
+}
+b {
+	font-family: 'Open Sans', sans-serif, "Century Gothic", CenturyGothic, "AppleGothic", sans-serif;    font-size:20px;
+	text-shadow:1px 1px 0px #ffffff;
+}
+c {
+	font-family: 'Open Sans', sans-serif, "Century Gothic", CenturyGothic, "AppleGothic", sans-serif;    font-size:30px;
+	text-shadow:1px 1px 0px #ffffff;
+}
+</style>
+</head>
+<body>
+<h1><c>Internals</c></h1>
+
+<h2><b>Main Structure</b></h2><a>
+<p>
+	Princeton Lost and Found was developed on Mac OSX in Python, although any operating system with <a href="http://www.python.org/download/releases/2.7/">Python 2.7</a> installed will work. We used the web framework Django to build the basic structure of our website. Django can be <a href="https://www.djangoproject.com/download/">downloaded</a> for free and has excellent <a href="http://www.djangobook.com/en/2.0/index.html">documentation</a>. Since Python is not compiled, all one must do to edit the website is change the code and push to GitHub.
+</p></a>
+
+<h2><b>Frontend</b></h2><a>
+<p>
+	The two main resources we used for frontend were Twitter Bootstrap and Isotope. Bootstrap comes with a large set of divs that are quite useful and can almost all be copy/pasted from their <a href="http://twitter.github.io/bootstrap/">site</a>. These divs are what we used for things like the separation of the sidebar and the items, as well as the navigation bar in the top and the menus. When changing CSS, add rules to base.css/item.css/a new css file you create. Make sure to avoid making changes to any files in the actual bootstrap folder. Our app is designed to have rules in extra CSS files to override Bootstrap rules.
+</p>
+
+<p>
+	Isotope is the Javascript library we used to implement the right side of the screen. It dynamically reorders and filters the lost and found items. One thing to keep in mind when working with this library is the fact that when the number of items gets very large (upwards of 150 or so), the animations begin to slow down significantly. This pitfall is one thing that could definitely be improved on, namely by implementing an algorithm that showed only those at the top, similar to how Facebook loads your news feed as you scroll down.
+</p>
+
+<p>
+	The most significant change that needs to be made in terms of app logic is resizing images. Currently, when a user uploads a picture it is put directly into Amazon S3 without any changes or resizing. As a result, Isotope takes longer to load and animations slow down. Because users can upload multiple times per day, this bug presents one possible attack on the site (uploading a large number of big pictures).
+</p></a>
+
+<h2><b>Backend</b></h2><a>
+<p>
+	For backend, we used Postgresql (for our database), Heroku (for our web hosting), and Amazon Web Services' S3 storage (for storing pictures and staticfiles). The Postgres database is on Heroku's website in the app's addons section. To maintain and sync the database, we are using South. However, we have yet to successfully change the app's models or database schema without wiping the entire database. After making all of your changed to models.py, use the command "$ heroku pg:reset" and follow these <a href="https://devcenter.heroku.com/articles/heroku-postgresql">instructions</a>. Make sure that when changing any part of the code, you push to Github before pushing to Heroku, as the Github repository is what actually gets sent to Heroku's master branch.
+</p>
+
+<p>
+	All of the libraries we used (PIL, S3Boto, among others) can be found in requirements.txt and are installed on the virtual environment (the "venv" folder). This virtual environment is what Heroku uses to run Princeton Lost & Found, so make sure that any changes to the operating system (additional installed/uninstalled libraries, etc.) are done while using the virtual environment. To activate it, navigate to the root PLF folder and use the command "$ source venv/bin/activate." From there, simply use pip to install/uninstall libraries. Also worthy of mention: if you're trying to edit/test on localhost, you will need to install all of these libraries on your own machine. For simply editing the website, however, Heroku uses only the virtual environment's library.
+</p></a>
+
+<h2><b>Source Code and Account Information</b></h2>
+<p><a>
+	Source code can be downloaded from <a href="https://github.com/splichte/plf">Github</a>. For account info and passwords for Gmail, Heroku, AWS, etc., email Matt Goldsmith (<a href="mailto:matthewjg@mac.com">matthewjg@mac.com</a>).</a>
+</p>
+</body>

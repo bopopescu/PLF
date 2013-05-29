@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style type="text/css">
+	.imageDiv { 
+		padding: 10px;
+		background: grey;
+		margin: 15px;
+		width: 30%;
+		text-align: center;
+		color: white;
+		moz-border-radius: 6px;
+		border-radius: 6px
+	}
+	</style>
+</head>
+<body style="font-family: Arial;">
+	<h1>Princeton Lost and Found Timeline</h1>
+	<h5>Sam Lichtenberg, Deric Cheng, Matt Goldsmith, Reed Tan</h5>
+	<hr/>
+	<h3>March 8, 2013</h3>
+	We met with Professor Kernighan to discuss project ideas. Our initial idea is some sort of housing/summer-housing related web app.
+	<hr/>
+	<h3>March 16, 2013</h3>
+	Discussed project ideas and decided to switch to Lost and Found web app from the housing-related web app.
+	<hr/>
+	<h3>March 17, 2013</h3>
+	Finished and submitted design document and timeline HTML file.
+	<hr/>
+	<h3>March 19, 2013</h3>
+	Met to discuss structure of database and to go over some Django tutorials. We're using the ones at http://www.djangobook.com/en/2.0/index.html.
+	<hr/>
+    <h3>March 21, 2013</h3>
+	Met with Chris, our TA, to discuss project development, the tools we selected to use so far (Django, jQuery, postgresql), and what to expect by next meeting.
+	<hr/>
+	<h3>March 24, 2013</h3>
+	Finished more Django tutorials and got our Django backend working with the database, ie. we defined some model classes and sync'd with the postgres database. So far, we implemented functionality such that a user can submit an item into the database, and can search through database entries using a primitive search function.
+	<hr/>
+	<h3>March 28th, 2013</h3>
+	Met with Chris for second time. We showed our primitive prototype with search and submit functions. Discussed possible front-end tools for user interface development.
+	<hr/>
+	<h3>March 30th - 31st, 2013</h3>
+	Re-organized database schema. This proved to be a more involved task than a simple call to syncdb. We had to download a migrations app - south - and go through a whole sequence of drop, create, sync, and migrate commands to get it working properly.
+	<hr/>
+	<h3>April 6th, 2013</h3>
+	Added support for static files (images, css files) by adding a static folder and changing the related settings.
+	<hr/>
+	<h3>April 9th, 2013</h3>
+	We successfully deployed a test branch onto heroku for first time. Although the site we put up was now outdated, we learned the process and feel confident we can replicate it later down the line.
+	<hr/>
+	<h3>April 10th, 2013</h3>
+	Improved submit functionality, presentation/layout using css we defined ourselves.
+	<hr/>
+	<h3>April 11th, 2013</h3>
+	Added claiming functionality: a user can now claim an item by pressing a button below the presentation of that item on the homepage. Then, the web app sends out an email to the user who lost the item. The email contains the email of the claiming user so that the two can correspond and work out the details of returning the item.
+	<hr/>
+	<h3>April 12th, 2013</h3>
+	Began adding JQuery code for the search functionality and going through some JQuery tutorials.
+	<hr/>
+	<h3>April 14th, 2013</h3>
+	Search bar JQuery code and JQuery for filtering items on the home page complete. Improved search algorithm. We're relying on a client-side screen-scraping script at this point, although for a more advanced search we might want to implement something that actually searches through database entries.
+	<hr/>
+	<h3>April 16th, 2013</h3>
+	Added a second option to the item claiming functionality: now the sent email can contain two different messages, depending on whether a user claimed a found item or found a lost item.
+	<hr/>
+	<h3>April 17th, 2013</h3>
+	Fixed broken databases on two of our group members' computers; began updating submit form presentation. Tried to implement a JQuery datepicker widget to limited success.
+	<hr/>
+	<h3>April 19th, 2013</h3>
+	Updated submit form date fields presentation. Instead of a datepicker, we decided to just use Django's built-in SelectDateWidget instead (at least for now).
+	<hr/>
+	<h3>April 22nd, 2013</h3>
+	Began attempting to implement CAS Login and user models. The Python CGI script on COS 333 home page still seems to be broken somehow, even though the test code works.
+	<hr/>
+	<h3>April 24th, 2013</h3>
+	CAS Login now working. Thanks to Luke Paulsen for his fix. We began implementing users to a certain extent. We're using sessions to get a user's netid from the CAS login page. Also, we added error presentation to submit.html. Now, error messages appear next to the fields where the error occurred.
+	<hr/>
+	<h3>April 26th, 2013</h3>
+	Removed netid fields in submit page and in home page. Now, when users submit an item, they no longer need to fill in their netid. Instead the app uses the netid from when a user logged in with CAS. The same goes for claiming items on the homepage. Users no longer need to fill in a netid field anywhere in the app, apart from when logging in.
+	<hr/>
+	<h3>May 1st, 2013</h3>
+	Got our app running on Heroku, and it seems to be working with CAS as well. We also switched our advanced search algorithm to JSON so that it would rely on the back-end database and not on the client-side screen-scraping that we were doing for the ordinary search. We also continued working on the style of our site: we made the decision to switch over to using the Twitter Bootstrap CSS styling and Javascript libraries to improve the presentation of our site.
+	<hr/>
+	<h3>May 2nd, 2013</h3>
+	We began reconsidering some functionality decisions that would protect our site from spammers, such as limiting the number of items a single user can claim over a certain period of time, and adding a confirmation model before our site sends out any emails. We also realized that the CAS login is not working correctly, and will meet with OIT about it tomorrow. Most of the Bootstrap CSS and Javascript was functional by the time we met with Chris in the afternoon. During the meeting, we discussed possible additional features to add once the core functionality is complete, such as Google Maps integration and a smarter submit function that recommends items that have been lost or found based on the input the user is planning to submit.
+	<hr/>
+	<h3>May 4th, 2013</h3>
+	We found out that the CAS Login problem was actually a bug in our implementation and promptly fixed it. We also further refined/debugged the JSON-based advanced search. Also, we discovered Django HTML5 integration. We found out that HTML5 includes a widget similar to the javascript DatePicker that we were looking at earlier for our submission and advanced search forms. We thus switched over to HTML5 for a lot of our Django-generated form html.
+	<hr/>
+	<h3>May 5th, 2013</h3>
+	We did a lot of work on the presentation side of things today. In particular:
+	- We fixed a big bug with the Bootstrap modals. We found out that unless the HTML for the modal was placed at the absolute bottom of the .html file, they would sometimes pop up behind the backdrop. Also, with the amount of modals we're using, sometimes the order in which the HTML code appears seems to affect whether or not the modal would be buggy. We couldn't figure out a pattern for how to solve this, but managed to get everything working.
+	- We finally went through a bunch of sites that offered layout and font downloads, and decided on a black and orange-based color scheme as well as a font. Although a lot of this just involved downloading code and getting it in the right place, we also had to code some CSS that proved to be more complicated than we expected.
+	We also began working on the smart-submit functionality, which would recommend items that matched the fields of the item a user was trying to submit. For example, if a user tried to submit a lost jacket, we would search through our database for found jackets and return the items if a certain number of model fields matched or almost-matched those of the lost jacket.
+	<hr/>
+	<h3>May 6th, 2013</h3>
+	We continued work on the smart-submit functionality. More bugs with modals were introduced that took a while to fix. We also spent a lot of time trying to find some method to resize images related to items that would be uploaded by users. We realized that much of the software to do this was commercial, and ended up not being able to figure out a way to do this. We also started hosting our photos on an Amazon AWS server, so that when we pushed code updates to heroku, the photos wouldn't be deleted (as was the case before).
+	We also made a beautiful powerpoint for our demo.
+	<hr/>
+	<h3>May 7th, 2013</h3>
+	We finished the smart-submit functionality. Afterwards, we strapped down and fixed as many bugs as we could find, and got some input from our friends about the layout, design, and functionality. One small thing we fixed from this was adding redirection from literally almost every button on the home page to the login page, when a user was not yet logged in.
+	Afterwards, we planned out our presentation and practiced going through the demo a couple times.
+	<hr/>
+	<h3>May 8th, 2013</h3>
+	Our demo was at 1:00 pm today. It went quite well - nothing broke and we felt like we answered questions sufficiently. The skit was also a lot of fun.
+</body>
+</html>

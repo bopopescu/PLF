@@ -7,13 +7,18 @@ import datetime
 from datetime import date
 import time
 from datetime import timedelta
+from PIL import Image, ImageOps
 from django.core.mail import send_mail
 from django.core.context_processors import csrf
 from django.core import serializers
 from django.utils import simplejson
 import urllib, re
+import json
+import sys, os
+import operator
 import _ssl;_ssl.PROTOCOL_SSLv23 = _ssl.PROTOCOL_SSLv3
 from django.core.files.storage import default_storage
+from django.conf import settings
 
 def cleanCounts(): 
     for user in User.objects.all():
@@ -170,6 +175,13 @@ def home(request):
                     event_date = cd['event_date'], name = cd['name'], claimed=False)
                 i.save()
                 u.items.add(i)
+                
+                
+                path = os.path.join(settings.MEDIA_ROOT, i.picture.url)
+                thumbnail = Image.open(path)
+
+                thumbnail = thumbnail.resize((230, 230), Image.ANTIALIAS)
+                thumbnail.save(path)
 
                 request.session['options'] = 1
 
@@ -236,95 +248,80 @@ def home(request):
             return HttpResponseRedirect('../thanks')
     return render_to_response('home.html', context)
 
-def dataReturn(request):
-    data = serializers.serialize('json', Item.objects.all(), fields=('status', 'location', 'category', 'desc', 'event_date', 'name'))
+def search(request):
+    searchval = request.GET['val']
+    terms = searchval.split(' ')
+    matches = {}
+    for item in Item.objects.all():
+        count = 0
+        for t in terms:
+            if item.location.lower().find(t.lower()) != -1:
+                count += 1
+            if item.desc.lower().find(t.lower()) != -1:
+                count += 1
+            if item.name.lower().find(t.lower()) != -1:
+                count += 1
+            if item.category.lower() == t.lower():
+                count += 1
+        if count > 0:
+            matches[item.id] = count
+
+    sorted_matches = sorted(matches.iteritems(), key=operator.itemgetter(1), reverse=True)
+    idList = []
+    for i in sorted_matches:
+        idList.append(i[0])
+        print i[1]
+    queryset = Item.objects.filter(id__in=idList)
+    data = serializers.serialize('json', queryset, fields=('status', 'location', 'category', 'desc', 'event_date', 'name', 'picture'))
     return HttpResponse(data, content_type="application/json")
 
-def about(request):
-    return render_to_response('about.html')
+def advSearch(request):
+    searchval = request.GET['val']
+    aspects = searchval.split(',')
+    location = aspects[0]
+    name = aspects[1]
+    category = aspects[2]
+    date = aspects[3]
+    desc = aspects[4]
+    status = aspects[5]
+    date_range = aspects[6]
 
-# def myItems(request):
-#     if 'auth' not in request.session:
-#         return login(request)
-#     context = {}
-#     context.update(csrf(request))
+    matches = []
 
-#     # get netid, look up in database, return items
-#     if request.method == 'POST':
-#         getid = request.POST.get('id')
-#         item = Item.objects.filter(id = getid)[0]
+    for item in Item.objects.all():
+        if location != 'e.g. Frist' and item.location.lower().find(t.lower()) == -1:
+            continue
+        if desc != '':
+            for d in desc.split('\n'):
+                if item.desc.lower().find(d.lower()) == -1:
+                    continue
+        if status != 'undefined':
+            if status == 'found' and item.status == True:
+                continue
+            elif status == 'lost' and item.status == False:
+                continue
+        if name != 'e.g. Black North Face Jacket' and item.name.lower().find(name.lower()) == -1:
+            continue
+        if category != 'Any' and category != 'null':
+            if item.category.lower() != category:
+                continue
+        # uh date stuff goes here :p
+        matches.append(item.id)
 
-#         user = User.objects.filter(email=request.session['netid']+'@princeton.edu')[0]
-#         user.items.remove(item)
-#         item.claimed = True
-#         user.save()
-#         item.save()
+    queryset = Item.objects.filter(id__in=matches)
+    data = serializers.serialize('json', queryset, fields=('status', 'location', 'category', 'desc', 'event_date', 'name', 'picture'))
+    return HttpResponse(data, content_type="application/json")
 
-#     items = Item.objects.filter(student__email__exact=request.session['netid'] + '@princeton.edu')
-#     context['items'] = items
-#     return render_to_response('my_items.html', context)
+def default(request):
+    recentIDs = []
+    recent_items = Item.objects.all()
+    num_items = len(recent_items)
+    for i in range(5):
+        try:
+            recentIDs.append(recent_items[num_items-i].id)
+        except:
+            pass
+    queryset = Item.objects.filter(id__in=recentIDs)
+    data = serializers.serialize('json', queryset, fields=('status', 'location', 'category', 'desc', 'event_date', 'name', 'picture'))
+    return HttpResponse(data, content_type="application/json")
 
-# def submit(request):
-#     # search bar on left
-#     if 'auth' not in request.session:
-#         return login(request)
-#     items = Item.objects.all()
-
-#     # search bar
-#     if 'q' in request.GET:
-#         q = request.GET['q']
-#         if not q:
-#             error = True
-#         else:
-#             items = Item.objects.filter(category__icontains=q)
-#             return render_to_response('search_results.html', {'items': items, 'query': q})
-
-#     # main functionality of submit page
-#     if request.method == 'POST':
-#         form = SubmitForm(request.POST, request.FILES)
-#         errors = {}
-
-#         if form.is_valid():
-#             cd = form.cleaned_data
-#             now = datetime.datetime.now()
-#             x = False
-#             if (cd['status'] == 'Lost'):
-#                 x = True
-#             em = request.session['netid']+'@princeton.edu'
-#             print em
-#             ulist = User.objects.filter(email=em)#[0]
-#             if not ulist:
-#                 u = User(email=em)
-#                 u.save()
-#             if ulist:
-#                 u = ulist[0]
-
-#             print u.email
-#             i = Item(status=x, category=cd['category'], desc=cd['desc'], student=u, 
-#                 sub_date = now, location=cd['location'], picture=cd['picture'],
-#                 event_date = cd['event_date'], claimed=False)
-#             i.save()
-#             u.items.add(i)
-
-#             context['options'] = 0
-
-#             return render_to_response('submit_thanks.html', context)
-
-#         else:
-#             cd = form.cleaned_data
-#             if not request.POST.get('status', ''):
-#                 errors['status'] = "Enter a status"
-#             if not request.POST.get('desc', ''):
-#                 errors['desc'] = "Enter a description"
-#             #if not request.POST.get('netid', ''):
-#             #    errors['netid'] = "Enter your netid"
-
-#             return render_to_response('submit_form.html', {'form': form, 'errors': errors}, context_instance=RequestContext(request))
-
-#     else:
-#         now = datetime.datetime.now()
-#         datefield = str(now.month) + '/' + str(now.day) + '/' + str(now.year)
-#         form = SubmitForm(
-#             initial={'event_date': datefield }
-#             )
-#     return render_to_response('submit_form.html', {'form': form}, context_instance=RequestContext(request))

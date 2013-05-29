@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load staticfiles %}
+
+    <!-- Bootstrap -->
+    <link href="{% static "bootstrap/css/bootstrap.min.css" %}" rel="stylesheet" media="screen">
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
+    <link href="{% static "base.css" %}" rel="stylesheet" type="text/css">
+    <link href="{% static "item.css" %}" rel="stylesheet" type="text/css">
+    <title>Princeton Lost & Found</title>
+
+  </head>
+  <body>
+
+    <!--Top Bar-->
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner" style="padding-left:20px;">
+        <a class="brand" href="../">Princeton Lost & Found</a>
+        <div class="pull-right">
+          <ul class="nav">
+            <!-- "about" modal -->
+            <li><a href="#aboutModal" role="button" data-toggle="modal">About</a><li>
+            {% if must_log_in == True %}
+              <li><a href="../login">Login</a></li>
+            {% else %}
+              <li><a href="../logout">Logout</a></li>
+            {% endif %}
+          </ul>
+        </div>
+          <u1 id="filters" class="nav filters">
+            <li><a href="#" data-filter="*">show all</a></li>
+            <li><a href="#" data-filter=".lost">lost</a></li>
+            <li><a href="#" data-filter=".found">found</a></li>
+          </u1>
+        </ul>
+      </div>
+    </div>
+
+    <div class="container-fluid">
+      <div class="row-fluid">
+
+        <!--Sidebar content-->
+        <div class="span3">
+          <div class="sidebar-nav sidebar-nav-fixed">
+            <!--Search Box-->
+            <form class="search search-indent">
+              <input type="text" id="search" class="search-query search-width" placeholder="Search...">
+            </form>
+            <!--Accordian menu-->
+            <div class="accordion" id="accordion2">
+              <div class="accordion-group">
+                <div class="accordion-heading">
+                  <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#advS">
+                    Advanced Search
+                  </a>
+                </div>
+                <div id="advS" class="accordion-body collapse">
+                  <div class="accordion-inner myitemscroll">
+                    <p>
+                    	<form style="margin-top: 0px !important;">
+                    	<input type="radio" name="lf" id = "lf1" value="lost"> Lost<br>
+                    	<input type="radio" name="lf" id = "lf2" value="found"> Found
+                      <br style="padding-bottom: 50px;">
+                      <div style="padding-top: 7px;">Name: <br><input type="text" id = "title" value="e.g. Black North Face Jacket"></div>
+                      Category: <br>
+                      <select multiple="multiple" name="cats" id ="cats">
+                      	<option value="Clothing">Clothing</option>
+                      	<option value="Wallet/Keys/Prox">Wallet/Keys/Prox</option>
+                      	<option value="Phone">Phone</option>
+                      	<option value="Charger">Charger</option>
+                      	<option value="Electronics">Electronics</option>
+                      	<option value="Accessories">Accessories</option>
+                      	<option value="Textbook">Textbook</option>
+                      	<option value="Backpack">Backpack</option>
+                      	<option value="Other">Other</option>
+                      </select>
+                    	Location: <br><input type="text" id = "loc" value="e.g. Frist"><br>
+    	                Date: (mm/dd/yyyy)<br><input type="date" id = "date"><br>
+    	                Show results within...<br>
+    	                <input type="radio" name="range" id="1d" value="exact" checked="checked"> One day<br>
+    	                <input type="radio" name="range" id="fd" value="few"> A few days<br>
+    	                <input type="radio" name="range" id="1w" value="week"> One week<br>
+    	                <input type="radio" name="range" id="1m" value="month"> One month<br>
+    	                <div style="padding-top: 10px;">Description keywords (one line per keyword):</div><br>
+    	                <textarea name="desc" id="descbox" rows=3 cols=10 style="padding-top: 0px; max-width: 220px; max-height: 150px;"></textarea><br>
+            					<button type="submit" id="advSearch" class="btn" value="sval">Search!</button>
+                      </form>
+                    </p>
+                 </div>
+                </div>
+              </div>
+
+              <div class="accordion-group">
+                <div class="accordion-heading">
+                  {% if must_log_in == True %}
+                    <a href="../login" class="accordion-toggle" data-parent="#accordion2">
+                      Login to see your items
+                  {% else %}
+                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#myItems">
+                      My Items
+                  {% endif %}
+                  </a>
+                </div>
+                <div id="myItems" class="accordion-body collapse">
+                  <div class="accordion-inner myitemscroll">
+                    {% if myitems %}
+                      {% for item in myitems %}
+                        <div class="masonryImage myitems">
+                          {% if item.picture %}
+                            <img src="{{ item.picture.url }}" class="myitemtileim"/>
+                          {% endif %}
+                            <p class="name">{{ item.name }}</p>
+                            <p class="small-header">{{ item.location }}</p>
+                          <hr class="break"/>
+                          {% if item.status == True %}
+                            <p class="location">Lost
+                          {% else %}
+                            <p class="location">Found
+                          {% endif %}
+                          {% if item.event_date %}
+                            : {{ item.event_date }}
+                          {% endif %}
+                          </p>
+                          <p class="location">Date submitted: {{ item.sub_date }}</p>
+                          <p class="location">{{ item.desc }}</p>
+                          <form action="" method="post" style="margin-bottom: 0px;">{% csrf_token %}
+                           <button href="#resolveModal" class="btn btn-mini resolve" data-toggle="modal" value="{{ item.id }}">Resolved?</button>
+                          </form>
+                        </div>
+                      {% endfor %}
+                    {% else %}
+                      <p>You currently have no items.</p>
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="accordion-group">
+                <div class="accordion-heading">
+                  {% if must_log_in == True %}
+                  <a href="../login" class="accordion-toggle submit" data-parent="#accordion2">
+                    Login to Submit
+                  {% else %}
+                  <a class="accordion-toggle" data-parent="#accordion2" href="#submitModal" data-toggle="modal">
+                    Submit <!-- Button to trigger modal -->
+                  {% endif %}
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <!--Body content-->
+        <div class="span9" id="right">
+          {% block content %}
+            Content
+          {% endblock %}
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Put modals here so they won't show up behind the backdrop -->
+    <script src="{% static "bootstrap/js/bootstrap.min.js" %}"></script>
+
+    <!-- resolve confirmation modal -->
+    <div id="resolveModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">Confirmation</h3>
+      </div>
+      <div class="modal-body">
+        <p>This will permanently remove this item from the database. Are you sure you wish to continue?</p>
+      </div>
+      <div class="modal-footer resolving">
+        <form action="" method="post" style="padding:0; margin:0;">{% csrf_token %}
+          <input type="hidden" id="id" value="" name="resolved">
+          <button class="btn" data-dismiss="modal" aria-hidden="true">No</button>
+          <button class="btn btn-primary" type="submit">Remove it</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- About Modal -->
+    <div id="aboutModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">About</h3>
+      </div>
+      <div class="modal-body">
+        <p>
+          Princeton Lost and Found (PLF) is a TigerApp designed to make the return of missing items to members of the Princeton community as quick and painless as possible. This website is the property of the Princeton USG and was created by Sam Lichtenberg ’15, Matt Goldsmith ’15, Reed Tan ’15, and Deric Cheng ’15.
+        </p>
+        <p>
+          Listings on this website are subject to deletion after 90 days if they are unresolved within that time. Users are limited to 5 submissions per three days and 3 postings per three days to prevent spam.
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+      </div>
+    </div>
+
+    <!-- Thanks modal -->
+    <div id="thanksModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">
+          {% if options == 4 or options == 5 %}
+            Sorry!
+          {% else %}
+            Thanks!
+          {% endif %}
+        </h3>
+      </div>
+      <div class="modal-body">
+        <p>
+          {% if options == 1 %}
+            Thanks for submitting! You will receive an email if someone indicates that he or she has found the item you've submitted.
+          {% elif options == 2 %}
+            Thanks for claiming! An email has been sent to the person who lost the item, and he or she should contact you shortly.
+          {% elif options == 3 %}
+            Thanks for claiming! An email has been sent to the person who found the item, and he or she should contact you shortly.
+          {% elif options == 4 %}
+            You've responded to a lot of item postings lately. Please wait a couple of days before responding to more.
+          {% elif options == 5 %}
+            You've been posting a lot of items lately. Please wait a couple of days before posting more.
+          {% endif %}
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+      </div>
+    </div>
+
+    <!-- claim lost thanks modal -->
+    <div id="claimLostThanksModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">Thanks!</h3>
+      </div>
+      <div class="modal-body">
+        <p>Your item was submitted successfully!</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+      </div>
+    </div>
+
+   <div id="claimModal1" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">Confirmation</h3>
+      </div>
+      <div class="modal-body">
+        <p>This will send an email to the poster of this item. Are you sure you wish to continue?</p>
+      </div>
+      <div class="modal-footer claiming">
+        <form action="" method="post" style="padding:0; margin:0;">{% csrf_token %}
+          <input type="hidden" id="status" value="" name="status">
+          <input type="hidden" id="id" value="" name="identity">
+          <button class="btn" data-dismiss="modal" aria-hidden="true">No</button>
+          <button class="btn btn-primary" type="submit">Send that email!</button>
+        </form>
+      </div>
+    </div>
+ 
+
+    <!-- Submit Modal -->
+    <div id="submitModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">Submit an Item</h3>
+        <h5>* Required Fields</h5>
+      </div>
+      <div class="modal-body" style="max-height: 410px; margin:0; padding-top:0;overflow: hidden;">
+        <form enctype="multipart/form-data" id = "yo" action="" method="post" style="height:500px">{% csrf_token %}
+          <input type="hidden" name="submit_request" value="submit_request">
+          <div style="width:30%; float: right; margin-top: 6px; text-align: right;">
+            {% if form.errors.status %}
+            <p style="color: red;">{{ errors.status }}</p>
+            {% endif %}
+          </div>
+          <div style="width:70%; float: left;">
+            <ul class="nobullet">
+                <li>{{ form.status.0 }}</li>
+                <li>{{ form.status.1 }}</li>
+            </ul>
+          </div>
+          <div style="clear: both;">
+          </div>
+          <div style="padding-left: 25px;">
+             <div style="width:30%; float: right; margin-top: 4px; text-align: right;">
+              {% if form.errors.name %}
+              <p style="color: red;">{{ errors.name }}</p>
+              {% endif %}
+            </div>
+            <div style="width:70%; float: left;">
+              <p class="marg">*Item: <span style="padding-left: 72px;"></span>{{ form.name }} </p>
+            </div>
+            <div style="clear: both;">
+            <p>Location: <span style="padding-left: 54px;"></span>{{ form.location }} <span style="padding-left: 25px;"></span><a href="http://etcweb.princeton.edu/pumap/" target="_blank">Princeton Map</a></p>
+            <p>*Category: <span style="padding-left: 43px;"></span>{{ form.category }}</p>
+            <p>Approx. Date: <span style="padding-left: 23px;"></span>{{ form.event_date }}<span style="padding-left: 30px;"><b>(mm/dd/yyyy)</b>{% if form.errors.event_date %} <p style="color: red;">{{errors.event_date}}</p>{% endif %} </span></p> 
+            
+            <div style="width:30%; float: right; margin-top: 13px; text-align: right;">
+              {% if form.errors.desc %}
+              <p style="color: red;">{{ errors.desc }}</p>
+              {% endif %}
+            </div>
+            <div style="width:70%; float: left;">
+              <p class="marg">*Description: <span style="padding-left: 25px;"></span>{{ form.desc }} </p>
+            </div>
+            <div style="clear: both;">
+            </div>
+            <p>Picture: <span style="padding-left: 63px;"></span>{{ form.picture }} </p>
+            <div class="modal-footer">
+              <input class="btn btn-primary" id="ms" type="submit" value="Submit">
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+
+    <div id="matchModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="height: 510px">
+      <div class="modal-header" >
+        <button type="button" class="close" id="nomatch" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">Possible matches exist!</h3>
+      </div>
+      <div class="modal-body" >
+        <p>Possible matches to the item you're submitting have been found. You can respond to one of these listings, or submit anyway.</p>
+      </div>
+      <div class="modal-footer claiming">
+      <button class="btn btn-primary" id="matchsub" type="submit">Submit Anyway</button>
+
+      </div>
+    </div>
+
+   <div id="claimModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-header">
+        <button type="button" class="close" id="noemail1" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">Confirmation</h3>
+      </div>
+      <div class="modal-body">
+        <p>This will send an email to the poster of this item. Are you sure you wish to continue?</p>
+      </div>
+      <div class="modal-footer claiming">
+        <div style="width:30%; float: right; margin-top: 13px; text-align: right;">
+        <form action="" method="post" style="padding:0; margin:0;">{% csrf_token %}
+          <input type="hidden" id="status" value="" name="status">
+          <input type="hidden" id="id" value="" name="identity">
+          <button class="btn btn-primary" type="submit">Send that email!</button>
+        </form>
+        </div>
+        <div style="width:70%; float: left; padding-top: 13px;">
+        <button class="btn" id="noemail" aria-hidden="true">No</button>
+        </div>
+            <div style="clear: both;">
+      </div>
+    </div>
+
+
+  </body>
+</html>

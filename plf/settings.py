@@ -58,15 +58,16 @@ AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME = 'plfpictures'
 
-#MEDIA_ROOT = '/Users/samlichtenberg/Documents/cs333/PLF/media'
+MEDIA_ROOT = '/Users/samlichtenberg/Documents/cs333/PLF/media/'
 #MEDIA_ROOT = os.path.join(PROJECT_DIR,'media/')
 #MEDIA_ROOT = '/Users/tortorareed/Desktop/HW/cos333/PLF/media/'
-MEDIA_ROOT = ''
+#MEDIA_ROOT = ''
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
 # Examples: "http://example.com/media/", "http://media.example.com/"
-MEDIA_URL = 'https://s3-us-west-2.amazonaws.com/plfpictures/photos/'
+#MEDIA_URL = 'https://s3-us-west-2.amazonaws.com/plfpictures/photos/'
+MEDIA_URL = '../media/'
 
 # Absolute path to the directory static files should be collected to.
 # Don't put anything in this directory yourself; store your static files
@@ -77,7 +78,7 @@ STATIC_ROOT = ''
 # URL prefix for static files.
 # Example: "http://example.com/static/", "http://static.example.com/"
 
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+#DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
 STATIC_URL = '/static/'
 ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
@@ -183,8 +184,8 @@ LOGGING = {
 }
 
 # Parse database configuration from $DATABASE_URL
-import dj_database_url
-DATABASES['default'] =  dj_database_url.config()
+#import dj_database_url
+#DATABASES['default'] =  dj_database_url.config()
 
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
