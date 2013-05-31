@@ -157,13 +157,25 @@ def home(request):
             else:
                 u = ulist[0]
 
+            valid_date = True
+            if request.POST.get('event_date') != '':
+                submitted = str(request.POST.get('event_date'))
+                realtime = str(datetime.datetime.now())
+                subfields = submitted.split('-')
+                realfields = realtime.split(' ')[0].split('-')
+
+                for i in range(len(subfields)):
+                    if int(subfields[i]) > int(realfields[i]):
+                        valid_date = False
+
             # if this user's been submitting too much, redirect back to home with the "sorry" modal popup
             if u.submit_count >= 5:
                 context['options'] = 5
                 return HttpResponseRedirect('../thanks')
 
+
             # if the form's valid...
-            elif form.is_valid():
+            elif form.is_valid() and valid_date:
                 cd = form.cleaned_data
                 now = datetime.datetime.now()
                 x = False
@@ -176,12 +188,11 @@ def home(request):
                 i.save()
                 u.items.add(i)
                 
-                
-                path = os.path.join(settings.MEDIA_ROOT, i.picture.url)
-                thumbnail = Image.open(path)
-
-                thumbnail = thumbnail.resize((230, 230), Image.ANTIALIAS)
-                thumbnail.save(path)
+                if cd['picture'] is not None:
+                    path = os.path.join(settings.MEDIA_ROOT, i.picture.url)
+                    thumbnail = Image.open(path)
+                    thumbnail = thumbnail.resize((230, 230), Image.ANTIALIAS)
+                    thumbnail.save(path)
 
                 request.session['options'] = 1
 
@@ -193,8 +204,8 @@ def home(request):
                 errors = {}
                 context['errors'] = errors
                 cd = form.cleaned_data
-                if not 'event_date' in cd:
-                    errors['event_date'] = "Invalid date field"
+                if not 'event_date' in cd or valid_date is False:
+                    errors['event_date'] = "Invalid date"
                 if not request.POST.get('status', ''):
                     errors['status'] = "This field is required"
                 if not request.POST.get('desc', ''):

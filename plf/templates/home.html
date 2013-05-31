@@ -61,8 +61,9 @@ $(function() {
   $(document).ready(function(){ 
 
     /* serialize the form information and search existing items */
-  var checkForMatches = 1;
- /* $('#yo').submit(function() {
+    var checkForMatches = 1;
+    /*
+    $('#yo').submit(function() {
     if (checkForMatches == 0) {
       return;
     }
@@ -242,13 +243,13 @@ $(function() {
         }
       });
       return false;
-    });
-
+    });*/
+    /*
     $('#matchsub').click(function() {
       checkForMatches = 0;
       $('#yo').submit();
       checkForMatches = 1;
-    });
+    });*/
 
     // Open submit modal upon reloading if errors occurred
     {% if errors %}
@@ -260,13 +261,13 @@ $(function() {
       $('.modal-footer.claiming #id').val(this.value);
       $('.modal-footer.claiming #status').val(this.name);
     });
-
+    /*
     $('#matchModal').on('show', function() {
       $('.btn.btn-mini.claim').click( function() {
         $('.modal-footer.claiming #id').val(this.value);
         $('.modal-footer.claiming #status').val(this.name);
       });
-    });
+    });*/
 
       $('#noemail').click(function() {
         $('#claimModal').modal('hide');
@@ -289,7 +290,7 @@ $(function() {
     var $res = $('.btn.btn-mini.resolve');
     $res.click( function() {
       $('.modal-footer.resolving #id').val(this.value);
-    });*/
+    });
   });
   $container.imagesLoaded( function() {
 

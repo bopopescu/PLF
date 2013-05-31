@@ -306,7 +306,7 @@
             <div style="clear: both;">
             <p>Location: <span style="padding-left: 54px;"></span>{{ form.location }} <span style="padding-left: 25px;"></span><a href="http://etcweb.princeton.edu/pumap/" target="_blank">Princeton Map</a></p>
             <p>*Category: <span style="padding-left: 43px;"></span>{{ form.category }}</p>
-            <p>Approx. Date: <span style="padding-left: 23px;"></span>{{ form.event_date }}<span style="padding-left: 30px;"><b>(mm/dd/yyyy)</b>{% if form.errors.event_date %} <p style="color: red;">{{errors.event_date}}</p>{% endif %} </span></p> 
+            <p>Approx. Date: <span style="padding-left: 23px;"></span>{{ form.event_date }}<span style="padding-left: 30px;"><b>(mm/dd/yyyy)</b>{% if errors.event_date %} <p style="color: red;">{{errors.event_date}}</p>{% endif %} </span></p> 
             
             <div style="width:30%; float: right; margin-top: 13px; text-align: right;">
               {% if form.errors.desc %}
