@@ -130,7 +130,7 @@ WSGI_APPLICATION = 'plf.wsgi.application'
 # change this to your own template directory (comment mine out plz)
 TEMPLATE_DIRS = (
     '/Users/samlichtenberg/Documents/cs333/PLF/plf/plf/templates',
-    '/Users/tortorareed/Desktop/HW/cos333/PLF/plf/templates',
+    '/Users/tortorareed/Desktop/HW/PLF/plf/templates',
     '/Users/matthew/Desktop/code/github/PLF/plf/templates',
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
