@@ -383,7 +383,7 @@ $(function() {
               html += "</p></u><div class='desc'><p class='location desc'>" + item.fields.desc + "</p></div>";
               
               {% if must_log_in == True %}
-                html += "<a href='../login' class='btn btn-mini'>Login to claim</a>";
+                html += "<button href='../login' class='btn btn-mini claim'>Login to claim</button>";
               {% else %}
                 if (item.fields.status == 'True') {
                   html += "<button href='#claimModal1' data-toggle='modal' class='btn btn-mini claim' value='" + item.pk + "' name='" + item.fields.status + "'>I Found This</button>";
