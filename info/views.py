@@ -323,6 +323,24 @@ def advSearch(request):
     data = serializers.serialize('json', queryset, fields=('status', 'location', 'category', 'desc', 'event_date', 'name', 'picture'))
     return HttpResponse(data, content_type="application/json")
 
+def showmore(request):
+    lastid = int(request.GET['val'])
+    print lastid
+    limit = 4
+    queryset = []
+    items = Item.objects.order_by('id').reverse()
+    for item in items:
+        if len(queryset) >= limit:
+            break
+        else:
+            if item.id < lastid:
+                queryset.append(item)
+                print item.id
+                print lastid
+
+    data = serializers.serialize('json', queryset, fields=('status', 'location', 'category', 'desc', 'event_date', 'name', 'picture'))
+    return HttpResponse(data, content_type="application/json")
+
 def default(request):
     recentIDs = []
     recent_items = Item.objects.all()
@@ -332,7 +350,10 @@ def default(request):
             recentIDs.append(recent_items[num_items-i].id)
         except:
             pass
-    queryset = Item.objects.filter(id__in=recentIDs)
+    ids_ordered = sorted(recentIDs, reverse=True)
+    queryset = []
+    for ids in ids_ordered:
+        queryset.append(Item.objects.get(pk=ids))
     data = serializers.serialize('json', queryset, fields=('status', 'location', 'category', 'desc', 'event_date', 'name', 'picture'))
     return HttpResponse(data, content_type="application/json")
 
