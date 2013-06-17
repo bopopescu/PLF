@@ -325,7 +325,6 @@ def advSearch(request):
 
 def showmore(request):
     lastid = int(request.GET['val'])
-    print lastid
     limit = 4
     queryset = []
     items = Item.objects.order_by('id').reverse()
