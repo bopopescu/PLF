@@ -49,266 +49,281 @@
   </div>
  {% endfor %}
 
-
 <div class="container-fluid">
   <div class="row-fluid">
     <div class="span6" style="float: right; text-align:center; padding-top: 10px; padding-bottom: 30px;">
-  <button class="btn btn-mini claim showmore" id="showmore">show more...</button>
+  <button class="btn btn-mini claim" id="showmore">show more...</button>
     </div>
   </div>
 </div>
 
 
- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
- <script src="../static/jquery.isotope.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="../static/jquery.isotope.min.js"></script>
+<script>
 
- <script>
+var $container = $('#right');
 
+// things that don't need images loaded to work
+$(document).ready(function(){ 
 
-$(function() {
-  var $container = $('#right');
+  var checkForMatches = 1;
 
-  $(document).ready(function(){ 
+  // Open submit modal upon reloading if errors occurred
+  {% if errors %}
+  $('#submitModal').modal("show");
+  {% endif %}
 
-    /* serialize the form information and search existing items */
-    var checkForMatches = 1;
-
-    // Open submit modal upon reloading if errors occurred
-    {% if errors %}
-      $('#submitModal').modal("show");
-    {% endif %}
-
-    // pass data to claim modal
-    $('.btn.btn-mini.claim').click( function() {
-      $('.modal-footer.claiming #id').val(this.value);
-      $('.modal-footer.claiming #status').val(this.name);
-    });
-    /*
-    $('#matchModal').on('show', function() {
-      $('.btn.btn-mini.claim').click( function() {
-        $('.modal-footer.claiming #id').val(this.value);
-        $('.modal-footer.claiming #status').val(this.name);
-      });
-    });*/
-
-      $('#noemail').click(function() {
-        $('#claimModal').modal('hide');
-      });
-      $('#noemail1').click(function() {
-        $('#claimModal').modal('hide');
-      });
-
-      $('#nomatch').click(function() {
-        $('#matchModal').modal('hide');
-        $('#matchModal .masonryImage').remove();
-      });
-
-    {% if options != 0 %}
-      $('#thanksModal').modal("show");
-    {% endif %}
-
-    // pass data to resolve modal
-    var $res = $('.btn.btn-mini.resolve');
-    $res.click( function() {
-      $('.modal-footer.resolving #id').val(this.value);
-    });
+  // pass data to claim modal
+  $('.btn.btn-mini.claim').click( function() {
+    $('.modal-footer.claiming #id').val(this.value);
+    $('.modal-footer.claiming #status').val(this.name);
   });
-  $container.imagesLoaded( function() {
 
+  // fixes modal layering problems
+  $('#noemail').click(function() {
+    $('#claimModal').modal('hide');
+  });
 
-      var $location = $('#loc');
-      original_loc = $location.val();
-      $location.focus(function(){
-        if($(this).val()===original_loc){
+  $('#noemail1').click(function() {
+    $('#claimModal').modal('hide');
+  });
 
-          $(this).val('');
-        }
-      })
-      .blur(function(){
-        if($(this).val()===''){
+  $('#nomatch').click(function() {
+    $('#matchModal').modal('hide');
+    $('#matchModal .masonryImage').remove();
+  });
 
-          $(this).val(original_loc);
-        }
-      });
+  {% if options != 0 %}
+  $('#thanksModal').modal("show");
+  {% endif %}
 
-      var $title = $('#title');
-      original_tit = $title.val();
-      $title.focus(function(){
-        if($(this).val()===original_tit){
+  // pass data to resolve modal
+  var $res = $('.btn.btn-mini.resolve');
+  $res.click( function() {
+    $('.modal-footer.resolving #id').val(this.value);
+  });
+});
 
-          $(this).val('');
-        }
-      })
-      .blur(function(){
-        if($(this).val()===''){
+// things that need images loaded to work
+$container.imagesLoaded( function() {
 
-          $(this).val(original_tit);
-        }
-      });
+  // initially isotope the stuff that's been loaded on the page
+  $container.isotope({
 
-      var $search = $('#search');
-      original_val = $search.val();
-      $search.focus(function(){
-        if($(this).val()===original_val){
+  });
 
-          $(this).val('');
-        }
-      })
-      .blur(function(){
-        if($(this).val()===''){
+  //---- ADVANCED SEARCH STUFF -------------------------//
 
-          $(this).val(original_val);
-        }
-      });
-      /* $search.keypress(function(){
-        if($(this).val()===''){
-          $container.isotope({ 
+  // fields in advanced search
+  var $location = $('#loc');
+  original_loc = $location.val();
+  $location.focus(function(){
+    if($(this).val()===original_loc){
 
-          });
-        } 
-      }); */
-      var thread = null;
-      function removeItems() {
-            $('.masonryImage').each(function() {
-              $container.isotope('remove', $(this));
-            });
-      }
-      function serverSearch(call, input) {
-          $.getJSON(call, { 'val': input}).done(function(ret){
-            var newItems;
-            var html = "";
-            $.each(ret, function(index, item){
-              if (item.fields.status == true) {
-                html += "<div class='masonryImage lost blocky low-priority shown' value ='" + item.pk + "'>";
-              }
-              else {
-                html += "<div class='masonryImage found blocky low-priority shown' value ='" + item.pk + "'>";
-              }
-              if (item.fields.picture.toString() != '') {
-                html += "<img src='../media/" + item.fields.picture + "' class='tileim low-priority'/>";
-              }
-              html += "<p class='name' style='font-size: 20px'>" + item.fields.name + "</p><p class='small-header'>" + item.fields.location + "</p>";
-              html += "<u>";
-              if (item.fields.status.toString() == 'true') {
-                html += "<hr class='break lost line'/><p class='location'>Lost";
-              }
-              else {
-                html += "<hr class='break found line'/><p class='location'>Found";
-              }
-              if (item.fields.event_date) {
-                html += ": " + item.fields.event_date;
-              }
-              html += "</u>";
-              html += "</p></u><div class='desc'><p class='location desc'>" + item.fields.desc + "</p></div>";
-              
-              {% if must_log_in == True %}
-                html += "<button href='../login' class='btn btn-mini claim'>Login to claim</button>";
-              {% else %}
-                if (item.fields.status == 'True') {
-                  html += "<button href='#claimModal1' data-toggle='modal' class='btn btn-mini claim' value='" + item.pk + "' name='" + item.fields.status + "'>I Found This</button>";
-                }
-                else {
-                  html += "<button href='#claimModal1' class='btn btn-mini claim' data-toggle='modal' value='" + item.pk + "' name='" + item.fields.status + "'>This is Mine</button>";
-                }
-              {% endif %}
-              html += "</div>";
-            });
-            newItems = $.parseHTML(html);
-            $container.isotope('insert', $(newItems));
-            $container.isotope({ filter: ".shown"});
-          });
-      }
-      $search.keyup(function(e) {
-        if (e.which == 13) {
-          return;
-        }
-        clearTimeout(thread);
-        if (e.which == 8) {
-          /*removeItems();
-          $container.isotope({filter: "*"});*/
-          var input = $(this).val().toString();
-          if (input != '') {
-            thread = setTimeout(function() {
-              removeItems();
-              serverSearch("../search/", input);
-            }, 300);
-          }
-          else {
-              var input = '[]';
-              removeItems();
-              serverSearch('../default/', input);
-          }
-          return false;
-        }
-        else {
-          var input = $(this).val().toString();
+      $(this).val('');
+    }
+  })
+  .blur(function(){
+    if($(this).val()===''){
 
-          thread = setTimeout(function() {
-            removeItems();
-            serverSearch("../search/", input);
-          }, 300);
-        }
-      });
+      $(this).val(original_loc);
+    }
+  });
 
-      $('.search-indent').submit(function(e) {
-        e.preventDefault();
-      });
-      
-      $container.isotope({
+  var $title = $('#title');
+  original_tit = $title.val();
+  $title.focus(function(){
+    if($(this).val()===original_tit){
 
-      });
+      $(this).val('');
+    }
+  })
+  .blur(function(){
+    if($(this).val()===''){
 
-      $('#filters a').click(function(){
-        var selector = $(this).attr('data-filter');
-        if (selector == '*') {
-          // reset to the most recent whatever, like 5
-          var input = '[]';
+      $(this).val(original_tit);
+    }
+  });
+
+  //---------------------------------------------------//
+
+  //----- REGULAR SEARCH BAR --------------------------//
+
+  // search bar - default text
+  var $search = $('#search');
+  original_val = $search.val();
+  $search.focus(function(){
+    if($(this).val()===original_val){
+
+      $(this).val('');
+    }
+  })
+  .blur(function(){
+    if($(this).val()===''){
+
+      $(this).val(original_val);
+    }
+  });
+
+  // search bar - automated search (without need for button--waits for certain time to elapse, then runs search)
+  var thread = null;
+  var backspace_toggle = false;
+
+  $search.keyup(function(e) {
+    if (e.which == 13) {
+      return;
+    }
+    clearTimeout(thread);
+
+    var query = $(this).val().toString();
+
+    if (e.which == 8) {
+      if (query != '') {
+        thread = setTimeout(function() {
           removeItems();
-          serverSearch('../default/', input);
+          serverSearch("../search/", query);
+        }, 300);
+      }
+      else {
+        if (backspace_toggle==false) {
+          removeItems();
+          serverSearch('../default/', '');
+          backspace_toggle==true;
         }
-        $container.isotope({ filter: selector });
-        return false;
-      });
-
-      $('#showmore').click(function() {
-          var min = Number.POSITIVE_INFINITY;
-          $('.masonryImage').each(function() {
-            if (parseInt($(this).attr('value')) < min) {
-              min = parseInt($(this).attr('value'));
-            }
-          });
-          var input = min;
-          serverSearch('../showmore/', input);
-          $container.isotope({ filter: '*'});
-          return false;
-      });
-
-      $('#advSearch').click(function() {
-        var location = $('#loc').val();
-        var name = $('#title').val();
-        var category = $('#cats').val();
-        var date = $('#date').val();
-        var descbox = $('#descbox').val();
-        var status = $('input:radio[name="lf"]:checked').val();
-        var date_range = $('input:radio[name=range]:checked').val();
-
-        // so we can do csv to pass data
-        name = name.replace(',', '')
-        descbox = descbox.replace(',', '')
-
-        var input = location + ',' + name + ',' + 
-                    category + ',' + date + ',' +
-                    descbox + ',' + status + ',' +
-                    date_range;
-
+      }
+      return false;
+    }
+    else {
+      thread = setTimeout(function() {
         removeItems();
-        serverSearch('../advSearch/', input);
+        serverSearch("../search/", query);
+      }, 300);
 
-        return false;
-      });
+      backspace_toggle=false;
+    }
+  });
 
+  // prevent search form from being submitted
+  $('.search').submit(function(e) {
+    e.preventDefault();
+  });
+
+  //------- MISC. BUTTONS: FILTERS AND SHOW MORE------------------//
+
+  $('#filters a').click(function(){
+    var selector = $(this).attr('data-filter');
+    var value = $(this).attr('name');
+    if (value == 'default') {
+      // reset to the most recent whatever, like 5
+      var input = '[]';
+      removeItems();
+      serverSearch('../default/', input);
+      $('#showmore').show();
+    }
+    $container.isotope({ filter: selector });
+    return false;
+  });
+
+  $('#showmore').click(function() {
+    var min = Number.POSITIVE_INFINITY;
+    $('.masonryImage').each(function() {
+      if (parseInt($(this).attr('value')) < min) {
+        min = parseInt($(this).attr('value'));
+      }
+    });
+    var input = min;
+    serverSearch('../showmore/', input);
+
+    if (input <= 5) {
+      $('#showmore').hide();
+    }
+    $container.isotope({ filter: '*'});
+    return false;
+  });
+
+  //------- ADVANCED SEARCH ----------------------------------------------//
+
+  $('#advSearch').click(function() {
+    var location = $('#loc').val();
+    var name = $('#title').val();
+    var category = $('#cats').val();
+    var date = $('#date').val();
+    var descbox = $('#descbox').val();
+    var status = $('input:radio[name="lf"]:checked').val();
+    var date_range = $('input:radio[name=range]:checked').val();
+
+    // so we can do csv to pass data
+    name = name.replace(',', '');
+    descbox = descbox.replace(',', '');
+
+    var input = location + ',' + name + ',' + 
+        category + ',' + date + ',' +
+        descbox + ',' + status + ',' +
+        date_range;
+
+    removeItems();
+    serverSearch('../advSearch/', input);
+
+    return false;
+  });
+});
+
+// "call" is the view function to access, input is the information to be passed. gets JSON data in reply
+// from the server, formats it to HTML isotope boxes, and puts it in the div.
+function serverSearch(call, input) {
+  $.getJSON(call, { 'val': input}).done(function(ret){
+    var newItems;
+    var html = "";
+    $.each(ret, function(index, item){
+      if (item.fields.status == true) {
+        html += "<div class='masonryImage lost blocky low-priority shown' value ='" + item.pk + "'>";
+      }
+      else {
+        html += "<div class='masonryImage found blocky low-priority shown' value ='" + item.pk + "'>";
+      }
+      if (item.fields.picture.toString() != '') {
+        html += "<img src='../media/" + item.fields.picture + "' class='tileim low-priority'/>";
+      }
+      html += "<p class='name' style='font-size: 20px'>" + item.fields.name + "</p><p class='small-header'>" + item.fields.location + "</p>";
+      html += "<u>";
+      if (item.fields.status.toString() == 'true') {
+        html += "<hr class='break lost line'/><p class='location'>Lost";
+      }
+      else {
+        html += "<hr class='break found line'/><p class='location'>Found";
+      }
+      if (item.fields.event_date) {
+        html += ": " + item.fields.event_date;
+      }
+      html += "</u>";
+      html += "</p></u><div class='desc'><p class='location desc'>" + item.fields.desc + "</p></div>";
+
+      {% if must_log_in == True %}
+      html += "<button href='../login' class='btn btn-mini claim'>Login to claim</button>";
+      {% else %}
+      if (item.fields.status == 'True') {
+        html += "<button href='#claimModal1' data-toggle='modal' class='btn btn-mini claim' value='" + item.pk + "' name='" + item.fields.status + "'>I Found This</button>";
+      }
+      else {
+        html += "<button href='#claimModal1' class='btn btn-mini claim' data-toggle='modal' value='" + item.pk + "' name='" + item.fields.status + "'>This is Mine</button>";
+      }
+      {% endif %}
+      html += "</div>";
+    });
+    newItems = $.parseHTML(html);
+    $container.isotope('insert', $(newItems));
+    $container.imagesLoaded(function() {
+      $container.isotope({ filter: ".shown"});
     });
   });
+}
+
+function removeItems() {
+  $('.masonryImage').each(function() {
+    $container.isotope('remove', $(this));
+  });
+}
 
 </script>
 
