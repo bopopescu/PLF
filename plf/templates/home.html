@@ -22,19 +22,20 @@
     {% else %}
       <hr class="break found line"/>
     {% endif %}
-
+    <br>
     <u>
     {% if item.status == True %}
-      <p class="location">Lost
+      <text class="location">Lost
     {% else %}
-      <p class="location">Found
+      <text class="location">Found
     {% endif %}
     {% if item.event_date %}
       : <span name="date">{{ item.event_date }}</span>
     {% endif %}
+    
     </p></u>
     <div class="desc">
-      <p class="location desc">{{ item.desc }}</p>
+      <text class="location desc">{{ item.desc }}</text>
     </div>
 
     {% if must_log_in == True %}
@@ -51,17 +52,17 @@
 
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<script src="../static/jquery.isotope.min.js"></script>
-<script src="{% static "date.js" %}"></script>
+<script src="{% static "jquery.isotope.min.js" %}"></script>
+<script src="{% static "moment.min.js" %}"></script>
 <script>
 
 var $container = $('#icebox');
 var filter_state = 'show all';
 var time_state = 'past month';
 
-today = Date.today();
-1weekago = today.add(-7).days();
-1monthago = today.add(-1).months();
+today = moment();
+oneweekago = today.subtract('days', 7);
+onemonthago = today.subtract('months', 7);
 
 // things that don't need images loaded to work
 $(document).ready(function(){ 
@@ -109,25 +110,23 @@ $(document).ready(function(){
 
 });
 
-// takes two dt objects; returns true if in the same week
-function inWeek(d1, d2) {
-
-}
-
 // things that need images loaded to work
 $container.imagesLoaded( function() {
 
-  // add relative time classes
-  $('.masonryImage').each(function(){
-    date_span = $(this).find('span[name="date"]');
+  $container.find('.masonryImage').each(function(i, item){
+    date_span = $(this).find("span[name='date']");
     obj_date = null;
     if (date_span) {
-      obj_date = new Date(date_span.val());
-      if (Date.compare(obj_date, 1weekago) != -1) {
-        $(this).addClass('pastWeek');
-      }
-      else if (Date.compare(obj_date, 1monthago) != -1) {
-        $(this).addClass('pastMonth');
+
+      dtext = date_span.text();
+      if (dtext) {
+        obj_date = moment(dtext); // not supported well; needs checking
+        if (obj_date.isAfter(oneweekago)) {
+          $(this).addClass('pastWeek');
+        }
+        else if (obj_date.isAfter(onemonthago)) {
+          $(this).addClass('pastMonth');
+        }
       }
     }
     else {
@@ -136,7 +135,7 @@ $container.imagesLoaded( function() {
   });
 
   // initially isotope the stuff that's been loaded on the page
-  $container.isotope({});
+  $container.isotope({ filter: 'pastWeek' });
 
   $('.timefield').click(function() {
     time_state = $(this).val();
