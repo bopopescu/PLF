@@ -208,6 +208,9 @@ $container.imagesLoaded( function() {
 
   //------- MISC. BUTTONS: FILTERS AND SHOW MORE------------------//
 
+  var date_state = 'pastWeek';
+  var lf_state = 'both';
+
   $('#filters a').click(function(){
     var selector = $(this).attr('data-filter');
     var value = $(this).attr('name');
@@ -226,23 +229,14 @@ $container.imagesLoaded( function() {
     return false;
   });
 
+  $('#timeFilters a').click(function() {
+
+  })
+
+
+
   $('#showmore').click(function() {
-    var min = Number.POSITIVE_INFINITY;
-    $('.masonryImage').each(function() {
-      if (parseInt($(this).attr('value')) < min) {
-        min = parseInt($(this).attr('value'));
-      }
-    });
-    var input = min;
-
-    // need to combine search state, filter state, and input into one
-    var input = min + "\r\n" + filter_state + "\r\n" + search_state;
-
-    serverSearch('../showmore/', input);
-
-    if (input <= 5) {
-      $('#showmore').hide();
-    }
+    
     $container.isotope({ filter: '*'});
     return false;
   });
