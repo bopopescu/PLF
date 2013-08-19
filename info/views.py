@@ -300,7 +300,7 @@ def advSearch(request):
     matches = []
 
     for item in Item.objects.all():
-        if location != 'e.g. Frist' and item.location.lower().find(t.lower()) == -1:
+        if location != 'e.g. Frist' and item.location.lower().find(location.lower()) == -1:
             continue
         if desc != '':
             for d in desc.split('\n'):
@@ -316,7 +316,21 @@ def advSearch(request):
         if category != 'Any' and category != 'null':
             if item.category.lower() != category:
                 continue
-        # uh date stuff goes here :p
+        if date != '':
+            date = datetime.datetime.strptime(date, "%Y-%m-%d").date()
+
+            if date_range == 'exact':
+                if item.event_date != date:
+                    continue
+            else:
+                delta = abs(date - item.event_date)
+                if date_range == 'few' and delta.days > 3:
+                    continue
+                if date_range == 'week' and delta.days > 7:
+                    continue
+                if date_range == 'month' and delta.days > 31:
+                    continue
+
         matches.append(item.id)
 
     queryset = Item.objects.filter(id__in=matches)

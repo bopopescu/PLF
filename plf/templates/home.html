@@ -258,6 +258,13 @@ $container.imagesLoaded( function() {
     var status = $('input:radio[name="lf"]:checked').val();
     var date_range = $('input:radio[name=range]:checked').val();
 
+    var today = new Date();
+    var search_date = new Date(date);
+    if (search_date > today) {
+      $('#dateModal').modal("show");
+      return;
+    }
+
     // so we can do csv to pass data
     name = name.replace(',', '');
     descbox = descbox.replace(',', '');
@@ -272,8 +279,6 @@ $container.imagesLoaded( function() {
 
     removeItems();
     serverSearch('../advSearch/', input);
-
-    return false;
   });
 });
 

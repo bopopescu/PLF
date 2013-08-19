@@ -85,7 +85,7 @@
     	                <input type="radio" name="range" id="1m" value="month"> One month<br>
     	                <div style="padding-top: 10px;">Description keywords (one line per keyword):</div><br>
     	                <textarea name="desc" id="descbox" rows=3 cols=10 style="padding-top: 0px; max-width: 220px; max-height: 150px;"></textarea><br>
-            					<button type="submit" id="advSearch" class="btn" value="sval">Search!</button>
+            					<button type="button" id="advSearch" class="btn" value="sval">Search!</button>
                       </form>
                     </p>
                  </div>
@@ -342,6 +342,19 @@
       </div>
     </div>
 
+    <!-- date modal -->
+    <div id="dateModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-header">
+        <button type="button" class="close" aria-hidden="true">×</button>
+        <h3>Error</h3>
+      </div>
+      <div class="modal-body">
+        <p>Please select a date that is in the past.</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+      </div>
+    </div>
 
     <div id="matchModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="height: 510px">
       <div class="modal-header" >
