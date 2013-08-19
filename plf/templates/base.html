@@ -184,6 +184,20 @@
     <!-- Put modals here so they won't show up behind the backdrop -->
     <script src="{% static "bootstrap/js/bootstrap.min.js" %}"></script>
 
+    <!-- date modal -->
+    <div id="dateModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-header">
+        <button type="button" class="close" aria-hidden="true">×</button>
+        <h3>Error</h3>
+      </div>
+      <div class="modal-body">
+        <p>Please select a date that is in the past.</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+      </div>
+    </div>
+
     <!-- resolve confirmation modal -->
     <div id="resolveModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-header">
@@ -285,7 +299,6 @@
       </div>
     </div>
  
-
     <!-- Submit Modal -->
     <div id="submitModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-header">
@@ -342,20 +355,7 @@
       </div>
     </div>
 
-    <!-- date modal -->
-    <div id="dateModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-      <div class="modal-header">
-        <button type="button" class="close" aria-hidden="true">×</button>
-        <h3>Error</h3>
-      </div>
-      <div class="modal-body">
-        <p>Please select a date that is in the past.</p>
-      </div>
-      <div class="modal-footer">
-        <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-      </div>
-    </div>
-
+    <!-- match modal -->
     <div id="matchModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="height: 510px">
       <div class="modal-header" >
         <button type="button" class="close" id="nomatch" aria-hidden="true">×</button>
@@ -366,10 +366,10 @@
       </div>
       <div class="modal-footer claiming">
       <button class="btn btn-primary" id="matchsub" type="submit">Submit Anyway</button>
-
       </div>
     </div>
 
+  <!-- claim modal -->
    <div id="claimModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-header">
         <button type="button" class="close" id="noemail1" aria-hidden="true">×</button>
