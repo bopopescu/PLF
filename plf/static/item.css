@@ -84,6 +84,12 @@
 .shown {
 }
 
+.pastWeek {}
+
+.pastMonth {}
+
+.forever {}
+
 .blocky {
   min-width:230px!important;
 }

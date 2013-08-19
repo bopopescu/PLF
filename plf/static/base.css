@@ -26,6 +26,10 @@ body {
 	border-radius: 2px;
 }
 
+select:focus {
+	outline: #ED9A34;
+}
+
 a {
 	color:black;
 }
