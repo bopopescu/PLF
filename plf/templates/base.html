@@ -30,10 +30,9 @@
           </ul>
         </div>
           <u1 id="filters" class="nav filters">
-            <li><a href="#" data-filter="*" name='default'>default</a></li>
+            <li><a href="#" data-filter="*">show all</a></li>
             <li><a href="#" data-filter=".lost">lost</a></li>
             <li><a href="#" data-filter=".found">found</a></li>
-            <li><a href="#" data-filter="*">both</a><li>
           </u1>
         </ul>
       </div>
@@ -41,7 +40,6 @@
 
     <div class="container-fluid">
       <div class="row-fluid">
-
         <!--Sidebar content-->
         <div class="span3">
           <div class="sidebar-nav sidebar-nav-fixed">
@@ -159,12 +157,28 @@
 
         <!--Body content-->
         <div class="span9" id="right">
-          {% block content %}
-            Content
-          {% endblock %}
+            <div class="row">
+              <div class="container-fluid" style="margin: 20px !important;">
+                <div class="row-fluid">
+                    <span style="text-align: center;">
+                      <text style="margin-right: 20px;">showing items from:</text>
+                      <a href="#" class="timefield timefield-selected" id="pastmonth">past month</a><text> &middot; </text>
+                      <a href="#" class="timefield" id="threemonths">past three months</a> <text> &middot; </text>
+                      <a href="#" class="timefield" id="forever">forever</a>
+                    </span>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="container-fluid" id="icebox">
+              {% block content %}
+                Content
+              {% endblock %}
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
+  </div>
+</div>
 
 
     <!-- Put modals here so they won't show up behind the backdrop -->
@@ -365,7 +379,21 @@
             <div style="clear: both;">
       </div>
     </div>
-
-
   </body>
+
+<script>
+$(document).ready(function() {
+  $('.timefield').click(function() {
+
+    $('.timefield').each(function() {
+      if ($(this).hasClass('timefield-selected')) {
+        $(this).removeClass('timefield-selected');
+      }
+    });
+    $(this).addClass('timefield-selected');
+
+  });
+});
+
+</script>
 </html>

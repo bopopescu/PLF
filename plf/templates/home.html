@@ -13,7 +13,7 @@
     {% if item.picture %}
       <img src="{{ item.picture.url }}" class="tileim low-priority"/>
     {% endif %}
-      <p class="name" style="font-size: 20px">{{ item.name  }}</p>
+      <p class="name" style="font-size: 20px">{{ item.name }}</p>
       <p class="small-header">{{ item.location }}</p>
 
     {% if item.status == True %}
@@ -49,20 +49,14 @@
   </div>
  {% endfor %}
 
-<div class="container-fluid">
-  <div class="row-fluid">
-    <div class="span6" style="float: right; text-align:center; padding-top: 10px; padding-bottom: 30px;">
-  <button class="btn btn-mini claim showmore" id="showmore">show more...</button>
-    </div>
-  </div>
-</div>
-
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script src="../static/jquery.isotope.min.js"></script>
 <script>
 
-var $container = $('#right');
+var $container = $('#icebox');
+var filter_state = '';
+var search_state = '';
 
 // things that don't need images loaded to work
 $(document).ready(function(){ 
@@ -178,6 +172,9 @@ $container.imagesLoaded( function() {
 
     var query = $(this).val().toString();
 
+    // save state for "show more"
+    search_state = query;
+
     if (e.which == 8) {
       if (query != '') {
         thread = setTimeout(function() {
@@ -214,6 +211,10 @@ $container.imagesLoaded( function() {
   $('#filters a').click(function(){
     var selector = $(this).attr('data-filter');
     var value = $(this).attr('name');
+
+    // save filter state for "show more"
+    filter_state = selector;
+
     if (value == 'default') {
       // reset to the most recent whatever, like 5
       var input = '[]';
@@ -233,6 +234,10 @@ $container.imagesLoaded( function() {
       }
     });
     var input = min;
+
+    // need to combine search state, filter state, and input into one
+    var input = min + "\r\n" + filter_state + "\r\n" + search_state;
+
     serverSearch('../showmore/', input);
 
     if (input <= 5) {
@@ -261,6 +266,9 @@ $container.imagesLoaded( function() {
         category + ',' + date + ',' +
         descbox + ',' + status + ',' +
         date_range;
+
+    // save state for "show more"
+    search_state = input;
 
     removeItems();
     serverSearch('../advSearch/', input);
@@ -298,7 +306,7 @@ function serverSearch(call, input) {
       }
       html += "</u>";
       html += "</p></u><div class='desc'><p class='location desc'>" + item.fields.desc + "</p></div>";
-
+      
       {% if must_log_in == True %}
       html += "<button href='../login' class='btn btn-mini claim'>Login to claim</button>";
       {% else %}

@@ -190,9 +190,9 @@ def home(request):
                 
                 if cd['picture'] is not None:
                     path = os.path.join(settings.MEDIA_ROOT, i.picture.url)
-                    thumbnail = Image.open(path)
-                    thumbnail = thumbnail.resize((230, 230), Image.ANTIALIAS)
-                    thumbnail.save(path)
+                    tn = Image.open(path)
+                    tn.thumbnail((230, 230), Image.ANTIALIAS)
+                    tn.save(path)
 
                 request.session['options'] = 1
 

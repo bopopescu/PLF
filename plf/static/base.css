@@ -16,6 +16,16 @@ body {
 	text-align: center;
 }
 
+.timefield {
+	
+}
+
+.timefield-selected {
+	border: 1px solid grey;
+	padding: 3px;
+	border-radius: 2px;
+}
+
 a {
 	color:black;
 }
