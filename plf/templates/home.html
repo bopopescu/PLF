@@ -2,8 +2,9 @@
 
 {% block content %}
 
+{% load staticfiles %}
+
   {% for item in items %}
-    {% if forloop.counter < 5 %}
     {% if item.status == True %}
       <div class="masonryImage lost blocky low-priority shown" value="{{ item.id }}">
     {% else %}
@@ -29,7 +30,7 @@
       <p class="location">Found
     {% endif %}
     {% if item.event_date %}
-      : {{ item.event_date }}
+      : <span name="date">{{ item.event_date }}</span>
     {% endif %}
     </p></u>
     <div class="desc">
@@ -37,7 +38,7 @@
     </div>
 
     {% if must_log_in == True %}
-      <button href="../login" class="btn btn-mini claim">Login to claim</button>
+      <a href="../login" class="btn btn-mini claim">Login to claim</a>
     {% else %}
       {% if item.status == True %}
         <button href="#claimModal1" data-toggle="modal" class="btn btn-mini claim" value="{{ item.id }}" name="{{ item.status }}">I Found This</button>
@@ -45,18 +46,22 @@
         <button href="#claimModal1" class="btn btn-mini claim" data-toggle="modal" value="{{ item.id }}" name="{{ item.status }}">This is Mine</button>
       {% endif %}
     {% endif %}
-    {% endif %}
   </div>
  {% endfor %}
 
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script src="../static/jquery.isotope.min.js"></script>
+<script src="{% static "date.js" %}"></script>
 <script>
 
 var $container = $('#icebox');
-var filter_state = '';
-var search_state = '';
+var filter_state = 'show all';
+var time_state = 'past month';
+
+today = Date.today();
+1weekago = today.add(-7).days();
+1monthago = today.add(-1).months();
 
 // things that don't need images loaded to work
 $(document).ready(function(){ 
@@ -97,14 +102,45 @@ $(document).ready(function(){
   $res.click( function() {
     $('.modal-footer.resolving #id').val(this.value);
   });
+
+  $('.f_opt').click(function() {
+    filter_state = $(this).val();
+  });
+
 });
+
+// takes two dt objects; returns true if in the same week
+function inWeek(d1, d2) {
+
+}
 
 // things that need images loaded to work
 $container.imagesLoaded( function() {
 
-  // initially isotope the stuff that's been loaded on the page
-  $container.isotope({
+  // add relative time classes
+  $('.masonryImage').each(function(){
+    date_span = $(this).find('span[name="date"]');
+    obj_date = null;
+    if (date_span) {
+      obj_date = new Date(date_span.val());
+      if (Date.compare(obj_date, 1weekago) != -1) {
+        $(this).addClass('pastWeek');
+      }
+      else if (Date.compare(obj_date, 1monthago) != -1) {
+        $(this).addClass('pastMonth');
+      }
+    }
+    else {
+      $(this).addClass('forever');
+    }
+  });
 
+  // initially isotope the stuff that's been loaded on the page
+  $container.isotope({});
+
+  $('.timefield').click(function() {
+    time_state = $(this).val();
+    // "change time state" with filter parameters and current search objects
   });
 
   //---- ADVANCED SEARCH STUFF -------------------------//
@@ -307,7 +343,7 @@ function serverSearch(call, input) {
         html += "<hr class='break found line'/><p class='location'>Found";
       }
       if (item.fields.event_date) {
-        html += ": " + item.fields.event_date;
+        html += ": <span name='date'>" + item.fields.event_date +"</span>";
       }
       html += "</u>";
       html += "</p></u><div class='desc'><p class='location desc'>" + item.fields.desc + "</p></div>";

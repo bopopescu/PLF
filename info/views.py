@@ -67,6 +67,7 @@ def home(request):
     context = {}
     context.update(csrf(request))
     items = Item.objects.order_by('id').reverse()
+    shown_items = []
     context['items'] = items
 
     if not 'lastDay' in globals():

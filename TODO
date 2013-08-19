@@ -1,0 +1,18 @@
+1. link past month / past 3 months / forever to what gets displayed (server call)
+3. switch over date select to the plugin that works in firefox
+4. proper image thumbnails
+5. making sure things look ok on mobile
+6. write a management command to check which items need to be deleted
+7. order items in database by sub_date
+
+done:
+fill out server-side search
+
+
+
+
+
+notes for meh:
+
+simple search - searches everything. (make a note of this for user)
+then apply filters, which only apply on items shown.
