@@ -29,7 +29,7 @@
             {% endif %}
           </ul>
         </div>
-          <ul id="filters" class="nav filters">
+          <ul id="filters" class="nav filters" style="margin-top: 15px;">
             <li><a href="#" class="f_opt" data-filter="*">show all</a></li>
             <li><a href="#" class="f_opt" data-filter=".lost">lost</a></li>
             <li><a href="#" class="f_opt" data-filter=".found">found</a></li>
@@ -162,11 +162,11 @@
                 <div class="row-fluid">
                     <span style="text-align: center;">
                       <text style="margin-right: 20px;">showing items from:</text>
-                      <u1 id="timeFilters" class="nav filters">
-                          <li><a href="#" class="timefield timefield-selected" id="pastmonth">past month</a><text> &middot; </text></li>
-                        <li><a href="#" class="timefield" id="threemonths">past three months</a> <text> &middot; </text></li>
+                      <ul id="timeFilters" class="nav filters" style="display: inline;">
+                          <li><a href="#" class="timefield timefield-selected" id="pastweek">past week</a><text> &middot; </text></li>
+                        <li><a href="#" class="timefield" id="pastmonth">past month</a> <text> &middot; </text></li>
                         <li><a href="#" class="timefield" id="forever">forever</a></li>
-                      </u1>
+                      </ul>
                     </span>
                 </div>
               </div>

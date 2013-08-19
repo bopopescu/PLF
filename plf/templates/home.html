@@ -22,7 +22,6 @@
     {% else %}
       <hr class="break found line"/>
     {% endif %}
-    <br>
     <u>
     {% if item.status == True %}
       <text class="location">Lost
@@ -30,11 +29,12 @@
       <text class="location">Found
     {% endif %}
     {% if item.event_date %}
-      : <span name="date">{{ item.event_date }}</span>
+      : <span name="date1">{{ item.event_date }}</span>
     {% endif %}
     
-    </p></u>
-    <div class="desc">
+    </text></u>
+    <p class="location">Submitted <span name="date">{{item.sub_date }}</span></p>
+    <div class="desc" style="margin-top: 3px;">
       <text class="location desc">{{ item.desc }}</text>
     </div>
 
@@ -62,7 +62,7 @@ var time_state = 'past month';
 
 today = moment();
 oneweekago = today.subtract('days', 7);
-onemonthago = today.subtract('months', 7);
+onemonthago = today.subtract('months', 1);
 
 // things that don't need images loaded to work
 $(document).ready(function(){ 
@@ -108,34 +108,37 @@ $(document).ready(function(){
     filter_state = $(this).val();
   });
 
-});
-
-// things that need images loaded to work
-$container.imagesLoaded( function() {
-
   $container.find('.masonryImage').each(function(i, item){
     date_span = $(this).find("span[name='date']");
     obj_date = null;
     if (date_span) {
 
       dtext = date_span.text();
-      if (dtext) {
-        obj_date = moment(dtext); // not supported well; needs checking
+      if (dtext != '') {
+        newdate = new Date(dtext);
+        obj_date = moment(newdate); // not supported well; needs checking
+
         if (obj_date.isAfter(oneweekago)) {
           $(this).addClass('pastWeek');
         }
-        else if (obj_date.isAfter(onemonthago)) {
+        if (obj_date.isAfter(onemonthago)) {
           $(this).addClass('pastMonth');
         }
       }
+      $(this).addClass('forever');
     }
     else {
       $(this).addClass('forever');
     }
   });
 
+});
+
+// things that need images loaded to work
+$container.imagesLoaded( function() {
+
   // initially isotope the stuff that's been loaded on the page
-  $container.isotope({ filter: 'pastWeek' });
+  $container.isotope({ filter: '.pastWeek' });
 
   $('.timefield').click(function() {
     time_state = $(this).val();
@@ -274,6 +277,18 @@ $container.imagesLoaded( function() {
     
     $container.isotope({ filter: '*'});
     return false;
+  });
+
+  $('#pastweek').click(function() {
+    $container.isotope({ filter: '.pastWeek'});
+  });
+
+  $('#pastmonth').click(function() {
+    $container.isotope({ filter: '.pastMonth'});
+  });
+
+  $('#forever').click(function() {
+    $container.isotope({ filter: '.forever'});
   });
 
   //------- ADVANCED SEARCH ----------------------------------------------//

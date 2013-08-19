@@ -170,6 +170,19 @@ input[type=text]:focus, input[type=date]:focus, input[type=range]:focus, input[t
  	padding-left: 6.5%;
 }
 
+.filters li a {
+	display: inline;
+
+}
+
+.filters li a:hover {
+	background-color: white;	
+}
+
+.filters li {
+	display: inline;
+}
+
 .popover {
  	z-index: 10 !important;
 }
